@@ -1,0 +1,26 @@
+{
+  "name": "merncommerce",
+  "version": "1.0.0",
+  "description": "Merncommerce",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js --exec babel-node",
+    "serve": "babel-node index.js",
+    "watch": "cd UI/frontend && npm run serve",
+    "postinstall": "cd UI/frontend && npm install"
+  },
+  "author": "Aayush-Raj-Nepal",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.11"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/node": "^7.14.2",
+    "@babel/preset-env": "^7.14.2"
+  }
+}
