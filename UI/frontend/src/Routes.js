@@ -5,6 +5,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 //importing routes 
 
 import Home from "./views/Home";
+import AboutUs from "./views/AboutUs"
+import PageNotFound from "./views/404"
 // import Signup from "./user/Signup";
 // import Signin from "./user/Signin";
 // import AdminRoute from "./auth/helper/AdminRoutes";
@@ -35,6 +37,8 @@ const Routes = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/aboutus" exact component={AboutUs} />
+        <Route path="*" component={PageNotFound}/>
         {/* <Route path="/signup" exact component={Signup} />
         <Route path="/signin" exact component={Signin} />
         <Route path="/contact" exact component={ContactUs} />

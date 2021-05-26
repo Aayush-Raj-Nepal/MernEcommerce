@@ -1,28 +1,28 @@
 import React from 'react'
-
+import {Link} from 'react-router-dom'
 function HeaderTop() {
     return (
-        <div>
+        <div >
                  	<div className="top-header-group">
 			<div className="top-header">
 				<div className="res_main_logo">
-					<a href="index.html"><img src="images/dark-logo-1.svg" alt="" /></a>
+					<Link to='/'><img src="images/dark-logo-1.svg" alt="" /></Link>
 				</div>
 				<div className="main_logo" id="logo">
-					<a href="index.html"><img src="images/logo.svg" alt=""/></a>
-					<a href="index.html"><img className="logo-inverse" src="images/dark-logo.svg" alt=""/></a>
+						<Link to='/'><img src="images/logo.svg" alt=""/></Link>
+						<Link to='/'><img className="logo-inverse" src="images/dark-logo.svg" alt=""/></Link>
 				</div>
 				<div className="select_location">
 					<div className="ui inline dropdown loc-title">
 						<div className="text">
 						  <i className="uil uil-location-point"></i>
-						  Gurugram
+						  Kathmandu
 						</div>
 						<i className="uil uil-angle-down icon__14"></i>
 						<div className="menu dropdown_loc">
 							<div className="item channel_item">
 								<i className="uil uil-location-point"></i>
-								Gurugram
+								Kathmandu
 							</div>
 							<div className="item channel_item">
 								<i className="uil uil-location-point"></i>

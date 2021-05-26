@@ -1,0 +1,30 @@
+.header__container{
+    margin-bottom:155px
+}
+.fixed__header{
+    position:fixed;
+    z-index:9999;
+    top:0;
+    width:100%
+}
+
+/* for navbar */
+.navbar__nav__link{
+        color: #2b2f4c !important;
+        display: block;
+        padding: 10px 15px !important;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: 400;
+}
+.navbar__nav__link .active {
+    color: #f55d2c !important;
+}
+.navbar__nav__dropdown__link{
+    color: #2b2f4c !important;
+        display: block;
+        padding: 2px 15px !important;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: 400;
+}

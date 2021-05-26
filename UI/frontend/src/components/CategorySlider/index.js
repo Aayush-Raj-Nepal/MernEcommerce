@@ -20,9 +20,28 @@ const responsive={
         max: 1024,
         min: 464
       },
-      items: 4,
+      items: 5,
     }
   }
+  let imageStyle={
+	  height:'55px'
+  }
+
+function CustomLeftArrow(){
+	return(
+		<button type="button" role="presentation" className="cate-slider-next"><i className="uil uil-angle-right"></i></button>
+	)
+}	
+function CustomRightArrow(){
+	return(
+	
+		<button type="button" role="presentation" className="cate-slider-prev">
+			<i className="uil uil-angle-left"></i>
+		</button>
+	
+	)
+
+}
 function CategorySlider() {
     return (
         <div>
@@ -44,13 +63,15 @@ function CategorySlider() {
                         autoPlaySpeed={3000}
                         centerMode={false}
                         className=""
-                        containerClass="cate-slider "
+                        containerClass="cate-slider"
                         dotListClass=""
                         draggable
                         focusOnSelect={false}
                         infinite
-                        itemClass="item p-4"
+                        itemClass="item py-3 px-2"
                         keyBoardControl
+						customLeftArrow={<CustomLeftArrow />}
+  customRightArrow={<CustomRightArrow />}
                         minimumTouchDrag={80}
                         renderButtonGroupOutside={false}
                         renderDotsOutside={false}
@@ -59,93 +80,91 @@ function CategorySlider() {
                         sliderClass=""
                         slidesToSlide={1}
                         swipeable
-                        
-                        
                         >
 							<div className="item">
 								<a href="#" className="category-item">
-									<div className="cate-img">
-										<img style={{'height':'128px'}}  src="images/category/icon-1.svg" alt=""/>
+									<div className="cate-img1">
+										<img   style={imageStyle} src="images/category/icon-1.svg" alt=""/>
 									</div>
 									<h4>Vegetables & Fruits</h4>
 								</a>
 							</div>
 							<div className="item">
 								<a href="#" className="category-item">
-									<div className="cate-img">
-										<img  src="images/category/icon-2.svg" alt=""/>
+									<div className="cate-img1">
+										<img  style={imageStyle} src="images/category/icon-2.svg" alt=""/>
 									</div>
 									<h4> Grocery & Staples </h4>
 								</a>
 							</div>
 							<div className="item">
 								<a href="#" className="category-item">
-									<div className="cate-img">
-										<img  src="images/category/icon-3.svg" alt=""/>
+									<div className="cate-img1">
+										<img  style={imageStyle} src="images/category/icon-3.svg" alt=""/>
 									</div>
 									<h4> Dairy & Eggs </h4>
 								</a>
 							</div>
 							<div className="item">
 								<a href="#" className="category-item">
-									<div className="cate-img">
-										<img  src="images/category/icon-4.svg" alt=""/>
+									<div className="cate-img1">
+										<img  style={imageStyle} src="images/category/icon-4.svg" alt=""/>
 									</div>
 									<h4> Beverages </h4>
 								</a>
 							</div>
 							<div className="item">
 								<a href="#" className="category-item">
-									<div className="cate-img">
-										<img  src="images/category/icon-5.svg" alt=""/>
+									<div className="cate-img1">
+										<img  style={imageStyle} src="images/category/icon-5.svg" alt=""/>
 									</div>
 									<h4> Snacks </h4>
 								</a>
 							</div>
 							<div className="item">
 								<a href="#" className="category-item">
-									<div className="cate-img">
-										<img  src="images/category/icon-6.svg" alt=""/>
+									<div className="cate-img1">
+										<img  style={imageStyle} src="images/category/icon-6.svg" alt=""/>
 									</div>
 									<h4> Home Care </h4>
 								</a>
 							</div>
 							<div className="item">
 								<a href="#" className="category-item">
-									<div className="cate-img">
-										<img  src="images/category/icon-7.svg" alt=""/>
+									<div className="cate-img1">
+										<img  style={imageStyle} src="images/category/icon-7.svg" alt=""/>
 									</div>
 									<h4> Noodles & Sauces </h4>
 								</a>
 							</div>
 							<div className="item">
 								<a href="#" className="category-item">
-									<div className="cate-img">
-										<img  src="images/category/icon-8.svg" alt=""/>
+									<div className="cate-img1">
+										<img  style={imageStyle} src="images/category/icon-8.svg" alt=""/>
 									</div>
 									<h4> Personal Care </h4>
 								</a>
 							</div>
 							<div className="item">
 								<a href="#" className="category-item">
-									<div className="cate-img">
-										<img  src="images/category/icon-9.svg" alt=""/>
+									<div className="cate-img1">
+										<img  style={imageStyle} src="images/category/icon-9.svg" alt=""/>
 									</div>
 									<h4> Pet Care </h4>
 								</a>
 							</div>
 							<div className="item">
 								<a href="#" className="category-item">
-									<div className="cate-img">
-										<img  src="images/category/icon-10.svg" alt=""/>
+									<div className="cate-img1">
+										<img  style={imageStyle} src="images/category/icon-10.svg" alt=""/>
 									</div>
 									<h4> Meat & Seafood </h4>
 								</a>
 							</div>
 							<div className="item">
 								<a href="#" className="category-item">
-									<div className="cate-img">
-										<img  src="images/category/icon-11.svg" alt=""/>
+									<div className="cate-img1">
+										<img  style={imageStyle} src="images/category/icon-11.svg" alt=""/>
 									</div>
 									<h4> Electronics </h4>
 								</a>
