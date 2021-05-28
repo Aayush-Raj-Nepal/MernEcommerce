@@ -1,12 +1,27 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-
 //importing routes 
 
 import Home from "./views/Home";
-import AboutUs from "./views/AboutUs"
+import AboutUs from "./views/AboutUs";
+import ContactUs from "./views/Contact";
+import SignIn from "./views/Signin";
+import SignUp from "./views/Signup";
+import ForgetPassword from "./views/Forgetpassword";
+import NewProduct from "./views/Newproduct";
+import SingleProductView from "./views/Singleproductview";
+import CheckOut from "./views/Checkout";
+import BillSlip from "./views/Bill";
+import OfferS from "./views/Offer";
+import FaQ from "./views/Faq";
+import RequestProduct from "./views/Requestproduct"
+import OrderPlaced from "./views/Orderplaced"
+import Dashboard from "./views/Overview"
+
+
 import PageNotFound from "./views/404"
+
 // import Signup from "./user/Signup";
 // import Signin from "./user/Signin";
 // import AdminRoute from "./auth/helper/AdminRoutes";
@@ -38,6 +53,22 @@ const Routes = () => {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/aboutus" exact component={AboutUs} />
+        <Route path="/contact" exact component={ContactUs} />
+        <Route path="/signin" exact component={SignIn} />
+        <Route path="/signup" exact component={SignUp} />
+        <Route path="/forgetpassword" exact component={ForgetPassword} />
+        <Route path="/newproduct" exact component={NewProduct} />
+        <Route path="/product/:id" exact component={SingleProductView}/>
+        <Route path="/checkout" exact component={CheckOut}/>
+        <Route path="/bill" exact component={BillSlip}/>
+        <Route path="/offers" exact component={OfferS}/>
+        <Route path="/faq" exact component={FaQ}/>
+        <Route path="/requestproduct" exact component={RequestProduct}/>
+        <Route path="/orderplaced" exact component={OrderPlaced}/>
+        <Route path="/dashboard" component={Dashboard}/>
+
+
+
         <Route path="*" component={PageNotFound}/>
         {/* <Route path="/signup" exact component={Signup} />
         <Route path="/signin" exact component={Signin} />

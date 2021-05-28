@@ -3,7 +3,6 @@ import Routes from "./Routes";
 
 // style sheets
 
-import './styles/unicons-2.0.1/css/unicons.css'
 import  "./styles/fontawesome-free/css/all.min.css"
 import "./styles/OwlCarousel/assets/owl.carousel.css"
 import "./styles/OwlCarousel/assets/owl.theme.default.min.css"

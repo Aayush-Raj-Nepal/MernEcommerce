@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import {Navbar,Nav,NavDropdown} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 function HeaderBottom() {
 	
 	const [drop1, setDrop1] = useState(false);
@@ -29,8 +30,8 @@ function HeaderBottom() {
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
-      <Nav.Link to="/" className="navbar__nav__link active">Home</Nav.Link>
-      <Nav.Link to="/" className="navbar__nav__link">New Products</Nav.Link>
+      <Nav.Link to="/" className="navbar__nav__link active"><Link to="/">Home</Link></Nav.Link>
+      <Nav.Link to="/" className="navbar__nav__link"><Link to="/newproduct">New Products</Link></Nav.Link>
       <Nav.Link to="/" className="navbar__nav__link">Featured Products</Nav.Link>
 	  <NavDropdown  title={<span  className="navbar__nav__dropdown__link ">Pages <i className="uil uil-angle-down"></i></span>}  show={drop1}
    onMouseEnter={e=>showDropdown(e,1)} 
