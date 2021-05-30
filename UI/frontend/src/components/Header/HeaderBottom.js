@@ -1,8 +1,10 @@
 import React,{useState} from 'react'
 import {Navbar,Nav,NavDropdown} from 'react-bootstrap'
+import { useStateValue } from '../../StateProvider';
+
 import {Link} from 'react-router-dom'
 function HeaderBottom() {
-	
+	const [{basket,user},dispatch]=useStateValue();
 	const [drop1, setDrop1] = useState(false);
 	const [drop2, setDrop2] = useState(false);
 	const showDropdown = (e,id)=>{
@@ -30,9 +32,9 @@ function HeaderBottom() {
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
-      <Nav.Link to="/" className="navbar__nav__link active"><Link to="/">Home</Link></Nav.Link>
-      <Nav.Link to="/" className="navbar__nav__link"><Link to="/newproduct">New Products</Link></Nav.Link>
-      <Nav.Link to="/" className="navbar__nav__link">Featured Products</Nav.Link>
+      <Nav.Link to="/" className="navbar__nav__link active">Home</Nav.Link>
+      <Nav.Link to="/newproduct" className="navbar__nav__link">New Products</Nav.Link>
+      <Nav.Link to="/newproduct" className="navbar__nav__link">Featured Products</Nav.Link>
 	  <NavDropdown  title={<span  className="navbar__nav__dropdown__link ">Pages <i className="uil uil-angle-down"></i></span>}  show={drop1}
    onMouseEnter={e=>showDropdown(e,1)} 
    onMouseLeave={e=>showDropdown(e,1)} id="basic-nav-dropdown">
@@ -61,7 +63,7 @@ function HeaderBottom() {
 					<a href="#" className="cate__btn" data-toggle="modal" data-target="#category_model" title="Categories"><i className="uil uil-apps"></i></a>
 				</div>
 				<div className="header_cart order-1">
-					<a href="#" className="cart__btn hover-btn pull-bs-canvas-left" title="Cart"><i className="uil uil-shopping-cart-alt"></i><span>Cart</span><ins>2</ins><i className="uil uil-angle-down"></i></a>
+					<a href="#" className="cart__btn hover-btn pull-bs-canvas-left" title="Cart"><i className="fa fa-shopping-cart"></i><span>Cart</span><ins>{basket?.length}</ins><i className="uil uil-angle-down"></i></a>
 				</div>
 				<div className="search__icon order-1">
 					<a href="#" className="search__btn hover-btn" data-toggle="modal" data-target="#search_model" title="Search"><i className="uil uil-search"></i></a>
