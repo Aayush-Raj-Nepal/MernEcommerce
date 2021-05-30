@@ -26,5 +26,13 @@
     "@babel/core": "^7.14.3",
     "@babel/node": "^7.14.2",
     "@babel/preset-env": "^7.14.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aayush-Raj-Nepal/MernEcommerce.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Aayush-Raj-Nepal/MernEcommerce/issues"
+  },
+  "homepage": "https://github.com/Aayush-Raj-Nepal/MernEcommerce#readme"
 }

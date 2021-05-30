@@ -1,5 +1,5 @@
 .header__container{
-    margin-bottom:155px
+    margin-bottom:155px;
 }
 .fixed__header{
     position:fixed;
@@ -20,6 +20,7 @@
 .navbar__nav__link .active {
     color: #f55d2c !important;
 }
+
 .navbar__nav__dropdown__link{
     color: #2b2f4c !important;
         display: block;
@@ -28,3 +29,4 @@
         cursor: pointer;
         font-weight: 400;
 }
+
