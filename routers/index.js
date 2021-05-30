@@ -1,8 +1,8 @@
 import {Router} from "express"
-// routes start here !
-let router=Router()
-import ProductRouter from "./product" 
 
-router.use("/product",ProductRouter)
 
+
+let router =Router()
+
+router.get("/",(res,res)=>res.send("hi aayush"))
 export default router

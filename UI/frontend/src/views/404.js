@@ -26,6 +26,7 @@ function PageNotFound() {
 					</div>
 				</div>
 			</div>
+			
 		</div>
         </div>
 		<Footer></Footer>

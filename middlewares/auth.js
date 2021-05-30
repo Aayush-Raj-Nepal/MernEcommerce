@@ -1,9 +1,8 @@
-import User from "../models/users"
-import Admin from "../models/admin"
-import Book from "../models/book"
-import OBook from "../models/obook"
-import TokenFactory from "../lib/factories/token"
-import Sender from "./../utils/helper"
+import User from "../models/User"
+import Admin from "../models/Admin"
+import Product from "../models/Product"
+import TokenFactory from "../library/factories/token"
+import Sender from "./../library/utilities/helper"
 const ObjectId = require("mongoose").Types.ObjectId
 export default {
 	VerifyAccessToken(req, res, next) {
@@ -21,7 +20,6 @@ export default {
 			},
 		})
 			.then(function (user) {
-				//console.log(user)
 				if (!user) {
 					res.status(403).json({
 						message: "Access Token Expired or Not Provided",
@@ -37,7 +35,6 @@ export default {
 					err: err,
 				})
 			})
-		//next()
 	},
 
 	VerifyAdmin(req, res, next) {
@@ -70,168 +67,23 @@ export default {
 				})
 			})
 	},
-	VerifySuperAdmin(req, res, next) {
-		let token = req.header("Authorization")
-		let now = new Date(Date.now())
-		Admin.findOne({
-			tokens: {
-				$elemMatch: {
-					token: token,
-					expiry: {
-						$gt: now,
-					},
-				},
-			},
-			access_level: 3
-		})
-			.then(function (user) {
-				console.log("HEY THIS IS THE SUPER ADMIN", JSON.stringify(user))
-				if (!user) {
-					res.status(403).json({
-						message: "You are not super admin",
-					})
-				} else {
-					req.body.admin = user
-					next()
-				}
-			})
-			.catch(function (err) {
-				res.status(500).json({
-					message: "It's not you. It's us",
-					err: err,
-				})
-			})
-	},
-	VerifyPublisher(req, res, next) {
-		let token = req.header("Authorization")
-		let now = new Date(Date.now())
-		User.findOne({
-			tokens: {
-				$elemMatch: {
-					token: token,
-					expiry: {
-						$gt: now,
-					},
-				},
-			},
-			access_level: 2,
-		})
-			.then((publisher) => {
-				console.log("got it", publisher)
-				if (publisher) {
-					req.body.publisher = publisher
-					// console.log(req.body)
-					next()
-				} else {
-					res.status(403).json({
-						message: "Access Token Expired or Not Provided 1213",
-					})
-				}
-			})
-			.catch((err) => {
-				res.status(500).json({
-					message: "It's not you. It's us",
-					err: err,
-				})
-			})
-	},
-	VerifyMember(req, res, next) {
-		let token = req.header("Authorization")
-		let now = new Date(Date.now())
-		User.findOne({
-			tokens: {
-				$elemMatch: {
-					token: token,
-					expiry: {
-						$gt: now,
-					},
-				},
-			},
-			phone_number_verified: true,
-		})
-			.then((publisher) => {
-				// console.log("got it", publisher)
-				if (publisher) {
-					req.body.member = publisher
-					// console.log(req.body)
-					next()
-				} else {
-					res.status(403).json({
-						message: "Access Token Expired or Not Provided 1213",
-					})
-				}
-			})
-			.catch((err) => {
-				res.status(500).json({
-					message: "It's not you. It's us",
-					err: err,
-				})
-			})
-	},
-	VerifyMarketRepresentative(req, res, next) {
-		let token = req.header("Authorization")
-		let now = new Date(Date.now())
-		User.findOne({
-			tokens: {
-				$elemMatch: {
-					token: token,
-					expiry: {
-						$gt: now,
-					},
-				},
-			},
-			access_level: 3,
-		})
-			.then((mR) => {
-				console.log("got it", mR)
-				if (mR) {
-					req.body.mR = mR
-					console.log(req.body)
-					next()
-				} else {
-					res.status(403).json({
-						message: "Access Token Expired or Not Provided 1213",
-					})
-				}
-			})
-			.catch((err) => {
-				res.status(500).json({
-					message: "It's not you. It's us",
-					err: err,
-				})
-			})
-	},
-
-	VerifyBookExistence(req, res, next) {
+	
+	VerifyProductExistence(req, res, next) {
 		if (ObjectId.isValid(req.body.id)) {
-			Book.findById(req.body.id).then((d) => {
+			Product.findById(req.body.id).then((d) => {
 				if (d != null) {
-					req.body.book = d
+					req.body.product = d
 					next()
 				} else {
 					res.status(404).json({
-						message: "Book Not Found",
+						message: "Product Not Found",
 						code: 10,
 					})
 				}
 			})
 		}
 	},
-	VerifyOBookExistence(req, res, next) {
-		if (ObjectId.isValid(req.body.id)) {
-			OBook.findById(req.body.id).then((d) => {
-				if (d != null) {
-					req.body.book = d
-					next()
-				} else {
-					res.status(404).json({
-						message: "Book Not Found",
-						code: 10,
-					})
-				}
-			})
-		}
-	},
+	
 	VerifyOperationAuthority(req, res, next) {
 		if (req.body.admin.access_level > 0 && req.body.admin.access_level <= 3) {
 			next()
@@ -244,16 +96,6 @@ export default {
 					code: 10,
 				})
 			}
-		}
-	},
-	VerifyBookAuthority(req, res, next) {
-		if (req.body.admin.access_level == 1) {
-			next()
-		} else {
-			req.body.query = {
-				created_by: req.body.admin._id,
-			}
-			next()
 		}
 	},
 	CheckUserAlreadyUsedEmail(req, res, next) {
@@ -316,49 +158,6 @@ export default {
 				})
 		}
 	},
-	CheckUserAlreadyUsedPhone(req, res, next) {
-		User.findOne({ verified_number: req.body.payload.phone }).then((user) => {
-			console.log(user)
-			if (user != null && user.phone_number_verified == true && user.verified == true) {
-				res.status(403).json({
-					message: "User already exists with this Phone or Email",
-				})
-			} else if (user != null && !user.verified && !user.phone_number_verified) {
-				User.findOneAndDelete({ verified_number: req.body.payload.phone }).then(res => {
-					User.findOneAndDelete({ $or: [{ verified_number: req.body.payload.phone, email: req.body.payload.email }] }).then(resp => {
-						console.log(resp)
-						next()
-					})
-				}).catch(err => {
-					res.status(400).json({ message: "Something Error Happened" })
-				})
-			} else {
-				next()
-			}
-		})
-
-	},
-	CheckIfReferrerExists(req, res, next) {
-		let referrer = req.body.payload.reffered_by
-		if (referrer) {
-			User.findById(referrer)
-				.then((refUser) => {
-					if (refUser) {
-						console.log(refUser)
-						req.body.payload.reffered_by = refUser
-						next()
-					} else {
-						req.body.payload.reffered_by = ""
-						next()
-					}
-				})
-				.catch((err) => {
-					req.body.payload.reffered_by = ""
-					next()
-				})
-		} else {
-			req.body.payload.reffered_by = ""
-			next()
-		}
-	},
+	
+	
 }
