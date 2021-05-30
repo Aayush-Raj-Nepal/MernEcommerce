@@ -1,8 +1,9 @@
 import React,{useState} from 'react'
 import {Navbar,Nav,NavDropdown} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-function HeaderBottom() {
-	
+import ModalFooter from 'react-bootstrap/ModalFooter'
+
+function HeaderBottom(){
 	const [drop1, setDrop1] = useState(false);
 	const [drop2, setDrop2] = useState(false);
 	const showDropdown = (e,id)=>{
