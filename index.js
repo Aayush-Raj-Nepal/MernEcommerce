@@ -1,7 +1,7 @@
 import Express from "express"
 import cors from "cors"
 const app = Express()
-const port = 3000
+const port = 4000
 require("dotenv").config()
 
 let listener = app.listen(process.env.PORT || 4000, () => {
