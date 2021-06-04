@@ -30,3 +30,12 @@
         font-weight: 400;
 }
 
+.modal-backdrop {
+    z-index: 100000 !important;
+    background-color: #DF5632;
+  }
+
+  .modal {
+    z-index: 100001 !important;
+  }
+

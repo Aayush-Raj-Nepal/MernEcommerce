@@ -1,6 +1,10 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
 function HeaderTop() {
+	// useEffect(() => {
+		
+	//   });
+	const [isSignedIn,setIsSignedIn]=useState(false)
     return (
         <div >
                  	<div className="top-header-group">
@@ -74,9 +78,14 @@ function HeaderTop() {
 						<li>
 							<a href="faq.html" className="offer-link"><i className="uil uil-question-circle"></i>Help</a>
 						</li>
+						{isSignedIn &&
+						
 						<li>
 							<a href="dashboard_my_wishlist.html" className="option_links" title="Wishlist"><i className='uil uil-heart icon_wishlist'></i><span className="noti_count1">3</span></a>
-						</li>	
+						</li>
+}	
+						{isSignedIn &&
+						
 						<li className="ui dropdown">
 							<a href="#" className="opts_account">
 								<img src="images/avatar/img-5.jpg" alt=""/>
@@ -102,6 +111,13 @@ function HeaderTop() {
 								<a href="sign_in.html" className="item channel_item"><i className="uil uil-lock-alt icon__1"></i>Logout</a>
 							</div>
 						</li>
+}
+{
+	!isSignedIn &&
+	<li>
+							<Link to="/signin" className="offer-link" title="sign in">Sign In <i className="fa fa-user"></i></Link>
+						</li>	
+}
 					</ul>
 				</div>
 			</div>

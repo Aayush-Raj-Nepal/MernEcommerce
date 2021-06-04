@@ -1,17 +1,18 @@
 import React from 'react'
-
+import {Link} from 'react-router-dom'
 function LogIn() {
     return (
         <div>
             <div className="sign-inup">
 		<div className="container">
 			<div className="row justify-content-center">
+
 				<div className="col-lg-5">
 					<div className="sign-form">
 						<div className="sign-inner">
 							<div className="sign-logo" id="logo">
-								<a href="index.html"><img src="images/logo.svg" alt=""/></a>
-								<a href="index.html"><img className="logo-inverse" src="images/dark-logo.svg" alt=""/></a>
+								<Link to="/"><img src="images/logo.svg" alt=""/></Link>
+								<Link to="/"><img className="logo-inverse" src="images/dark-logo.svg" alt=""/></Link>
 							</div>
 							<div className="form-dt">
 								<div className="form-inpts checout-address-step">
@@ -31,9 +32,10 @@ function LogIn() {
 								<div className="password-forgor">
 									<a href="forgot_password.html">Forgot Password?</a>
 								</div>
-								<div className="signup-link">
+								<div className="alert alert-light text-center py-2">
 									<p>Don't have an account? - <a href="sign_up.html">Sign Up Now</a></p>
 								</div>
+								{/* <button className="login-btn float-left"><i className="fa fa-arrow-left"></i>Return Back</button> */}
 							</div>
 						</div>
 					</div>

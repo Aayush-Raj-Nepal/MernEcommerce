@@ -1,5 +1,10 @@
 import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";const Responsive={
+import {useState,useEffect,setState} from 'react'
+import { useStateValue } from '../../StateProvider'
+import Product from "./NewProduct"
+import "react-multi-carousel/lib/styles.css";
+
+const Responsive={
     desktop: {
       breakpoint: {
         max: 3000,
@@ -50,6 +55,10 @@ const sliderOptions={
 }
 
 function LatestProducts() {
+
+	const [state,dispatch]=useStateValue();
+	const [products,setProducts]=useState([]);
+
     return (
         <div>
             <div className="section145">
@@ -63,206 +72,23 @@ function LatestProducts() {
 							</div>
 							<a href="#" className="see-more-btn">See All</a>
 						</div>
-					</div>
+						</div>
 					<div className="col-md-12">
                     <Carousel {...sliderOptions}>
-							<div className="item">
-								<div className="product-item">
-									<a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/single_product_view.html" className="product-img">
-										<img src="images/product/img-10.jpg" alt=""/>
-										<div className="product-absolute-options">
-											<span className="offer-badge-1">New</span>
-											<span className="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div className="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div className="product-price">$12 <span>$15</span></div>
-										<div className="qty-cart">
-											<div className="quantity buttons_added">
-												<input type="button"  className="minus minus-btn"/>
-												<input type="number" step="1" name="quantity"  className="input-text qty text"/>
-												<input type="button"  className="plus plus-btn"/>
-											</div>
-											<span className="cart-icon"><i className="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="item">
-								<div className="product-item">
-									<a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/single_product_view.html" className="product-img">
-										<img src="images/product/img-9.jpg" alt=""/>
-										<div className="product-absolute-options">
-											<span className="offer-badge-1">New</span>
-											<span className="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div className="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div className="product-price">$10</div>
-										<div className="qty-cart">
-											<div className="quantity buttons_added">
-												<input type="button"  className="minus minus-btn"/>
-												<input type="number" step="1" name="quantity"  className="input-text qty text"/>
-												<input type="button"  className="plus plus-btn"/>
-											</div>
-											<span className="cart-icon"><i className="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="item">
-								<div className="product-item">
-									<a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/single_product_view.html" className="product-img">
-										<img src="images/product/img-15.jpg" alt=""/>
-										<div className="product-absolute-options">
-											<span className="offer-badge-1">5% off</span>
-											<span className="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div className="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div className="product-price">$5</div>
-										<div className="qty-cart">
-											<div className="quantity buttons_added">
-												<input type="button"  className="minus minus-btn"/>
-												<input type="number" step="1" name="quantity"  className="input-text qty text"/>
-												<input type="button"  className="plus plus-btn"/>
-											</div>
-											<span className="cart-icon"><i className="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="item">
-								<div className="product-item">
-									<a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/single_product_view.html" className="product-img">
-										<img src="images/product/img-11.jpg" alt=""/>
-										<div className="product-absolute-options">
-											<span className="offer-badge-1">New</span>
-											<span className="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div className="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div className="product-price">$15 <span>$16</span></div>
-										<div className="qty-cart">
-											<div className="quantity buttons_added">
-												<input type="button"  className="minus minus-btn"/>
-												<input type="number" step="1" name="quantity"  className="input-text qty text"/>
-												<input type="button"  className="plus plus-btn"/>
-											</div>
-											<span className="cart-icon"><i className="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="item">
-								<div className="product-item">
-									<a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/single_product_view.html" className="product-img">
-										<img src="images/product/img-14.jpg" alt=""/>
-										<div className="product-absolute-options">
-											<span className="offer-badge-1">New</span>
-											<span className="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div className="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div className="product-price">$9</div>
-										<div className="qty-cart">
-											<div className="quantity buttons_added">
-												<input type="button"  className="minus minus-btn"/>
-												<input type="number" step="1" name="quantity"  className="input-text qty text"/>
-												<input type="button"  className="plus plus-btn"/>
-											</div>
-											<span className="cart-icon"><i className="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="item">
-								<div className="product-item">
-									<a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/single_product_view.html" className="product-img">
-										<img src="images/product/img-2.jpg" alt=""/>
-										<div className="product-absolute-options">
-											<span className="offer-badge-1">New</span>
-											<span className="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div className="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div className="product-price">$7</div>
-										<div className="qty-cart">
-											<div className="quantity buttons_added">
-												<input type="button"  className="minus minus-btn"/>
-												<input type="number" step="1" name="quantity"  className="input-text qty text"/>
-												<input type="button"  className="plus plus-btn"/>
-											</div>
-											<span className="cart-icon"><i className="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="item">
-								<div className="product-item">
-									<a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/single_product_view.html" className="product-img">
-										<img src="images/product/img-5.jpg" alt=""/>
-										<div className="product-absolute-options">
-											<span className="offer-badge-1">New</span>
-											<span className="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div className="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div className="product-price">$6.95</div>
-										<div className="qty-cart">
-											<div className="quantity buttons_added">
-												<input type="button"  className="minus minus-btn"/>
-												<input type="number" step="1" name="quantity"  className="input-text qty text"/>
-												<input type="button"  className="plus plus-btn"/>
-											</div>
-											<span className="cart-icon"><i className="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="item">
-								<div className="product-item">
-									<a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/single_product_view.html" className="product-img">
-										<img src="images/product/img-6.jpg" alt=""/>
-										<div className="product-absolute-options">
-											<span className="offer-badge-1">New</span>
-											<span className="like-icon" title="wishlist"></span>
-										</div>
-									</a>
-									<div className="product-text-dt">
-										<p>Available<span>(In Stock)</span></p>
-										<h4>Product Title Here</h4>
-										<div className="product-price">$8 <span>8.75</span></div>
-										<div className="qty-cart">
-											<div className="quantity buttons_added">
-												<input type="button"  className="minus minus-btn"/>
-												<input type="number" step="1" name="quantity"  className="input-text qty text"/>
-												<input type="button"  className="plus plus-btn"/>
-											</div>
-											<span className="cart-icon"><i className="uil uil-shopping-cart-alt"></i></span>
-										</div>
-									</div>
-								</div>
-							</div>
+	
+					<Product id='123456' title="VGA To Type C Converter" price={1999} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
+					<Product id='123456' title="VGA To Type C Converter" price={1999} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
+					<Product id='123456' title="VGA To Type C Converter" price={1999} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
+					<Product id='123456' title="VGA To Type C Converter" price={1999} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
+					<Product id='123456' title="VGA To Type C Converter" price={1999} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
+					<Product id='123456' title="VGA To Type C Converter" price={1999} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
+				
                             </Carousel>
-						</div>
-					</div>
+
+                        </div>
 				</div>
 			</div>
+		</div>
 		</div>
         
     )
