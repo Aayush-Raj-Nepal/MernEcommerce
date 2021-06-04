@@ -6,17 +6,21 @@ import ModalHeader from 'react-bootstrap/ModalHeader'
 import ModalTitle from 'react-bootstrap/ModalTitle'
 import ModalBody from 'react-bootstrap/ModalBody'
 import { ModalFooter } from 'react-bootstrap'
-import Cart from './Cart/Text'
+import Cart from './Cart/Index'
 
 
 import {Link} from 'react-router-dom'
 function HeaderBottom() {
 	const [show, setShow] = useState(false);
+	const [cartSidebar,setCartSidebar]=useState(false)
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	const [{basket,user},dispatch]=useStateValue();
 	const [drop1, setDrop1] = useState(false);
 	const [drop2, setDrop2] = useState(false);
+	let toggleCartSidebar=(status)=>{
+		setCartSidebar(!status)
+	}
 	const showDropdown = (e,id)=>{
 		switch (id) {
 			case 1:
@@ -36,7 +40,7 @@ function HeaderBottom() {
             <div className="sub-header-group">
 			<div className="sub-header">
 				<div className="ui dropdown">
-					<a href="#" ><i className="uil uil-apps"></i><span className="cate__icon"><button className="category_drop hover-btn btn-default" data-toggle="modal" data-target="#category_model" title="Categories"variant="primary" onClick={handleShow}>Categories</button></span></a>
+					<a className="bg-white" ><i className="uil uil-apps"></i><span className="cate__icon"><button className="category_drop hover-btn  btn-light" title="Categories" onClick={handleShow}>Select Category</button></span></a>
 					<Modal 
 					size="lg" show={show} onHide={handleClose} animation={false}>
 	        <div className="category-area" role="document">
@@ -162,7 +166,7 @@ function HeaderBottom() {
 				<div className="catey__icon">
 					<a href="#" className="cate__btn" data-toggle="modal" data-target="#category_model" title="Categories"><i className="uil uil-apps"></i></a>
 				</div>
-				<Cart></Cart>
+				<Cart isSidebarOpen={cartSidebar} onSidebarToggle={toggleCartSidebar}></Cart>
 				<div className="search__icon order-1">
 					<a href="#" className="search__btn hover-btn" data-toggle="modal" data-target="#search_model" title="Search"><i className="uil uil-search"></i></a>
 				</div>
