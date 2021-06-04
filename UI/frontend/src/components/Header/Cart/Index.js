@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useStateValue } from '../../../StateProvider';
 import 'react-pro-sidebar/dist/css/styles.css';
 import Sidebar from "../../Sidebar/Index"
-
+// goto components/sidebar/style.css for styling of sidebar
 function Index() {
     const [{basket,user},dispatch]=useStateValue();
     const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -16,6 +16,7 @@ function Index() {
         )} >
 
           {/* pranish add sidebar content here */}
+         
         </Sidebar>
        
 
