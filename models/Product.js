@@ -1,11 +1,22 @@
-import {Schema,model as Model } from 'mongoose'
+const mongoose=require('mongoose')
+import { Schema, model as Model } from "mongoose"
+
+mongoose.promise=global.Promise;
 import {SchemaProvider} from "../library/schema/provider"
 
 let HistorySchema=SchemaProvider(String,String)
 let ProductSchema=new Schema({
-    name:{
+    eng_name:{
         type:String
     },
+    nep_name:{
+        type:String
+    },
+    tags:[
+        {
+            type:String
+        }
+    ],
     product_no:{
         type:Number
     },
@@ -22,7 +33,7 @@ let ProductSchema=new Schema({
         type:String,
         enum:['MYSTORE','SHOP']
     },
-    product_form:{
+    product_from:{
         name:{type:String},
         source_id:{
             type:Schema.Types.ObjectId,
@@ -35,7 +46,7 @@ let ProductSchema=new Schema({
                 type:String
             },
             cat_id:{
-                type:Schema.Types.ObjectId,
+                type:Number,
                 ref:'Category'
             },
             sub_category:{
@@ -88,4 +99,5 @@ let ProductSchema=new Schema({
     }
 })
 
-export default Model('Product',ProductSchema,'products')
+
+module.exports=mongoose.models.Product || Model('Product',ProductSchema,'products')

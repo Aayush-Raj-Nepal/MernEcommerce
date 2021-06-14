@@ -1,4 +1,7 @@
-import {model as Model, Schema } from "mongoose";
+const mongoose=require('mongoose')
+import { Schema, model as Model } from "mongoose"
+
+mongoose.promise=global.Promise;
 import {SchemaProvider} from "../library/schema/provider"
 import SocialSchema from "../library/schema/social"
 import RatedProductsSchema from "../library/schema/ratedProducts"
@@ -70,4 +73,5 @@ let UserSchema=Schema(
 
     }
 )
-export default Model("User",UserSchema,'users')
+
+module.exports=mongoose.models.User || Model("User",UserSchema,'users')

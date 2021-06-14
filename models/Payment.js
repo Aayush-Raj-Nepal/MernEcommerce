@@ -1,5 +1,7 @@
+const mongoose=require('mongoose')
 import { Schema, model as Model } from "mongoose"
 
+mongoose.promise=global.Promise;
 let PaymentSchema = Schema({
 	provider: {
 		type: String,
@@ -28,4 +30,5 @@ let PaymentSchema = Schema({
 	timestamps: true
 })
 
-export default Model("Payment", PaymentSchema, "payments")
+
+module.exports=mongoose.models.Payment || Model("Payment", PaymentSchema, "payments")

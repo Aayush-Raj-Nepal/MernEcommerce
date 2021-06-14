@@ -1,5 +1,7 @@
-import {Schema,model as Model} from 'mongoose'
+const mongoose=require('mongoose')
+import { Schema, model as Model } from "mongoose"
 
+mongoose.promise=global.Promise;
 let OfferSchema=new Schema({
     offer_name:{
         type:String,
@@ -45,4 +47,4 @@ offer_actice:{
     timestamps:true
 })
 
-export default Model('Offer',OfferSchema,'offers')
+module.exports=mongoose.models.Offer || Model('Offer',OfferSchema,'offers')

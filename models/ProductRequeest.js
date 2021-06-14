@@ -1,5 +1,7 @@
-import {Schema, model as Model} from 'mongoose'
+const mongoose=require('mongoose')
+import { Schema, model as Model } from "mongoose"
 
+mongoose.promise=global.Promise;
 let ProductRequestSchema=({
     name:{
         type:String,
@@ -33,4 +35,5 @@ let ProductRequestSchema=({
 
 
 
-export default Model("ProductRequest",ProductRequestSchema,'productrequest')
+
+module.exports=mongoose.models.ProductRequest || Model("ProductRequest",ProductRequestSchema,'productrequest')
