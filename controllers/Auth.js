@@ -1,5 +1,5 @@
 require("dotenv").config()
-const User = require("../models/user");
+const User = require("../models/User");
 var uniqid = require('uniqid');
 import bcrypt from "bcrypt"
 import {GetRecent} from "../library/helpers"
