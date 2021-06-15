@@ -4,7 +4,7 @@ import {Auth,Request} from "../middlewares/index"
 const { check, validationResult } = require("express-validator");
 let router=Router()
 // admin routes
-router.get("/",Auth.VerifyAdmin,getAllCategories)
+router.get("/",getAllCategories)
 router.post("/",
 [
     check("eng_name", "eng name should be at least 3 char").isLength({ min: 4 }),

@@ -6,6 +6,10 @@ import {SchemaProvider} from "../library/schema/provider"
 
 let HistorySchema=SchemaProvider(String,String)
 let ProductSchema=new Schema({
+    featured:{
+        type: Boolean,
+        default: false
+    },
     eng_name:{
         type:String
     },

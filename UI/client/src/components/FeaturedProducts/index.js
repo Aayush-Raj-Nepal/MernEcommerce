@@ -2,12 +2,24 @@ import Carousel from "react-multi-carousel";
 import {useState,useEffect,setState} from 'react'
 import { useStateValue } from '../../StateProvider'
 import Product from "./FeatureProduct"
+import {featuredProducts} from "../../api/helper";
+import {getMediaUrl} from "../../api/functions"
 import "react-multi-carousel/lib/styles.css";
 
 function FeaturedProducts() {
 
 	const [state,dispatch]=useStateValue();
-	const [products,setProducts]=useState([]);
+	const [products, setProducts] = useState([])
+    useEffect(() => {
+      (async ()=>{
+        return featuredProducts().then(res=>{
+          console.log(res)
+          setProducts(res)
+      })
+      })()
+        
+       
+    }, [])
 
 	const Responsive={
 		desktop: {
@@ -61,6 +73,7 @@ function FeaturedProducts() {
 
     return (
         <div>
+			{products.length > 0 &&
             <div className="section145">
 			<div className="container">
 				<div className="row">
@@ -77,18 +90,15 @@ function FeaturedProducts() {
                     <Carousel {...sliderOptions}>
 	
 					<Product id='123456' title="VGA To Type C Converter" price={1999} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
-					<Product id='123456' title="VGA To Type C Converter" price={1999} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
-					<Product id='123456' title="VGA To Type C Converter" price={1999} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
-					<Product id='123456' title="VGA To Type C Converter" price={1999} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
-					<Product id='123456' title="VGA To Type C Converter" price={1999} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
-					<Product id='123456' title="VGA To Type C Converter" price={1999} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
-				
-                            </Carousel>
+					{products.map((product,index) => (
+                    <Product key={index} id={product._id} discount={product.discount_history[0].value} title={product.name} price={product.price_history[0].value} image={getMediaUrl('product/'+product.images[0])} rating={5}></Product>
+					))}</Carousel>
 
                         </div>
 				</div>
 			</div>
             </div>
+}
 		</div>
     )
 }

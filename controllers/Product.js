@@ -12,6 +12,17 @@ exports.getLatestProducts=(req,res)=>{
         })
     })
 }
+exports.getFeaturedProducts=(req,res) =>{
+
+  Product.find({featured: true}).then(Products=>{
+    res.status(200).json(Products)
+}).catch(err=>{
+    console.log(err)
+    res.status(404).json({
+        error_message:'Cannot get  product featured '
+    })
+})
+}
 exports.addProduct=(req,res)=>{
    const errors = validationResult(req);
    if (!errors.isEmpty()) {

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import {Navbar,Nav,NavDropdown} from 'react-bootstrap'
 import { useStateValue } from '../../StateProvider';
 import Modal from 'react-bootstrap/Modal'
@@ -7,7 +7,10 @@ import ModalTitle from 'react-bootstrap/ModalTitle'
 import ModalBody from 'react-bootstrap/ModalBody'
 import { ModalFooter } from 'react-bootstrap'
 import Cart from './Cart/Index'
+import { getCategory } from '../../api/helper'
 import {Link} from 'react-router-dom'
+import { getMediaUrl } from '../../api/functions';
+
 function HeaderBottom() {
 	const [show, setShow] = useState(false);
 	const [cartSidebar,setCartSidebar]=useState(false)
@@ -19,6 +22,17 @@ function HeaderBottom() {
 	let toggleCartSidebar=(status)=>{
 		setCartSidebar(!status)
 	}
+	const [category, setCategory] = useState([])
+    useEffect(() => {
+      (async ()=>{
+        return getCategory().then(res=>{
+          console.log(res)
+          setCategory(res)
+      })
+      })()
+        
+       
+    }, [])
 	const showDropdown = (e,id)=>{
 		switch (id) {
 			case 1:
@@ -48,79 +62,18 @@ function HeaderBottom() {
 						</ModalHeader>
 						<ModalBody>
                     <ul className="category-by-cat">
-						<li>
-							<a href="#" className="single-cat-item">
-								<div className="icon">
-									<img src="images/category/icon-1.svg" alt=""/>
-								</div>
-								<div className="text"> Fruits and Vegetables </div>
-							</a>
-						</li>
-						<li>
-							<a href="#" className="single-cat-item">
-								<div className="icon">
-									<img src="images/category/icon-2.svg" alt=""/>
-								</div>
-								<div className="text"> Grocery & Staples </div>
-							</a>
-						</li>
-						<li>
-							<a href="#" className="single-cat-item">
-								<div className="icon">
-									<img src="images/category/icon-3.svg" alt=""/>
-								</div>
-								<div className="text"> Dairy & Eggs </div>
-							</a>
-						</li>
-						<li>
-							<a href="#" className="single-cat-item">
-								<div className="icon">
-									<img src="images/category/icon-4.svg" alt=""/>
-								</div>
-								<div className="text"> Beverages </div>
-							</a>
-						</li>
-						<li>
-							<a href="#" className="single-cat-item">
-								<div className="icon">
-									<img src="images/category/icon-5.svg" alt=""/>
-								</div>
-								<div className="text"> Snacks </div>
-							</a>
-						</li>
-						<li>
-							<a href="#" className="single-cat-item">
-								<div className="icon">
-									<img src="images/category/icon-6.svg" alt=""/>
-								</div>
-								<div className="text"> Home Care </div>
-							</a>
-						</li>
-						<li>
-							<a href="#" className="single-cat-item">
-								<div className="icon">
-									<img src="images/category/icon-7.svg" alt=""/>
-								</div>
-								<div className="text"> Noodles & Sauces </div>
-							</a>
-						</li>
-						<li>
-							<a href="#" className="single-cat-item">
-								<div className="icon">
-									<img src="images/category/icon-8.svg" alt=""/>
-								</div>
-								<div className="text"> Personal Care </div>
-							</a>
-						</li>
-						<li>
-							<a href="#" className="single-cat-item">
-								<div className="icon">
-									<img src="images/category/icon-9.svg" alt=""/>
-								</div>
-								<div className="text"> Pet Care </div>
-							</a>
-						</li>
+						{category.length > 0 ? category.map((cat,index) => (
+						<li key={index}>
+						<a href="#" className="single-cat-item">
+							<div className="icon">
+								<img src={getMediaUrl('product/'+cat.image)} alt=""/>
+							</div>
+							<div className="text"> {cat.eng_name}</div>
+						</a>
+					</li>	
+						)):"fetching categories.."}
                     </ul>
+					{/* {JSON.stringify(category)} */}
 					</ModalBody>
 					<ModalFooter>
 					<a href="#" className="morecate-btn"><i className="uil uil-apps"></i>More Categories</a>

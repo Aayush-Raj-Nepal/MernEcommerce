@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./sidebar.css"
-function SideBar ({isSidebarOpen,onSidebarToggle,togglerButton,children}){
+function SideBar ({isSidebarOpen,onSidebarToggle,togglerButton,children,sidebarCloseIcon}){
  
  
 
@@ -9,7 +9,7 @@ function SideBar ({isSidebarOpen,onSidebarToggle,togglerButton,children}){
         <span onClick={()=>(onSidebarToggle(isSidebarOpen))}>{togglerButton}</span>
    
     <div className={`sidebar-menu${isSidebarOpen === true ? ' open' : ''}`}>
-        <button type="button" className="button small float-right" onClick={()=>onSidebarToggle(isSidebarOpen)}>Toggle Menu</button>
+        <button type="button" className="button small float-right" onClick={()=>onSidebarToggle(isSidebarOpen)}>{sidebarCloseIcon}</button>
         {children}
       </div>
       </div>
