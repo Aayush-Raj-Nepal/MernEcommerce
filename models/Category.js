@@ -1,5 +1,9 @@
-import {Schema,model as Model} from 'mongoose'
-
+const mongoose=require('mongoose')
+import conn from "../app/mongodb"
+import { Schema, model as Model } from "mongoose"
+import autoIncrement from 'mongoose-auto-increment'
+mongoose.promise=global.Promise;
+autoIncrement.initialize(conn);
 
 let second_tier = new Schema(
 	{
@@ -24,12 +28,21 @@ let second_tier = new Schema(
 )
 
 let CategorySchema=new Schema({
-    name:{
-        type:string,
-        required:true
+    eng_name:{
+        type:String,
+    
+},
+    nep_name:{
+            type:String,
+        
     },
     short_name:{
-        type:String
+        nep:{
+            type:String,
+        },
+        eng:{
+            type:String,
+        }
     },
     image:{
         type:Schema.Types.ObjectId,
@@ -52,4 +65,5 @@ let CategorySchema=new Schema({
     timestamps:true
 })
 
-export default Model('Category',CategorySchema,'category')
+CategorySchema.plugin(autoIncrement.plugin, 'Category');
+module.exports=mongoose.models.Category || Model('Category',CategorySchema,'category')

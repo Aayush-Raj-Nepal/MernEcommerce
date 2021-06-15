@@ -1,5 +1,7 @@
-import {Schema,model as Model} from 'mongoose'
+const mongoose=require('mongoose')
+import { Schema, model as Model } from "mongoose"
 
+mongoose.promise=global.Promise;
 let RatingSchema = new Schema({
     product_id:{
         type:Schema.Types.ObjectId,
@@ -35,4 +37,4 @@ let RatingSchema = new Schema({
     }
 })
 
-export default Model('Rating',RatingSchema,'rating')
+module.exports=mongoose.models.Rating || Model('Rating',RatingSchema,'rating')

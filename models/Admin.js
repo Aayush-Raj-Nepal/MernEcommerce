@@ -1,6 +1,7 @@
-// import {Schema,model as Model} from 'mongoose'
-import mongoose from "mongoose"
-let Schema=mongoose.Schema
+const mongoose=require('mongoose')
+import { Schema, model as Model } from "mongoose"
+
+mongoose.promise=global.Promise;
 import HistorySchema from "../library/schema/history"
 import TokenSchema from "../library/schema/token"
 
@@ -13,6 +14,10 @@ const AdminSchema= Schema({
     email:{
         type:String,
         required:true
+    },
+    image:{
+        type:Schema.Types.ObjectId,
+        ref:'Media'
     },
     incentive: [
         {
@@ -55,7 +60,7 @@ const AdminSchema= Schema({
             }
         }
     ],
-    phone_number:{
+    phone:{
         type:String
     },
     password_history: [HistorySchema],
@@ -64,6 +69,5 @@ const AdminSchema= Schema({
 },{
     timestamps:true
 })
-module.exports = mongoose.model('Admin',AdminSchema);          
+module.exports=mongoose.models.Admin || Model("Admin", AdminSchema, "admins")
 
-// export default Model("Admin",AdminSchema,'admins')

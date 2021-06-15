@@ -1,6 +1,7 @@
-import {Schema,model as Model} from 'mongoose'
+const mongoose=require('mongoose')
+import { Schema, model as Model } from "mongoose"
 
-
+mongoose.promise=global.Promise;
 let singleCommentSchema= new Schema({
     user_id:{
         type:Schema.Types.ObjectId,
@@ -28,4 +29,5 @@ let CommentSchema= new Schema({
 },{timestamps:true}
 )
 
-export default Model('Comment',CommentSchema,'comment')
+
+module.exports=mongoose.models.Comment || Model('Comment',CommentSchema,'comment')

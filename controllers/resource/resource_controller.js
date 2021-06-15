@@ -1,12 +1,6 @@
-import { PopulateSelectQuery } from "../../library/helpers"
 
-class ResourceController {
-	constructor(model) {
-		this.model = model
-	}
-
-	create(req, res) {
-		this.model
+	exports.create=(req, res,model)=> {
+		model
 			.create(req.body.payload)
 			.then((object) => {
 				res.status(201).json(object)
@@ -16,10 +10,14 @@ class ResourceController {
 					message: err.message,
 				})
 			})
-	}
-	retrieve(req, res) {
+	};
+	// exports.imageUpload()=>{
+
+
+	// }
+	exports.retrieve=(req, res,model)=> {
 		console.log(req.body)
-		let query = this.model.find(req.body.query).sort({ 'createdAt': -1 })
+		let query = model.find(req.body.query).sort({ 'createdAt': -1 })
 		query = PopulateSelectQuery(query, req.body.populates, req.body.select)
 		query
 			.then((objects) => {
@@ -31,9 +29,9 @@ class ResourceController {
 				})
 			})
 	}
-	update(req, res) {
+	exports.update=(req, res,model)=> {
 		if (!req.model) {
-			this.model
+			model
 				.findOneAndUpdate(req.body.query, req.body.update, {
 					new: true,
 					runValidators: true,
@@ -61,9 +59,9 @@ class ResourceController {
 		}
 	}
 
-	delete(req, res) {
+	exports.delete=(req, res,model)=> {
 		console.log(req.params.id)
-		this.model
+		model
 			.findById(req.params.id)
 			.remove()
 			.then(function (number) {
@@ -78,9 +76,9 @@ class ResourceController {
 			})
 	}
 
-	fetch(req, res) {
-		// this.model
-		let query = this.model.find({ _id: req.params.id, hidden: false })
+	exports.fetch=(req, res,model)=> {
+		// model
+		let query = model.find({ _id: req.params.id, hidden: false })
 
 		query = PopulateSelectQuery(query, req.body.populates, req.body.select)
 
@@ -93,8 +91,8 @@ class ResourceController {
 				})
 			})
 	}
-	fetchAdmin(req, res) {
-		let query = this.model.find({ _id: req.params.id })
+	exports.fetchAdmin=(req, res,model)=> {
+		let query = model.find({ _id: req.params.id })
 
 		query = PopulateSelectQuery(query, req.body.populates, req.body.select)
 
@@ -108,28 +106,28 @@ class ResourceController {
 			})
 	}
 
-	fetchPaginated(req, res) {
+	exports.fetchPaginated=(req, res,model)=> {
 		console.log(req.body.populates)
 		let query
 		if (req.body.query == "featured_book") {
-			query = this.model
+			query = model
 				.find({ featured_book: true, hidden: false })
 				.skip(req.body.skip)
 				.limit(req.body.count)
 		} else if (req.body.query == "latest_book") {
-			query = this.model
+			query = model
 				.find({ hidden: false })
 				.skip(req.body.skip)
 				.limit(req.body.count)
 				.sort("-createdAt")
 		} else if (req.body.query == "sale_book") {
-			query = this.model
+			query = model
 				.find({ sale_book: true, hidden: false })
 				.skip(req.body.skip)
 				.limit(req.body.count)
 		} else {
 			console.log(req.body.query)
-			query = this.model
+			query = model
 				.find(req.body.query ? JSON.parse(req.body.query) : {})
 				.skip(req.body.skip)
 				.limit(req.body.count)
@@ -149,9 +147,9 @@ class ResourceController {
 			})
 	}
 
-	count(req, res) {
+	exports.count=(req, res,model)=> {
 
-		this.model
+		model
 			.find(req.body.query ? JSON.parse(req.body.query) : {})
 			.count()
 			.then((count) => {
@@ -163,6 +161,5 @@ class ResourceController {
 				res.status(400).json(err)
 			})
 	}
-}
 
-export default ResourceController
+

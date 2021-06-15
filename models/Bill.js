@@ -1,6 +1,7 @@
-import {Schema,model as Model} from 'mongoose'
+const mongoose=require('mongoose')
+import { Schema, model as Model } from "mongoose"
 
-let BillSchema=({
+mongoose.promise=global.Promise;let BillSchema=({
     bill_no:{
         type:NUmber
     },
@@ -55,5 +56,4 @@ let BillSchema=({
 },{
     timestamps:true
 })
-
-export default MOodel("Bill",BillSchema,'bills')
+module.exports=mongoose.models.Bill || Model("Bill", BillSchema, "bills")

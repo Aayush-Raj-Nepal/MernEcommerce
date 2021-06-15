@@ -1,6 +1,7 @@
-import {Schema,model as Model} from "mongoose"
+const mongoose=require('mongoose')
+import { Schema, model as Model } from "mongoose"
 
-
+mongoose.promise=global.Promise;
 let MessageSchema=new Schema({
     title:{
         type:String
@@ -21,4 +22,5 @@ let MessageSchema=new Schema({
     timestamps:true
 })
 
-export default Model('Message',MessageSchema,'messages')
+
+module.exports=mongoose.models.Message || Model('Message',MessageSchema,'messages')

@@ -1,5 +1,7 @@
-import {Schema,model as Model} from 'mongoose'
+const mongoose=require('mongoose')
+import { Schema, model as Model } from "mongoose"
 
+mongoose.promise=global.Promise;
 let VerifySchema=new Schema({
     user:{
         type:Schema.Types.ObjectId,
@@ -17,4 +19,5 @@ let VerifySchema=new Schema({
 },{
     timestamps:true
 })
-export default Model("Verify",VerifySchema,'verifies')
+
+module.exports=mongoose.models.Verify || Model("Verify",VerifySchema,'verifies')
