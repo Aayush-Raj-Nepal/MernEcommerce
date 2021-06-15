@@ -7,8 +7,8 @@ let router=Router()
 router.get("/",Auth.VerifyAdmin,getAllCategories)
 router.post("/",
 [
-    check("eng_name", "name should be at least 3 char").isLength({ min: 4 }),
-    check("nep_name", "name should be at least 3 char").isLength({ min: 4 }),
+    check("eng_name", "eng name should be at least 3 char").isLength({ min: 4 }),
+    check("nep_name", "nep name should be at least 3 char").isLength({ min: 4 }),
     check("description", "name should be at least 3 char").isLength({ min: 4 }),
     check("image"," Image Is Required").notEmpty(),
   ],Auth.VerifyAdmin,Request.ParamsToBody,
