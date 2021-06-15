@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Merncommerce",
   "main": "index.js",
+   "script": "nodemon index.js --exec babel-node",
   "scripts": {
     "start": "nodemon index.js --exec babel-node",
     "serve": "babel-node index.js",
