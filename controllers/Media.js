@@ -1,4 +1,4 @@
-import Media from "../models/media"
+import Media from "../models/Media"
 import { GetMediaType } from "../library/helpers"
 
 let Jimp = require('jimp');
