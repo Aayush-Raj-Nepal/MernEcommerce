@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route } from "react-router-dom";
 
 //importing routes 
 
@@ -49,7 +49,7 @@ import PageNotFound from "./views/404"
 const Routes = () => {
  
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/aboutus" exact component={AboutUs} />
@@ -123,7 +123,7 @@ const Routes = () => {
         
 
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

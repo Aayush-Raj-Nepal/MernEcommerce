@@ -7,8 +7,6 @@ import ModalTitle from 'react-bootstrap/ModalTitle'
 import ModalBody from 'react-bootstrap/ModalBody'
 import { ModalFooter } from 'react-bootstrap'
 import Cart from './Cart/Index'
-
-
 import {Link} from 'react-router-dom'
 function HeaderBottom() {
 	const [show, setShow] = useState(false);
@@ -136,9 +134,9 @@ function HeaderBottom() {
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
-      <Nav.Link to="/" className="navbar__nav__link active">Home</Nav.Link>
-      <Nav.Link to="/newproduct" className="navbar__nav__link">New Products</Nav.Link>
-      <Nav.Link to="/newproduct" className="navbar__nav__link">Featured Products</Nav.Link>
+      <Nav.Link className="navbar__nav__link active"><Link to="/">Home</Link></Nav.Link>
+      <Nav.Link className="navbar__nav__link"><Link to="/newproduct" >New Products</Link></Nav.Link>
+      <Nav.Link  className="navbar__nav__link"><Link to="/newproduct">Featured Products</Link></Nav.Link>
 	  <NavDropdown  title={<span  className="navbar__nav__dropdown__link ">Pages <i className="uil uil-angle-down"></i></span>}  show={drop1}
    onMouseEnter={e=>showDropdown(e,1)} 
    onMouseLeave={e=>showDropdown(e,1)} id="basic-nav-dropdown">
@@ -156,7 +154,7 @@ function HeaderBottom() {
 		<NavDropdown.Item className="item channel_item page__links" to="/">Forget Password</NavDropdown.Item>
 		<NavDropdown.Item className="item channel_item page__links" to="/">Contact Us</NavDropdown.Item>
            </NavDropdown>
-      <Nav.Link to="/" className="navbar__nav__link">Contact Us</Nav.Link>
+      <Nav.Link  className="navbar__nav__link"><Link to="/contact">Contact Us</Link></Nav.Link>
       
     </Nav>
    

@@ -1,5 +1,5 @@
 import React from "react"
-import {BrowserRouter,Switch,Route} from "react-router-dom"
+import {HashRouter,Switch,Route} from "react-router-dom"
 import {AdminRoute} from "./auth/helper";
 
 
@@ -14,7 +14,7 @@ import AllProducts from "./views/Products/Index"
 
 const Routes=()=>{
     return(
-        <BrowserRouter>
+        <HashRouter>
             <Switch>
                 <AdminRoute  path="/"
           exact
@@ -39,7 +39,7 @@ const Routes=()=>{
         component={AllProducts}></AdminRoute>
             <Route exact path="/login" component={Login}></Route>
             </Switch>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 export default Routes
