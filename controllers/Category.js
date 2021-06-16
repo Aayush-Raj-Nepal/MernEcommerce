@@ -20,7 +20,6 @@ exports.createCategory=(req,res)=>{
      });
    }
    let payload=req.body
-
    let category = new Category({
      nep_name: payload.nep_name,
      eng_name: payload.eng_name,

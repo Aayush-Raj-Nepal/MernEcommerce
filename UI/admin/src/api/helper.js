@@ -130,14 +130,13 @@ export const createaProduct = (userId, token, product) => {
 };
 
 //get all products
-export const getProducts = () => {
-  return fetch(`${API}products`, {
-    method: "GET"
-  })
-    .then(response => {
-      return response.json();
-    })
-    .catch(err => console.log(err));
+export const getAllProducts = () => {
+  return axios.get("/product").then(res=>{
+   return res.data
+ }).catch(err=>{
+   console.log(err)
+   return err.response.data
+ })
 };
 
 //delete a product

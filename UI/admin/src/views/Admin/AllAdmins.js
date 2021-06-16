@@ -67,6 +67,7 @@ function AllAdmins() {
         )
       }
       const deleteRow=(index)=>{
+        console.log(index)
         window.confirm(admins[index].email+" is being deleted")
         deleteAdmin(admins[index]).then(resp=>{
           window.alert("Deleted Admin!")

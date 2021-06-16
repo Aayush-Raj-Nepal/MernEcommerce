@@ -12,6 +12,17 @@ exports.getLatestProducts=(req,res)=>{
         })
     })
 }
+exports.getAllProducts=(req,res)=>{
+
+  Product.find({}).then(Products=>{
+      res.status(200).json(Products)
+  }).catch(err=>{
+      console.log(err)
+      res.status(404).json({
+          error_message:'Cannot get list of Products'
+      })
+  })
+}
 exports.getFeaturedProducts=(req,res) =>{
 
   Product.find({featured: true}).then(Products=>{

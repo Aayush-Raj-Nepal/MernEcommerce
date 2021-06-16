@@ -73,7 +73,7 @@ function LatestProducts() {
     return (
     
         <div>
-            {products.length > 0 &&
+            {products  &&
          <div className="section145">
          <div className="container">
            <div className="row">

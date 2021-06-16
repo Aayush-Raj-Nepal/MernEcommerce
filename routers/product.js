@@ -1,12 +1,13 @@
 import {Router} from "express"
 import {Request} from "../middlewares/index"
-import {getLatestProducts,addProduct,deleteProduct, getFeaturedProducts} from "../controllers/Product"
+import {getLatestProducts,addProduct,deleteProduct, getFeaturedProducts,getAllProducts} from "../controllers/Product"
 import {Auth} from "../middlewares/index"
 const { check } = require("express-validator");
 let router=Router()
 
-// product routes
-router.get("/latest",getLatestProducts)
+// product routesrouter.get("/",getLatestProducts)
+
+router.get("/latest",Auth.VerifyAdmin, getAllProducts)
 router.get("/featured",getFeaturedProducts)
 router.post("/",
 [

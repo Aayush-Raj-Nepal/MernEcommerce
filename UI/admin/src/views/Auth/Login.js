@@ -56,12 +56,12 @@ function Login() {
             spinner
             text='please wait for a while ...'
             >
+
             {isAutheticated() && 
                 <Redirect to="/"></Redirect>
             }
            
             {!isAutheticated() &&
-            
             <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
