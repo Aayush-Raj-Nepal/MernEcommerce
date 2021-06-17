@@ -62,7 +62,7 @@ function HeaderBottom() {
 						</ModalHeader>
 						<ModalBody>
                     <ul className="category-by-cat">
-						{category.length > 0 ? category.map((cat,index) => (
+						{category && category.length > 0 ? category.map((cat,index) => (
 						<li key={index}>
 						<a href="#" className="single-cat-item">
 							<div className="icon">

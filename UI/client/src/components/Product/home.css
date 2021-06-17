@@ -1,0 +1,9 @@
+.product_img{
+    width:164px;
+    height:164px;
+}
+
+.product-image{
+    object-fit: cover;
+    object-position: center;
+}

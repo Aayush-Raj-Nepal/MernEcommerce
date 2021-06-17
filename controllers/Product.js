@@ -9,7 +9,6 @@ exports.getLatestProducts = (req, res) => {
     .catch((err) => {
       console.log(err);
       res.status(404).json({
-<<<<<<< HEAD
           error_message:'Cannot get list of Products'
       })
   })
@@ -22,8 +21,6 @@ exports.getFeaturedProducts=(req,res) =>{
     console.log(err)
     res.status(404).json({
         error_message:'Cannot get  product featured '
-=======
-        error_message: "Cannot get list of Products",
       });
     });
 };
@@ -36,7 +33,24 @@ exports.getProductToEdit = (req, res) => {
       delete product.price;
       delete product.discount;
       return res.status(200).json(product);
->>>>>>> 33e53a09d8d16f7b94d5452a97116d6211006f4f
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(404).json({
+        error_message: "Cannot get a product to edit",
+      });
+    });
+};
+
+exports.getsingleproduct = (req, res) => {
+  Product.findById(req.body.id)
+    .then((product) => {
+      product.toObject();
+      product.price = product.price_history.pop().value;
+      product.discount = product.discount_history.pop().value;
+      delete product.price;
+      delete product.discount;
+      return res.status(200).json(product);
     })
     .catch((err) => {
       console.log(err);
@@ -57,18 +71,7 @@ exports.getAllProducts = (req, res) => {
       });
     });
 };
-exports.getFeaturedProducts = (req, res) => {
-  Product.find({ featured: true })
-    .then((Products) => {
-      res.status(200).json(Products);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(404).json({
-        error_message: "Cannot get  product featured ",
-      });
-    });
-};
+
 exports.addProduct = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

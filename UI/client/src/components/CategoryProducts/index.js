@@ -3,11 +3,24 @@ import {useState,useEffect,setState} from 'react'
 import { useStateValue } from '../../StateProvider'
 import Product from "../Product/home"
 import "react-multi-carousel/lib/styles.css";
+import {getMediaUrl} from "../../api/functions"
+import {categoryProducts} from "../../api/helper";
+
 
 function CategoryProducts() {
 	
 	const [state,dispatch]=useStateValue();
 	const [products,setProducts]=useState([]);
+	useEffect(() => {
+		(async ()=>{
+		  return categoryProducts().then(res=>{
+			console.log(res)
+			setProducts(res)
+		})
+		})()
+		  
+		 
+	  }, [])
     
 	const Responsive={
 		desktop: {
@@ -61,6 +74,7 @@ function CategoryProducts() {
 
     return (
         <div>
+			{products.length > 0 &&
             	<div className="section145">
 			<div className="container">
 				<div className="row">
@@ -76,10 +90,10 @@ function CategoryProducts() {
 					<div className="col-md-12">
                     <Carousel {...sliderOptions}>
 	
-					<Product id='123456' title="Hanes Women's Short Sleeve Graphic V-Neck Tee" price={123} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
-					<Product id='123456' title="Hanes Women's Short Sleeve Graphic V-Neck Tee" price={123} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
-					<Product id='123456' title="Hanes Women's Short Sleeve Graphic V-Neck Tee" price={123} image="https://m.media-amazon.com/images/I/715KEM0DqiL._AC_UL480_FMwebp_QL65_.jpg" rating={3}></Product>
-				
+					
+				    {products.map((product,index) => (
+                    <Product key={index} id={product._id} discount={product.discount} title={product.eng_name} price={product.price} image={getMediaUrl('product/'+product.image)} rating={5}></Product>
+					))}
                             </Carousel>
 
                         </div>
@@ -87,6 +101,7 @@ function CategoryProducts() {
 					</div>
 			</div>
 		</div>
+}
         </div>
     )
 }
