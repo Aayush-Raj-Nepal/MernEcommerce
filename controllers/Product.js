@@ -25,7 +25,7 @@ exports.getAllProducts=(req,res)=>{
 }
 exports.getFeaturedProducts=(req,res) =>{
 
-  Product.find({featured: true}).then(Products=>{
+  Product.find({}).then(Products=>{
     res.status(200).json(Products)
 }).catch(err=>{
     console.log(err)

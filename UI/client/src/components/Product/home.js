@@ -24,13 +24,11 @@ export default function Product({id='12234',title='asdad',image='asdad',price='a
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            });
-        
-        
+            }); 
     }
     return (
         <div className="product-item">
-        <a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/single_product_view.html" className="product-img">
+        <a className="product-img">
             <img src={image} alt=""/>
             <div className="product-absolute-options">
                 <span className="offer-badge-1">-{discount}% off</span>
@@ -47,7 +45,7 @@ export default function Product({id='12234',title='asdad',image='asdad',price='a
                     <input type="number" step="1" name="quantity"  className="input-text qty text"/>
                     <input type="button"  className="plus plus-btn"/>
                 </div>
-                <span className="" onClick={addToBasket}><i className="fa fa-shopping-cart"></i></span>
+                <span className="" onClick={addToBasket}><i className="fa fa-shopping-cart col-md-5"></i></span>
             </div>
         </div>
 </div>

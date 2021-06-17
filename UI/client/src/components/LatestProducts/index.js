@@ -1,7 +1,7 @@
 import Carousel from "react-multi-carousel";
 import {useState,useEffect,setState} from 'react'
 import { useStateValue } from '../../StateProvider'
-import Product from "./NewProduct"
+import Product from "../Product/home"
 import "react-multi-carousel/lib/styles.css";
 import {getLatestProducts} from "../../api/helper"
 import {getMediaUrl} from "../../api/functions"

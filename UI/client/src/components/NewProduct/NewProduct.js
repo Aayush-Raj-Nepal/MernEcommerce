@@ -1,7 +1,7 @@
 import React from 'react'
 import { useStateValue } from '../../StateProvider'
 import {  toast } from 'react-toastify';
-export default function Product({id='12234',title='asdad',image='asdad',price='adasd',rating=5, discount='abcd'}) {
+export default function Product({id='12234',eng_name='No Title', nep_name='No Titile', image='asdad',price='adasd',rating=5, discount='abcd'}) {
     const [state,dispatch]=useStateValue();
   
     const addToBasket=()=>{
@@ -25,8 +25,6 @@ export default function Product({id='12234',title='asdad',image='asdad',price='a
             draggable: true,
             progress: undefined,
             });
-          
-        
     }
     return (
         <div className="product-item">
@@ -39,7 +37,7 @@ export default function Product({id='12234',title='asdad',image='asdad',price='a
         </a>
         <div className="product-text-dt">
             <p>Available<span>(In Stock)</span></p>
-            <h4>{title}</h4>
+            <h4>{eng_name}</h4>
             <div className="product-price">Rs{price}<span>Rs{price}</span></div>
             <div className="qty-cart">
                 <div className="quantity buttons_added">

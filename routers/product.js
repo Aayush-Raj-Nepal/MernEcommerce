@@ -7,7 +7,7 @@ let router=Router()
 
 // product routesrouter.get("/",getLatestProducts)
 
-router.get("/latest",Auth.VerifyAdmin, getAllProducts)
+router.get("/latest", getAllProducts)
 router.get("/featured",getFeaturedProducts)
 router.post("/",
 [
