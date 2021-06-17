@@ -3,21 +3,21 @@ import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const AdminRoute = ({ component: Component, ...rest }) => {
-  const token = useSelector(state => state.auth.token)
-  const loggedIn =useSelector(state=>state.auth.loggedIn)
-  const isAuthenticated=token && token.token && loggedIn
-  console.log(token,loggedIn)
+  const token = useSelector((state) => state.auth.token);
+  const loggedIn = useSelector((state) => state.auth.loggedIn);
+  const isAuthenticated = token && token.token !== null && loggedIn;
+  console.log(token, loggedIn);
   return (
     <Route
       {...rest}
-      render={props =>
-        isAuthenticated? (
+      render={(props) =>
+        isAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect
             to={{
               pathname: "/login",
-              state: { from: props.location }
+              state: { from: props.location },
             }}
           />
         )
@@ -25,4 +25,3 @@ export const AdminRoute = ({ component: Component, ...rest }) => {
     />
   );
 };
-
