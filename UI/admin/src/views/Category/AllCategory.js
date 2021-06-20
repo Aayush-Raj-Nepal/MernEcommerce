@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { deleteCategory, getCategories } from "../../api/helper";
+import {
+  deleteCategory,
+  getCategories,
+  updateCategory,
+} from "../../api/helper";
 import { getMediaUrl } from "../../api/functions";
 import Base from "../../Components/Base";
 import Table from "../../Components/Table";
@@ -27,6 +31,22 @@ function AllCategories() {
       {
         Header: "Category ID",
         accessor: "_id",
+      },
+      {
+        Header: "In Home",
+        accessor: "inHome",
+        Cell: (value) => (
+          <button
+            className={
+              value.value == true
+                ? "btn btn-success btn-sm"
+                : "btn btn-success btn-secondary"
+            }
+            onClick={() => toggleInHome(value.data[value.row.index])}
+          >
+            In Home :{value.value}
+          </button>
+        ),
       },
       {
         Header: "Eng Name",
@@ -69,6 +89,16 @@ function AllCategories() {
         </button>
       </div>
     );
+  };
+  const toggleInHome = (data) => {
+    console.log(data);
+    updateCategory(data)
+      .then((resp) => {
+        window.alert("Status changed");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const deleteRow = (Category) => {
     deleteCategory(Category)

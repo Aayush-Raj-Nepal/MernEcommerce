@@ -127,6 +127,18 @@ export const editProduct = (data, id) => {
       return err.response.data;
     });
 };
+export const updateCategory = (data) => {
+  return axios
+    .put(API + "category/" + data._id, { inHome: !data.inHome })
+    .then((res) => {
+      console.log(res).data;
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("Production Creation Failed!", err.response.data);
+      return err.response.data;
+    });
+};
 
 //get all categories
 export const getCategories = () => {
@@ -145,6 +157,7 @@ export const getCategory = (id) => {
     })
     .catch((err) => console.log(err));
 };
+
 //get all orders
 export const getOrders = (userId, token) => {
   return fetch(`${API}order/all/${userId}`, {
@@ -230,23 +243,6 @@ export const updateProduct = (productId, userId, token, product) => {
     .catch((err) => console.log(err));
 };
 
-//update category
-
-export const updateCategory = (CategoryId, userId, token, name) => {
-  return fetch(`${API}category/${CategoryId}/${userId}`, {
-    method: "PUT",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(name),
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .catch((err) => console.log(err));
-};
 export const getUserOrders = (user, token, uid) => {
   return fetch(`${API}user/orders/${user}/?uid=${uid}`, {
     method: "GET",

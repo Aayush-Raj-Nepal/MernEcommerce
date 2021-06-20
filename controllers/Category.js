@@ -13,6 +13,18 @@ exports.getAllCategories = (req, res) => {
       });
     });
 };
+exports.getHomeCategories = (req, res) => {
+  Category.find({ inHome: true })
+    .then((categories) => {
+      res.status(200).json(categories);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(404).json({
+        error_message: "Cannot get list of categories",
+      });
+    });
+};
 exports.getSingleCategory = (req, res) => {
   Category.findById(req.body.id)
     .then((category) => {

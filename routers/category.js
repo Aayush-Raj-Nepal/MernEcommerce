@@ -4,12 +4,16 @@ import {
   getAllCategories,
   deleteCategory,
   getSingleCategory,
+  getHomeCategories,
+  updateCategory,
 } from "../controllers/Category";
 import { Auth, Request } from "../middlewares/index";
 const { check, validationResult } = require("express-validator");
 let router = Router();
 // admin routes
 router.get("/", getAllCategories);
+// router.put("/", Auth.VerifyAdmin, Request.ParamsToBody, updateCategory);
+router.get("/inHome", getHomeCategories);
 router.get(
   "/single/:id",
   Auth.VerifyAdmin,
