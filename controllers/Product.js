@@ -42,6 +42,24 @@ exports.getProductToEdit = (req, res) => {
       });
     });
 };
+
+exports.getsingleproduct = (req, res) => {
+  Product.findById(req.body.id)
+    .then((product) => {
+      product.toObject();
+      product.price = product.price_history.pop().value;
+      product.discount = product.discount_history.pop().value;
+      delete product.price;
+      delete product.discount;
+      return res.status(200).json(product);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(404).json({
+        error_message: "Cannot get a product to edit",
+      });
+    });
+};
 exports.getAllProducts = (req, res) => {
   Product.find({})
     .then((Products) => {

@@ -21,6 +21,7 @@ export const getHomeCategories = (id) => {
     })
     .catch((err) => console.log(err));
 };
+
 export const featuredProducts = (data) => {
   return axios
     .get(API + "product/featured")
@@ -37,6 +38,32 @@ export const featuredProducts = (data) => {
 export const getCategory = (data) => {
   return axios
     .get(API + "category")
+    .then((resp) => {
+      console.log(resp);
+      return resp.data;
+    })
+    .catch((err) => {
+      console.log(" request failed", err);
+      return err.error;
+    });
+};
+
+export const categoryProducts = (data) => {
+  return axios
+    .get(API + "category")
+    .then((resp) => {
+      console.log(resp);
+      return resp.data;
+    })
+    .catch((err) => {
+      console.log(" request failed", err);
+      return err.error;
+    });
+};
+
+export const getSingleProduct = (id) => {
+  return axios
+    .get(API + "product/single/" + id)
     .then((resp) => {
       console.log(resp);
       return resp.data;

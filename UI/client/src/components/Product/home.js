@@ -1,5 +1,7 @@
 import React from 'react'
 import { useStateValue } from '../../StateProvider'
+import "./home.css"
+import {Link} from 'react-router-dom'
 
 import {  toast } from 'react-toastify';
 export default function Product({id='12234',title='asdad',image='asdad',price='adasd',rating=5, discount='abcd'}) {
@@ -28,13 +30,13 @@ export default function Product({id='12234',title='asdad',image='asdad',price='a
     }
     return (
         <div className="product-item">
-        <a className="product-img">
-            <img src={image} alt=""/>
+        <Link to={"/product/" + id} className="product-img" >
+            <img className="product_img" src={image} alt=""/>
             <div className="product-absolute-options">
                 <span className="offer-badge-1">-{discount}% off</span>
                 <span className="like-icon" title="wishlist"></span>
             </div>
-        </a>
+        </Link>
         <div className="product-text-dt">
             <p>Available<span>(In Stock)</span></p>
             <h4>{title}</h4>

@@ -1,9 +1,25 @@
 import React from 'react'
-import FeaturedProducts from '../FeaturedProducts/index';
+import {useState,useEffect} from 'react'
+import { getSingleProduct } from "../../api/helper"
 
-function index() {
+
+function Index({id}) {
+    const [product, setProduct] = useState({})
+    useEffect(() => {
+        fetchProduct(id);
+      }, []);
+      const fetchProduct = (id) => {
+        getSingleProduct(id)
+          .then((resp) => {
+            setProduct(resp);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
     return (
         <div>
+            {product && product.category && <div>
             <div className="wrapper">
 		  <div className="gambo-Breadcrumb">
 			<div className="container">
@@ -11,9 +27,9 @@ function index() {
 					<div className="col-md-12">
 						<nav aria-label="breadcrumb">
 							<ol className="breadcrumb">
-								<li className="breadcrumb-item"><a href="index.html">Home</a></li>
-								<li className="breadcrumb-item"><a href="shop_grid.html">Vegetables & Fruits</a></li>
-								<li className="breadcrumb-item active" aria-current="page">Product Title</li>
+								<li className="breadcrumb-item"><a>Home</a></li>
+								<li className="breadcrumb-item"><a >{product.category.name}</a></li>
+								<li className="breadcrumb-item active" aria-current="page">{product.eng_name}</li>
 							</ol>
 						</nav>
 					</div>
@@ -58,7 +74,7 @@ function index() {
 								</div>
 								<div className="col-lg-8 col-md-8">
 									<div className="product-dt-right">
-										<h2>Grape Fruit Turkey</h2>
+										<h2>{product.eng_name}</h2>
 										<div className="no-stock">
 											<p className="pd-no">Product No.<span>12345</span></p>
 											<p className="stock-qty">Available<span>(Instock)</span></p>
@@ -292,9 +308,10 @@ function index() {
     </div>
 </div>
 </div>
-<FeaturedProducts></FeaturedProducts>
+</div>
+}
 </div>
     )
 }
 
-export default index
+export default Index
