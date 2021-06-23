@@ -2,7 +2,32 @@ import React from 'react'
 import {useState,useEffect} from 'react'
 import { getSingleProduct } from "../../api/helper"
 
+import Carousel from "react-multi-carousel";
+const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5,
+      partialVisibilityGutter:20
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      partialVisibilityGutter:10,
+      items: 3
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      partialVisibilityGutter:5,
 
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
+
+  
 function Index({id}) {
     const [product, setProduct] = useState({})
     useEffect(() => {
@@ -76,7 +101,7 @@ function Index({id}) {
 									<div className="product-dt-right">
 										<h2>{product.eng_name}</h2>
 										<div className="no-stock">
-											<p className="pd-no">Product No.<span>12345</span></p>
+											<p className="pd-no">{product.id}<span>12345</span></p>
 											<p className="stock-qty">Available<span>(Instock)</span></p>
 										</div>
 										<div className="product-radio">
@@ -102,7 +127,7 @@ function Index({id}) {
 										<p className="pp-descp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vulputate, purus at tempor blandit, nulla felis dictum eros, sed volutpat odio sapien id lectus. Cras mollis massa ac congue posuere. Fusce viverra mauris vel magna pretium aliquet. Nunc tincidunt, velit id tempus tristique, velit dolor hendrerit nibh, at scelerisque neque mauris sed ex.</p>
 										<div className="product-group-dt">
 											<ul>
-												<li><div className="main-price color-discount">Discount Price<span>$15</span></div></li>
+												<li><div className="main-price color-discount">Discount Price<span>{product.discount}</span></div></li>
 												<li><div className="main-price mrp-price">MRP Price<span>$18</span></div></li>
 											</ul>
 											<ul className="gty-wish-share">
