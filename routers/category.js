@@ -12,8 +12,8 @@ const { check, validationResult } = require("express-validator");
 let router = Router();
 // admin routes
 router.get("/", getAllCategories);
-// router.put("/", Auth.VerifyAdmin, Request.ParamsToBody, updateCategory);
-router.get("/inHome", getHomeCategories);
+router.put("/", Auth.VerifyAdmin, Request.ParamsToBody, updateCategory);
+router.get("/inHome", Request.ParamsToBody, getHomeCategories);
 router.get(
   "/single/:id",
   Auth.VerifyAdmin,

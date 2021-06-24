@@ -8,6 +8,7 @@ import {
   getFeaturedProducts,
   getAllProducts,
   getsingleproduct,
+  getProductByCategory,
 } from "../controllers/Product";
 import { Auth } from "../middlewares/index";
 const { check } = require("express-validator");
@@ -20,6 +21,8 @@ router.get("/", Auth.VerifyAdmin, getAllProducts);
 router.get("/latest", getLatestProducts);
 router.delete("/:id", Auth.VerifyAdmin, Request.ParamsToBody, deleteProduct);
 router.get("/featured", getFeaturedProducts);
+router.get("/category/:id", Request.ParamsToBody, getProductByCategory);
+
 router.get(
   "/edit/:id",
   Request.ParamsToBody,

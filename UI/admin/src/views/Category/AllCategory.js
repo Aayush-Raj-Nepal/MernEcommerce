@@ -36,16 +36,19 @@ function AllCategories() {
         Header: "In Home",
         accessor: "inHome",
         Cell: (value) => (
-          <button
-            className={
-              value.value == true
-                ? "btn btn-success btn-sm"
-                : "btn btn-success btn-secondary"
-            }
-            onClick={() => toggleInHome(value.data[value.row.index])}
-          >
-            In Home :{value.value}
-          </button>
+          <span>
+            In Home :
+            <a
+              style={{ cursor: "pointer" }}
+              className={
+                "badge text-white badge-lg badge-" +
+                (value.value == "true" ? "success" : "danger")
+              }
+              onClick={() => toggleInHome(value.data[value.row.index])}
+            >
+              {value.value}
+            </a>
+          </span>
         ),
       },
       {
@@ -56,7 +59,6 @@ function AllCategories() {
         Header: "Nep Name",
         accessor: "nep_name", // accessor is the "key" in the data
       },
-
       {
         Header: "Image",
         accessor: "image",
@@ -92,9 +94,12 @@ function AllCategories() {
   };
   const toggleInHome = (data) => {
     console.log(data);
-    updateCategory(data)
+    updateCategory(
+      { _id: data._id },
+      { inHome: data.inHome === "true" ? false : true }
+    )
       .then((resp) => {
-        window.alert("Status changed");
+        fetchCategories();
       })
       .catch((err) => {
         console.log(err);
