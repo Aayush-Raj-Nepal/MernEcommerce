@@ -2,7 +2,7 @@ import Product from "../models/Product";
 
 const { validationResult } = require("express-validator");
 exports.getLatestProducts = (req, res) => {
-  Product.find({})
+  Product.find({}, null, { sort: { createdAt: -1 } })
     .then((Products) => {
       res.status(200).json(Products);
     })
@@ -25,14 +25,33 @@ exports.getFeaturedProducts = (req, res) => {
       });
     });
 };
+exports.getProductByCategory = (req, res) => {
+  Product.find({ "category.cat_id": req.body.id })
+    .then((Products) => {
+      Products.map((product) => {
+        product.price = product.price_history.pop().value;
+        product.discount = product.discount_history.pop().value;
+        delete product.price_history;
+        delete product.discount_history;
+        return product;
+      });
+      res.status(200).json(Products);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(404).json({
+        error_message: "Cannot get products from category ",
+      });
+    });
+};
 exports.getProductToEdit = (req, res) => {
   Product.findById(req.body.id)
     .then((product) => {
       product.toObject();
       product.price = product.price_history.pop().value;
       product.discount = product.discount_history.pop().value;
-      delete product.price;
-      delete product.discount;
+      delete product.price_history;
+      delete product.discount_history;
       return res.status(200).json(product);
     })
     .catch((err) => {
@@ -45,12 +64,13 @@ exports.getProductToEdit = (req, res) => {
 
 exports.getsingleproduct = (req, res) => {
   Product.findById(req.body.id)
+    .lean()
     .then((product) => {
-      product.toObject();
       product.price = product.price_history.pop().value;
       product.discount = product.discount_history.pop().value;
-      delete product.price;
-      delete product.discount;
+      delete product.price_history;
+      delete product.discount_history;
+      console.log(typeof product);
       return res.status(200).json(product);
     })
     .catch((err) => {
@@ -104,6 +124,7 @@ exports.addProduct = (req, res) => {
     eng_name: payload.eng_name,
     short_name: payload.short_name,
     image: payload.image,
+    stock: payload.stock,
     description: payload.description,
   });
   product.save(function (err, Product) {

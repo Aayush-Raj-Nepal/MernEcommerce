@@ -13,6 +13,14 @@ export const getLatestProducts = (data) => {
       return err.error;
     });
 };
+export const getProductByCategory = (id, query) => {
+  return axios
+    .get(`${API}product/category/${id}`, query)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => console.log(err));
+};
 export const getHomeCategories = (id) => {
   return axios
     .get(`${API}category/inHome`)
@@ -21,7 +29,6 @@ export const getHomeCategories = (id) => {
     })
     .catch((err) => console.log(err));
 };
-
 export const featuredProducts = (data) => {
   return axios
     .get(API + "product/featured")

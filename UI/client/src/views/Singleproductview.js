@@ -8,7 +8,12 @@ function Singleproductview({match}) {
     return (
         <div>
             <Header></Header>
+            <div className="mt-5">
+              
             <SingleProductView id={match.params.id}></SingleProductView > 
+            
+              
+            </div>
             <Footer></Footer>
         </div>
     )

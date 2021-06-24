@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 import { Schema, model as Model } from "mongoose";
+import conn from "../app/mongodb";
+import autoIncrement from "mongoose-auto-increment";
 
 mongoose.promise = global.Promise;
+autoIncrement.initialize(conn);
+
 import { SchemaProvider } from "../library/schema/provider";
 
 let HistorySchema = SchemaProvider(String, String);
@@ -11,6 +15,9 @@ let ProductSchema = new Schema({
     default: false,
   },
   eng_name: {
+    type: String,
+  },
+  productId: {
     type: String,
   },
   nep_name: {
@@ -24,7 +31,7 @@ let ProductSchema = new Schema({
   product_no: {
     type: Number,
   },
-  descritpion: {
+  description: {
     type: String,
   },
   short_description: {
@@ -60,6 +67,7 @@ let ProductSchema = new Schema({
   },
   stock: {
     type: Number,
+    default: 0,
   },
   images: [
     {
@@ -101,5 +109,9 @@ let ProductSchema = new Schema({
   },
 });
 
+ProductSchema.plugin(autoIncrement.plugin, {
+  model: "Product",
+  field: "productId",
+});
 module.exports =
   mongoose.models.Product || Model("Product", ProductSchema, "products");

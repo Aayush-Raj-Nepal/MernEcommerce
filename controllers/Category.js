@@ -1,5 +1,5 @@
 import Category from "../models/Category";
-
+import Products from "../models/Product";
 const { validationResult } = require("express-validator");
 exports.getAllCategories = (req, res) => {
   Category.find({})
@@ -13,8 +13,22 @@ exports.getAllCategories = (req, res) => {
       });
     });
 };
-exports.getHomeCategories = (req, res) => {
-  Category.find({ inHome: true })
+exports.getHomeCategories = async (req, res) => {
+  await Category.find({ inHome: true })
+    .lean()
+    .then((categories) => {
+      console.log(categories);
+      res.status(200).json(categories);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(404).json({
+        error_message: "Cannot get list of categories",
+      });
+    });
+};
+exports.updateCategory = (req, res) => {
+  Category.findOneAndUpdate(req.body.query, req.body.update)
     .then((categories) => {
       res.status(200).json(categories);
     })

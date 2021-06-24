@@ -107,7 +107,6 @@ export const createProduct = (data) => {
   return axios
     .post(API + "product", data)
     .then((res) => {
-      console.log(res).data;
       return res.data;
     })
     .catch((err) => {
@@ -127,15 +126,14 @@ export const editProduct = (data, id) => {
       return err.response.data;
     });
 };
-export const updateCategory = (data) => {
+export const updateCategory = (data, update) => {
   return axios
-    .put(API + "category/" + data._id, { inHome: !data.inHome })
+    .put(API + "category", { query: { _id: data._id }, update })
     .then((res) => {
-      console.log(res).data;
       return res.data;
     })
     .catch((err) => {
-      console.log("Production Creation Failed!", err.response.data);
+      console.log("Production Creation Failed!", err);
       return err.response.data;
     });
 };
