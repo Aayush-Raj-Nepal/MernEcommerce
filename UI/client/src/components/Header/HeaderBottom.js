@@ -54,7 +54,7 @@ function HeaderBottom() {
               <i className="uil uil-apps"></i>
               <span className="cate__icon">
                 <button
-                  className="category_drop hover-btn  btn-light"
+                  className="category_drop hover-btn btn"
                   title="Categories"
                   onClick={handleShow}
                 >
@@ -110,17 +110,23 @@ function HeaderBottom() {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
                 <Nav.Link className="navbar__nav__link active">
-                  <Link to="/">Home</Link>
+                  <Link to="/" className="navbarlink">
+                    Home
+                  </Link>
                 </Nav.Link>
                 <Nav.Link className="navbar__nav__link">
-                  <Link to="/newproduct">New Products</Link>
+                  <Link to="/newproduct" className="navbarlink">
+                    New Products
+                  </Link>
                 </Nav.Link>
                 <Nav.Link className="navbar__nav__link">
-                  <Link to="/newproduct">Featured Products</Link>
+                  <Link to="/newproduct" className="navbarlink">
+                    Featured Products
+                  </Link>
                 </Nav.Link>
                 <NavDropdown
                   title={
-                    <span className="navbar__nav__dropdown__link ">
+                    <span className="navbar__nav__dropdown__link navbarlink ">
                       Pages <i className="uil uil-angle-down"></i>
                     </span>
                   }
@@ -203,10 +209,14 @@ function HeaderBottom() {
                   </NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link className="navbar__nav__link">
-                  <Link to="/contact">Contact Us</Link>
+                  <Link to="/contact" className="navbarlink">
+                    Contact Us
+                  </Link>
                 </Nav.Link>
                 <Nav.Link className="navbar__nav__link">
-                  <Link to="/aboutus">About Us</Link>
+                  <Link to="/aboutus" className="navbarlink">
+                    About Us
+                  </Link>
                 </Nav.Link>
               </Nav>
             </Navbar.Collapse>

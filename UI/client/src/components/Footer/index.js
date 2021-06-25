@@ -99,31 +99,19 @@ function Footer() {
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className="second-row-item">
-                  <h4>Top Cities</h4>
+                  <h4>Our Branches</h4>
                   <ul>
                     <li>
-                      <a href="#">Gurugram</a>
+                      <a href="#">Kathmandu</a>
                     </li>
                     <li>
-                      <a href="#">New Delhi</a>
+                      <a href="#">Biratnagar</a>
                     </li>
                     <li>
-                      <a href="#">Bangaluru</a>
+                      <a href="#">Pokhara</a>
                     </li>
                     <li>
-                      <a href="#">Mumbai</a>
-                    </li>
-                    <li>
-                      <a href="#">Hyderabad</a>
-                    </li>
-                    <li>
-                      <a href="#">Kolkata</a>
-                    </li>
-                    <li>
-                      <a href="#">Ludhiana</a>
-                    </li>
-                    <li>
-                      <a href="#">Chandigrah</a>
+                      <a href="#">Dhangadhi</a>
                     </li>
                   </ul>
                 </div>
@@ -240,9 +228,12 @@ function Footer() {
                   </ul>
                 </div>
                 <div className="copyright-text">
-                  <i className="uil uil-copyright"></i>Copyright 2020{" "}
-                  <b>Gambolthemes</b> . All rights reserved
+                  <i className="uil uil-copyright"></i>Copyright 2020
+                  <b>Subidhaonline</b> . All rights reserved
                 </div>
+                <small>
+                  Developed by <a href="http://asoftnepal.com"> Asoft Nepal</a>{" "}
+                </small>
               </div>
             </div>
           </div>

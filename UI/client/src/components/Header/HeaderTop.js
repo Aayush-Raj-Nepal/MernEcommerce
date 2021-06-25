@@ -11,17 +11,9 @@ function HeaderTop() {
     <div>
       <div className="top-header-group">
         <div className="top-header">
-          <div className="res_main_logo">
-            <Link to="/">
-              <img src="images/dark-logo-1.svg" alt="" />
-            </Link>
-          </div>
           <div className="main_logo" id="logo">
             <Link to="/">
-              <img src="images/logo.svg" alt="" />
-            </Link>
-            <Link to="/">
-              <img className="logo-inverse" src="images/dark-logo.svg" alt="" />
+              <img src="images/subidhalogo.svg" alt="" />
             </Link>
           </div>
           <div className="select_location">
