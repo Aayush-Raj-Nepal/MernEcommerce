@@ -70,7 +70,7 @@ function FeaturedProducts() {
 
   return (
     <div>
-      {products.length > 0 && (
+      {products && products.length > 0 && (
         <div className="section145">
           <div className="container">
             <div className="row">

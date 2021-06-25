@@ -264,7 +264,7 @@ export const createaProduct = (userId, token, product) => {
 //get all products
 export const getAllProducts = () => {
   return axios
-    .get("/product")
+    .get(`${API}product`)
     .then((res) => {
       return res.data;
     })
