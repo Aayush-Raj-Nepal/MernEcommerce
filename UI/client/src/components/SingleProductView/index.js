@@ -362,7 +362,7 @@ function Index({ id }) {
                 </div>
                 <div className="pdpt-body scrollstyle_4">
                   <div className="pdct-dts-1">
-                    {renderHTML(product.description)}
+                    {product.description && renderHTML(product.description)}
                   </div>
                 </div>
               </div>

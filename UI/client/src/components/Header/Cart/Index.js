@@ -11,6 +11,9 @@ function Index() {
          setSidebarOpen(!status)
     
      }
+	 useEffect(() => {
+		if (basket.length>0){toggleSidebar(false)}
+	 }, [basket])
     return (
         <div className="header_cart order-1">
         <Sidebar isSidebarOpen={sidebarOpen} onSidebarToggle={toggleSidebar} togglerButton={(
@@ -21,7 +24,7 @@ function Index() {
 			<>
 			<div className="bs-canvas-header side-cart-header p-3 ">
 				<div className="d-inline-block  main-cart-title">My Cart <span>(2 Items)</span></div>
-				<button type="button" className="bs-canvas-close close" aria-label="Close"><i className="uil uil-multiply"></i></button>
+				<button type="button" className="bs-canvas-close close" onClick={()=>toggleSidebar(true)} aria-label="Close"><i className="fa fa-times"></i></button>
 			</div> 
 			<div className="bs-canvas-body">
 				<div className="cart-top-total">
@@ -44,7 +47,7 @@ function Index() {
 						<div className="cart-text">
 							<h4>{item.name}</h4>
 							<div className="cart-radio">
-								<ul className="kggrm-now">
+								{/* <ul className="kggrm-now">
 									<li>
 										<input type="radio" id="a1" name="cart1"/>
 										<label >0.50</label>
@@ -61,7 +64,7 @@ function Index() {
 										<input type="radio" id="a4" name="cart1"/>
 										<label >3kg</label>
 									</li>
-								</ul>
+								</ul> */}
 							</div>
 							<div className="qty-group">
 								<div className="quantity buttons_added">

@@ -2,6 +2,7 @@ import React from 'react'
 import { useStateValue } from '../../StateProvider'
 import "./home.css"
 import {Link} from 'react-router-dom'
+import cartImage from '../../images/shopping-cart (1).png'
 
 import {  toast } from 'react-toastify';
 export default function Product({id='12234',title='asdad',image='asdad',price='adasd',rating=5, discount='abcd'}) {
@@ -16,6 +17,9 @@ export default function Product({id='12234',title='asdad',image='asdad',price='a
                 image:image,
                 price:price,
                 rating:rating
+            },
+            count:{
+
             }
         })
         toast.error('Added to Cart', {
@@ -41,13 +45,13 @@ export default function Product({id='12234',title='asdad',image='asdad',price='a
             <p>Available<span>(In Stock)</span></p>
             <h4>{title}</h4>
             <div className="product-price">Rs{price}<span>Rs{price}</span></div>
-            <div className="qty-cart">
-                <div className="quantity buttons_added">
+            <div className="qty-cart text-center">
+                {/* <div className="quantity buttons_added">
                     <input type="button"  className="minus minus-btn"/>
                     <input type="number" step="1" name="quantity"  className="input-text qty text"/>
                     <input type="button"  className="plus plus-btn"/>
-                </div>
-                <span className="" onClick={addToBasket}><i className="fa fa-shopping-cart col-md-5"></i></span>
+                </div> */}
+                <span className="btn " onClick={addToBasket}>Add to cart<img style={{height:"20px"}} src={cartImage} alt="cart"></img></span>
             </div>
         </div>
 </div>
