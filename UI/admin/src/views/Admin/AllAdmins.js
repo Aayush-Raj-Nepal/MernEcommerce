@@ -3,7 +3,7 @@ import { getAllAdmins, deleteAdmin } from "../../api/helper";
 import { getMediaUrl } from "../../api/functions";
 import Table from "../../Components/Table";
 import Avatar from "@material-ui/core/Avatar";
-
+import swal from "sweetalert2";
 function AllAdmins() {
   const [admins, setAdmins] = useState([]);
   useEffect(() => {
@@ -80,16 +80,35 @@ function AllAdmins() {
     );
   };
   const deleteRow = (admin) => {
-    deleteAdmin(admin)
-      .then((resp) => {
-        // window.alert("Deleted Admin!");
-        fetchAdmin();
+    swal
+      .fire({
+        title: "Do you want to remove this admin ?",
+        showCancelButton: true,
+        confirmButtonText: `yes delete`,
+        icon: "error",
       })
-      .catch((err) => {
-        console.log(err);
+      .then((willDelete) => {
+        if (willDelete.isConfirmed) {
+          // console.log(willDelete);
+          deleteAdmin(admin)
+            .then((resp) => {
+              // window.alert("Deleted Admin!");
+              fetchAdmin();
+              swal.fire("Admin Deleted !");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          swal.fire("Deletion cancelled!");
+        }
       });
   };
   const editRow = (admin) => {
+    swal.fire({
+      title: "Sorry This feature is under maintainance",
+      icon: "info",
+    });
     // window.confirm(admins[admin].email + " is being edited");
   };
   return (
@@ -99,10 +118,9 @@ function AllAdmins() {
       <div className="rounded-0 alert alert-primary">
         {admins && admins.length > 0 && (
           <div className="card p-3">
-<Table columns={columns} data={admins}></Table>
-       
+            <Table columns={columns} data={admins}></Table>
           </div>
-           )}
+        )}
       </div>
     </div>
   );

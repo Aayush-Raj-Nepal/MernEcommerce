@@ -12,7 +12,8 @@ import ProductCreate from "./views/Products/Create";
 import AllProducts from "./views/Products/AllProduct";
 import ProductEdit from "./views/Products/Edit";
 import CategoryEdit from "./views/Category/Edit";
-
+import Contact from "./views/Contact/Index";
+import About from "./views/About/Index";
 const Routes = () => {
   return (
     <HashRouter>
@@ -47,6 +48,8 @@ const Routes = () => {
           path="/product/all"
           component={AllProducts}
         ></AdminRoute>
+        <AdminRoute exact path="/contactus" component={Contact}></AdminRoute>
+        <AdminRoute exact path="/aboutus" component={About}></AdminRoute>
         <Route exact path="/login" component={Login}></Route>
       </Switch>
     </HashRouter>

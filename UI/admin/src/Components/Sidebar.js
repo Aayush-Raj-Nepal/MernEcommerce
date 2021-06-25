@@ -11,16 +11,41 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { isAutheticated } from "../auth";
 import { Link } from "react-router-dom";
 import "./sidebar.scss";
+import swal from "sweetalert2";
 
 function Sidebar(props) {
   return (
-    <div style={{ height: "600px" }}>
+    <div style={{ minHeight: "600px" }}>
       <ProSidebar collapsed={props.collapsed}>
         <SidebarContent>
           <Menu iconShape="square">
-            <MenuItem icon={<i className="fa fa-paint-brush"></i>}>
+            {/* <MenuItem icon={<i className="fa fa-paint-brush"></i>}>
               Dashboard <link to="/"></link>{" "}
-            </MenuItem>
+            </MenuItem> */}
+            <Menu iconShape="square">
+              <SubMenu
+                title="Product"
+                icon={<i className="fa fa-envelope"></i>}
+              >
+                <MenuItem>
+                  Create products <Link to="/product/create"></Link>
+                </MenuItem>
+                <MenuItem>
+                  All products <Link to="/product/all"></Link>
+                </MenuItem>
+              </SubMenu>
+            </Menu>
+            <Menu iconShape="square">
+              <SubMenu title="Category" icon={<i className="fa fa-list"></i>}>
+                <MenuItem>
+                  Create Category <Link to="/category/create"></Link>
+                </MenuItem>
+                <MenuItem>
+                  All Category <Link to="/category/all"></Link>
+                </MenuItem>
+              </SubMenu>
+            </Menu>
+
             <SubMenu title="Admins" icon={<i className="fa fa-users"></i>}>
               <MenuItem>
                 Create Admin <Link to="/admins/create"></Link>
@@ -30,49 +55,26 @@ function Sidebar(props) {
               </MenuItem>
             </SubMenu>
           </Menu>
+
           <Menu iconShape="square">
-            <SubMenu title="Category" icon={<i className="fa fa-list"></i>}>
+            <SubMenu title="Extras" icon={<i className="fa fa-circle"></i>}>
               <MenuItem>
-                Create Category <Link to="/category/create"></Link>
+                Contact Us<Link to="/contactus"></Link>
               </MenuItem>
               <MenuItem>
-                All Category <Link to="/category/all"></Link>
-              </MenuItem>
-            </SubMenu>
-          </Menu>
-          <Menu iconShape="square">
-            <SubMenu title="Product" icon={<i className="fa fa-envelope"></i>}>
-              <MenuItem>
-                Create products <Link to="/product/create"></Link>
-              </MenuItem>
-              <MenuItem>
-                All products <Link to="/product/all"></Link>
+                About Us <Link to="/aboutus"></Link>
               </MenuItem>
             </SubMenu>
           </Menu>
           <Menu iconShape="square">
-            <MenuItem icon={<i className="fa fa-user"></i>}>Dashboard</MenuItem>
-            <SubMenu title="Components" icon={<i className="fa fa-heart"></i>}>
-              <MenuItem>Component 1</MenuItem>
-              <MenuItem>Component 2</MenuItem>
-            </SubMenu>
-          </Menu>
-          <Menu iconShape="square">
-            <MenuItem icon={<i className="fa fa-user"></i>}>Dashboard</MenuItem>
-            <SubMenu title="Components" icon={<i className="fa fa-heart"></i>}>
-              <MenuItem>Component 1</MenuItem>
-              <MenuItem>Component 2</MenuItem>
-            </SubMenu>
-          </Menu>
-          <Menu iconShape="square">
-            <MenuItem icon={<i className="fa fa-user"></i>}>Dashboard</MenuItem>
-            <SubMenu title="Components" icon={<i className="fa fa-heart"></i>}>
-              <MenuItem>Component 1</MenuItem>
-              <MenuItem>Component 2</MenuItem>
-            </SubMenu>
+            <MenuItem
+              icon={<i className="fa fa-bars"></i>}
+              onClick={() => swal.fire("Coming soon")}
+            >
+              More
+            </MenuItem>
           </Menu>
         </SidebarContent>
-        <SidebarFooter>Developed By AsoftNepal</SidebarFooter>
       </ProSidebar>
     </div>
   );

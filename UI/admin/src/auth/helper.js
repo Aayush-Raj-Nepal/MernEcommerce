@@ -23,5 +23,6 @@ export const AdminRoute = ({ component: Component, ...rest }) => {
         )
       }
     />
+    // <div>{isAuthenticated}</div>
   );
 };

@@ -2,9 +2,17 @@ import Product from "../models/Product";
 
 const { validationResult } = require("express-validator");
 exports.getLatestProducts = (req, res) => {
-  Product.find({}, null, { sort: { createdAt: -1 } })
+  Product.find({ status: "Active" })
+    .sort({ createdAt: -1 })
+    .limit(20)
     .then((Products) => {
-      res.status(200).json(Products);
+      if (Products.length == 0) {
+        res.status(404).json({
+          error_message: "No Products found",
+        });
+      } else {
+        res.status(200).json(Products);
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -14,9 +22,15 @@ exports.getLatestProducts = (req, res) => {
     });
 };
 exports.getFeaturedProducts = (req, res) => {
-  Product.find({})
+  Product.find({ status: "Active", featured: true })
     .then((Products) => {
-      res.status(200).json(Products);
+      if (Products.length == 0) {
+        res.status(404).json({
+          error_message: "No Featured Products found",
+        });
+      } else {
+        res.status(200).json(Products);
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -26,16 +40,23 @@ exports.getFeaturedProducts = (req, res) => {
     });
 };
 exports.getProductByCategory = (req, res) => {
-  Product.find({ "category.cat_id": req.body.id })
+  Product.find({ "category.cat_id": req.body.id, status: "Active" })
+    .lean()
     .then((Products) => {
-      Products.map((product) => {
-        product.price = product.price_history.pop().value;
-        product.discount = product.discount_history.pop().value;
-        delete product.price_history;
-        delete product.discount_history;
-        return product;
-      });
-      res.status(200).json(Products);
+      if (Products.length == 0) {
+        res.status(404).json({
+          error_message: "No Products found",
+        });
+      } else {
+        Products.map((product) => {
+          product.price = product.price_history.pop().value;
+          product.discount = product.discount_history.pop().value;
+          delete product.price_history;
+          delete product.discount_history;
+          return product;
+        });
+        res.status(200).json(Products);
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -45,14 +66,21 @@ exports.getProductByCategory = (req, res) => {
     });
 };
 exports.getProductToEdit = (req, res) => {
-  Product.findById(req.body.id)
+  Product.find(req.body.id)
+    .lean()
     .then((product) => {
-      product.toObject();
-      product.price = product.price_history.pop().value;
-      product.discount = product.discount_history.pop().value;
-      delete product.price_history;
-      delete product.discount_history;
-      return res.status(200).json(product);
+      if (!product) {
+        res.status(404).json({
+          error_message: "No  Product found",
+        });
+      } else {
+        product.toObject();
+        product.price = product.price_history.pop().value;
+        product.discount = product.discount_history.pop().value;
+        delete product.price_history;
+        delete product.discount_history;
+        return res.status(200).json(product);
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -63,15 +91,21 @@ exports.getProductToEdit = (req, res) => {
 };
 
 exports.getsingleproduct = (req, res) => {
-  Product.findById(req.body.id)
+  Product.findOne({ _id: req.body.id, status: "Active" })
     .lean()
     .then((product) => {
-      product.price = product.price_history.pop().value;
-      product.discount = product.discount_history.pop().value;
-      delete product.price_history;
-      delete product.discount_history;
-      console.log(typeof product);
-      return res.status(200).json(product);
+      if (!product) {
+        res.status(404).json({
+          error_message: "Cannot get the product ",
+        });
+      } else {
+        product.price = product.price_history.pop().value;
+        product.discount = product.discount_history.pop().value;
+        delete product.price_history;
+        delete product.discount_history;
+        console.log(typeof product);
+        return res.status(200).json(product);
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -82,8 +116,15 @@ exports.getsingleproduct = (req, res) => {
 };
 exports.getAllProducts = (req, res) => {
   Product.find({})
+    .sort({ createdAt: -1 })
     .then((Products) => {
-      res.status(200).json(Products);
+      if (Products.length == 0) {
+        res.status(404).json({
+          error_message: "No Products found",
+        });
+      } else {
+        res.status(200).json(Products);
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -92,12 +133,23 @@ exports.getAllProducts = (req, res) => {
       });
     });
 };
-
+exports.updateProduct = (req, res) => {
+  Product.findOneAndUpdate(req.body.query, req.body.update)
+    .then((products) => {
+      res.status(200).json(products);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(404).json({
+        error_message: "Cannot update product",
+      });
+    });
+};
 exports.addProduct = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({
-      error: errors.array()[0].msg,
+      error_message: errors.array()[0].msg,
     });
   }
   let payload = req.body;
@@ -118,6 +170,7 @@ exports.addProduct = (req, res) => {
         value: payload.discount,
       },
     ],
+    tags: payload.tags,
     product_source_type: payload.product_source_type,
     short_description: payload.short_description,
     short_name: payload.short_name,
@@ -125,12 +178,19 @@ exports.addProduct = (req, res) => {
     short_name: payload.short_name,
     image: payload.image,
     stock: payload.stock,
+    stock_history: [
+      {
+        stock_update_information: "New Stock",
+        updated_amount: payload.stock,
+      },
+    ],
     description: payload.description,
   });
+  // console.log(payload);
   product.save(function (err, Product) {
     if (err) {
       console.log(err);
-      res.status(401).json({ message: "Something Went Wrong12" });
+      res.status(401).json({ error_message: "Something Went Wrong12" });
     }
     res.status(200).json(Product);
   });
@@ -140,7 +200,7 @@ exports.deleteProduct = (req, res) => {
     if (err) {
       console.log(err);
       res.status(404).json({
-        message: "Cannot find the document",
+        error_message: "Cannot find the document",
       });
     } else {
       res.status(200).send(product);

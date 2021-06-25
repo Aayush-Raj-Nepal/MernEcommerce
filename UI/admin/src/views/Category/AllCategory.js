@@ -9,6 +9,7 @@ import Base from "../../Components/Base";
 import Table from "../../Components/Table";
 import Avatar from "@material-ui/core/Avatar";
 import { useHistory } from "react-router-dom";
+import swal from "sweetalert2";
 
 function AllCategories() {
   const history = useHistory();
@@ -37,16 +38,18 @@ function AllCategories() {
         accessor: "inHome",
         Cell: (value) => (
           <span>
-            In Home :
             <a
               style={{ cursor: "pointer" }}
               className={
-                "badge text-white badge-lg badge-" +
-                (value.value == "true" ? "success" : "danger")
+                "text-" + (value.value == "true" ? "success" : "danger")
               }
               onClick={() => toggleInHome(value.data[value.row.index])}
             >
-              {value.value}
+              {value && value.value == "true" ? (
+                <i className="fa fa-check"></i>
+              ) : (
+                <i className="fa fa-times"></i>
+              )}
             </a>
           </span>
         ),
@@ -99,6 +102,14 @@ function AllCategories() {
       { inHome: data.inHome === "true" ? false : true }
     )
       .then((resp) => {
+        swal.fire({
+          title:
+            "Products of this category will " +
+            (data.inHome === "true"
+              ? "not be visible in home"
+              : "be visible in home"),
+          icon: "info",
+        });
         fetchCategories();
       })
       .catch((err) => {
@@ -106,16 +117,34 @@ function AllCategories() {
       });
   };
   const deleteRow = (Category) => {
-    deleteCategory(Category)
-      .then((resp) => {
-        // window.alert("Deleted Category!");
-        fetchCategories();
+    swal
+      .fire({
+        title: "Do you want to remove this category ?",
+        showCancelButton: true,
+        confirmButtonText: `yes delete`,
+        icon: "error",
       })
-      .catch((err) => {
-        console.log(err);
+      .then((willDelete) => {
+        if (willDelete.isConfirmed) {
+          deleteCategory(Category)
+            .then((resp) => {
+              fetchCategories();
+              swal.fire("Category Deleted !");
+            })
+            .catch((err) => {
+              swal.fire({ title: "Some error occured !", icon: "error" });
+              console.log(err);
+            });
+        } else {
+          swal.fire("Deletion cancelled!");
+        }
       });
   };
   const editRow = (category) => {
+    swal.fire({
+      title: "Sorry This feature is under maintainance",
+      icon: "info",
+    });
     // history.push("/category/edit/" + category._id);
     // window.confirm(admins[admin].email + " is being edited");
   };
@@ -129,6 +158,7 @@ function AllCategories() {
             {categories && categories.length > 0 && (
               <Table columns={columns} data={categories}></Table>
             )}
+            {!categories && <p>No categories found please create category</p>}
           </div>
         </div>
       </div>

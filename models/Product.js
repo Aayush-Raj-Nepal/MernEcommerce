@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 import { Schema, model as Model } from "mongoose";
 import conn from "../app/mongodb";
 import autoIncrement from "mongoose-auto-increment";
@@ -9,105 +10,111 @@ autoIncrement.initialize(conn);
 import { SchemaProvider } from "../library/schema/provider";
 
 let HistorySchema = SchemaProvider(String, String);
-let ProductSchema = new Schema({
-  featured: {
-    type: Boolean,
-    default: false,
-  },
-  eng_name: {
-    type: String,
-  },
-  productId: {
-    type: String,
-  },
-  nep_name: {
-    type: String,
-  },
-  tags: [
-    {
+let ProductSchema = new Schema(
+  {
+    featured: {
+      type: Boolean,
+      default: false,
+    },
+    eng_name: {
       type: String,
     },
-  ],
-  product_no: {
-    type: Number,
-  },
-  description: {
-    type: String,
-  },
-  short_description: {
-    type: String,
-  },
-  product_details: {
-    type: String,
-  },
-  product_source_type: {
-    type: String,
-    enum: ["MYSTORE", "SHOP"],
-  },
-  product_from: {
-    name: { type: String },
-    source_id: {
-      type: Schema.Types.ObjectId,
-      ref: "Shop",
-    },
-  },
-  category: {
-    name: {
+    productId: {
       type: String,
     },
-    cat_id: {
+    nep_name: {
+      type: String,
+    },
+    tags: [
+      {
+        type: String,
+      },
+    ],
+    product_no: {
       type: Number,
-      ref: "Category",
     },
-    sub_category: {
+    description: {
+      type: String,
+    },
+    short_description: {
+      type: String,
+    },
+    product_details: {
+      type: String,
+    },
+    product_source_type: {
+      type: String,
+      enum: ["MYSTORE", "SHOP"],
+    },
+    product_from: {
+      name: { type: String },
+      source_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Shop",
+      },
+    },
+    category: {
       name: {
         type: String,
       },
-    },
-  },
-  stock: {
-    type: Number,
-    default: 0,
-  },
-  images: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Media",
-    },
-  ],
-  stock_history: [
-    {
-      stock_update_information: {
-        type: String,
+      cat_id: {
+        type: Number,
+        ref: "Category",
       },
-      updated_amount: {
-        type: String,
+      sub_category: {
+        name: {
+          type: String,
+        },
       },
     },
-  ],
-  discount_history: [HistorySchema],
-  price_history: [HistorySchema],
-  added_by: {
-    type: Schema.Types.ObjectId,
-    ref: "Admin",
-  },
-  rating: {
-    rating_tracker: {
+    stock: {
+      type: Number,
+      default: 0,
+    },
+    images: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Media",
+      },
+    ],
+    stock_history: [
+      {
+        stock_update_information: {
+          type: String,
+        },
+        updated_amount: {
+          type: String,
+        },
+      },
+    ],
+    discount_history: [HistorySchema],
+    price_history: [HistorySchema],
+    added_by: {
       type: Schema.Types.ObjectId,
-      ref: "Rating",
+      ref: "Admin",
     },
-    average_rating: {
-      type: Number,
+    rating: {
+      rating_tracker: {
+        type: Schema.Types.ObjectId,
+        ref: "Rating",
+      },
+      average_rating: {
+        type: Number,
+      },
+      total_ratings: {
+        type: Number,
+      },
     },
-    total_ratings: {
-      type: Number,
+    status: {
+      type: String,
+      enum: ["Active", "Inactive"],
+      default: "Active",
     },
   },
-  status: {
-    type: String,
-    enum: ["Active", "Inactive"],
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 ProductSchema.plugin(autoIncrement.plugin, {
   model: "Product",

@@ -8,6 +8,7 @@ import {
   getFeaturedProducts,
   getAllProducts,
   getsingleproduct,
+  updateProduct,
   getProductByCategory,
 } from "../controllers/Product";
 import { Auth } from "../middlewares/index";
@@ -18,6 +19,8 @@ let router = Router();
 
 // product routes
 router.get("/", Auth.VerifyAdmin, getAllProducts);
+router.put("/", Auth.VerifyAdmin, Request.ParamsToBody, updateProduct);
+
 router.get("/latest", getLatestProducts);
 router.delete("/:id", Auth.VerifyAdmin, Request.ParamsToBody, deleteProduct);
 router.get("/featured", getFeaturedProducts);
@@ -40,7 +43,7 @@ router.post(
       min: 3,
     }),
     check("description", "description is required").isLength({ min: 5 }),
-    check("images", "Profile Image Is Required").notEmpty(),
+    check("images", "At least One Image Is Required").notEmpty(),
   ],
   Auth.VerifyAdmin,
   addProduct

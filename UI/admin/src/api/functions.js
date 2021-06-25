@@ -1,6 +1,5 @@
-import {API} from "./backend"
+import { API } from "./backend";
 
-
-export const getMediaUrl=(url)=>{
-    return `${API}media/${url}`
-}
+export const getMediaUrl = (url) => {
+  return `${API}media/${url}`;
+};

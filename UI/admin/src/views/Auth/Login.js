@@ -1,11 +1,15 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Redirect, useHistory } from "react-router-dom";
-import { login, isAutheticated } from "../../auth/index";
+import { login } from "../../auth/index";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticate } from "../../store/actions/auth";
 import LoadingOverlay from "react-loading-overlay";
 
 function Login() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const token = useSelector((state) => state.auth.token);
+  const loggedIn = useSelector((state) => state.auth.loggedIn);
+
   let history = useHistory();
   const dispatch = useDispatch();
   const [values, setValues] = useState({
@@ -17,10 +21,10 @@ function Login() {
   });
   const [isSignedIn, setIsSignedIn] = useState(false);
   useEffect(() => {
+    setIsAuthenticated(token && token.token !== null && loggedIn);
     setValues({ ...values, error: "", success: false });
   }, []);
   const { email, password, error, loading, redirectNow } = values;
-  const { user } = isAutheticated();
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
@@ -58,9 +62,9 @@ function Login() {
         spinner
         text="please wait for a while ..."
       >
-        {isAutheticated() && <Redirect to="/"></Redirect>}
+        {isAuthenticated && <Redirect to="/"></Redirect>}
 
-        {!isAutheticated() && (
+        {!isAuthenticated && (
           <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
               <main>

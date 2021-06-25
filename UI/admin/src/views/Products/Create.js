@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import ImageDrop from "../../Components/ImageDrop";
 import Base from "../../Components/Base";
@@ -6,15 +6,8 @@ import { createProduct, getCategories } from "../../api/helper";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Select from "react-select";
-import { toast } from "react-toastify";
-
-// import TagInput from "../../Components/TagInput"
-const KeyCodes = {
-  comma: 188,
-  enter: 13,
-};
-
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
+import swal from "sweetalert2";
+import TagInput from "../../Components/TagInput/Index";
 
 function Create() {
   const [values, setValues] = useState({
@@ -35,6 +28,7 @@ function Create() {
     loading: false,
     redirectNow: false,
   });
+  const [suggestions, setSuggestions] = useState([]);
   const [categories, setCategories] = useState([]);
   const sourceOptions = [
     {
@@ -75,6 +69,7 @@ function Create() {
     price,
     discount,
     short_description,
+    tags,
     product_details,
     product_source,
     stock,
@@ -106,45 +101,55 @@ function Create() {
     event.preventDefault();
     setValues({ ...values, error: false, loading: true });
     console.log(values);
-    createProduct(values)
-      .then((data) => {
-        if (data.error) {
-          setValues({ ...values, error: data.error });
-        } else {
-          console.log(data);
-          setValues({
-            eng_name: "",
-            nep_name: "",
-            tags: [],
-            product_no: "",
-            description: "",
-            short_name: "",
-            short_description: "",
-            category: {},
-            image: "",
-            stock: null,
-            loading: false,
-            product_source_type: "",
-          });
-          toast("Product Added", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          window.location.reload(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!tags || tags.length == 0 || tags[0] == "") {
+      swal.fire({ title: "Product tags empty", icon: "error" });
+    } else if (images[0] == "" || !images[0]) {
+      swal.fire({ title: "main image missing", icon: "error" });
+    } else {
+      createProduct(values)
+        .then((data) => {
+          if (data.error_message) {
+            swal.fire({ title: data.error_message, icon: "error" });
+            setValues({ ...values, error: data.error });
+          } else {
+            console.log(data);
+            setValues({
+              eng_name: "",
+              nep_name: "",
+              tags: [],
+              product_no: "",
+              description: "",
+              short_name: "",
+              short_description: "",
+              category: {},
+              image: "",
+              stock: null,
+              loading: false,
+              product_source_type: "",
+            });
+            swal.fire({ title: "product added", icon: "success" });
+            // toast("Product Added", {
+            //   position: "top-right",
+            //   autoClose: 5000,
+            //   hideProgressBar: true,
+            //   closeOnClick: true,
+            //   pauseOnHover: true,
+            //   draggable: true,
+            //   progress: undefined,
+            // });
+            window.location.reload(true);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          swal.fire({ title: "Something wrong occured", icon: "error" });
+        });
+    }
   };
-
-  //   styles for image preview
-
+  function gotTags(a) {
+    console.log(a);
+    setValues({ ...values, tags: a });
+  }
   return (
     <Base>
       <div className="row" style={{ width: "100%" }}>
@@ -170,7 +175,7 @@ function Create() {
                 />
                 <Form.Text className="text-muted"></Form.Text>
               </Form.Group>
-              <Form.Group>
+              {/* <Form.Group>
                 <Form.Label>Short Name</Form.Label>
                 <Form.Control
                   onChange={handleChange("short_name")}
@@ -178,7 +183,7 @@ function Create() {
                   placeholder="Enter short name"
                 />
                 <Form.Text className="text-muted"></Form.Text>
-              </Form.Group>
+              </Form.Group> */}
               <Form.Group>
                 <Form.Label>Price</Form.Label>
                 <Form.Control
@@ -226,6 +231,10 @@ function Create() {
                   rows={3}
                 />
                 <Form.Text className="text-muted"></Form.Text>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Product Tags </Form.Label>
+                <TagInput values={(a) => gotTags(a)} />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Product Source Type</Form.Label>
@@ -286,5 +295,4 @@ function Create() {
     </Base>
   );
 }
-
 export default Create;

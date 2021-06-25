@@ -25,7 +25,7 @@ function HeaderTop() {
             </Link>
           </div>
           <div className="select_location">
-            <div className="ui inline dropdown loc-title">
+            {/* <div className="ui inline dropdown loc-title">
               <div className="text">
                 <i className="uil uil-location-point"></i>
                 Kathmandu
@@ -65,7 +65,7 @@ function HeaderTop() {
                   Chandigrah
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="search120">
             <div className="ui search">
@@ -83,7 +83,7 @@ function HeaderTop() {
             <ul>
               <li>
                 <a href="#" className="offer-link">
-                  <i className="uil uil-phone-alt"></i>1800-000-000
+                  <i className="uil uil-phone-alt"></i>9851095624
                 </a>
               </li>
               <li>

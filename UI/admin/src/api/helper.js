@@ -1,17 +1,30 @@
 import { API } from "./backend";
 import axios from "axios";
-
+import { handleCatch } from "./functions";
 // admin apis
 export const createAdmin = (data) => {
   return axios
     .post(API + "admin", data)
     .then((resp) => {
-      console.log(resp);
-      return resp.data;
+      console.log(resp.data);
+      if (resp.data.error_message) {
+        console.log(resp.data.error_message);
+
+        return {
+          error_message: resp.data.error_message,
+        };
+      } else {
+        return resp.data;
+      }
     })
     .catch((err) => {
-      console.log("Login request failed", err);
-      return err.error;
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        console.log(err);
+      }
     });
 };
 export const getProductToEdit = (id) => {
@@ -22,8 +35,13 @@ export const getProductToEdit = (id) => {
       return resp.data;
     })
     .catch((err) => {
-      console.log("product to edit notfound", err);
-      return err.response.data;
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
     });
 };
 export const deleteAdmin = (data) => {
@@ -34,8 +52,13 @@ export const deleteAdmin = (data) => {
       return resp.data;
     })
     .catch((err) => {
-      console.log("delete request failed", err);
-      return err.error;
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
     });
 };
 export const deleteProduct = (data) => {
@@ -46,10 +69,33 @@ export const deleteProduct = (data) => {
       return resp.data;
     })
     .catch((err) => {
-      console.log("delete request failed", err);
-      return err.error;
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
     });
 };
+
+export const updateProduct = (data, update) => {
+  return axios
+    .put(API + "product", { query: { _id: data._id }, update })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
+    });
+};
+
 export const getAllAdmins = (data) => {
   return axios
     .get(API + "admin")
@@ -58,8 +104,13 @@ export const getAllAdmins = (data) => {
       return resp.data;
     })
     .catch((err) => {
-      console.log(" request failed", err);
-      return err.error;
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
     });
 };
 //user calls
@@ -97,8 +148,14 @@ export const createCategory = (data) => {
       return res.data;
     })
     .catch((err) => {
-      console.log("request failed", err.response.data);
-      return err.response.data;
+      if (err.response) {
+        console.log(err.response);
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
     });
 };
 // product create
@@ -110,8 +167,13 @@ export const createProduct = (data) => {
       return res.data;
     })
     .catch((err) => {
-      console.log("Production Creation Failed!", err.response.data);
-      return err.response.data;
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
     });
 };
 export const editProduct = (data, id) => {
@@ -122,8 +184,13 @@ export const editProduct = (data, id) => {
       return res.data;
     })
     .catch((err) => {
-      console.log("Production Creation Failed!", err.response.data);
-      return err.response.data;
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
     });
 };
 export const updateCategory = (data, update) => {
@@ -133,8 +200,13 @@ export const updateCategory = (data, update) => {
       return res.data;
     })
     .catch((err) => {
-      console.log("Production Creation Failed!", err);
-      return err.response.data;
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
     });
 };
 
@@ -197,8 +269,13 @@ export const getAllProducts = () => {
       return res.data;
     })
     .catch((err) => {
-      console.log(err);
-      return err.response.data;
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
     });
 };
 
@@ -206,49 +283,6 @@ export const getAllProducts = () => {
 export const deleteCategory = (category) => {
   return axios
     .delete(API + "category/" + category._id)
-    .then((response) => {
-      return response.json();
-    })
-    .catch((err) => console.log(err));
-};
-
-//get a product
-
-export const getProduct = (productId) => {
-  return fetch(`${API}product/${productId}`, {
-    method: "GET",
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .catch((err) => console.log(err));
-};
-
-//update a product
-
-export const updateProduct = (productId, userId, token, product) => {
-  return fetch(`${API}product/${productId}/${userId}`, {
-    method: "PUT",
-    headers: {
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: product,
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .catch((err) => console.log(err));
-};
-
-export const getUserOrders = (user, token, uid) => {
-  return fetch(`${API}user/orders/${user}/?uid=${uid}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  })
     .then((response) => {
       return response.json();
     })
