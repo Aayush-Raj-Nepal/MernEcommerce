@@ -1342,12 +1342,14 @@ i.icon1 {
     width: 130px;
 	position: relative;
 }
-
+/* edited-pranish */
 .cart-product-img img {
     width: 100%;
     border-radius: 5px;
+    height: 100%;
 	border: 1px solid #f7f7f7;
 }
+
 
 .offer-badge {
     position: absolute;
@@ -1357,7 +1359,7 @@ i.icon1 {
     font-weight: 700;
     color: #fff;
     background: #f55d2c;
-    padding: 1px 10px 0px;
+    padding: 1px 8px 0px;
     border-radius: 3px;
     line-height: 20px;
 }
@@ -1445,7 +1447,7 @@ i.icon1 {
 .qty-group {
     display: flex;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 /* -- quantity box -- */

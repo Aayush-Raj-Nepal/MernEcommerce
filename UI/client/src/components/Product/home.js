@@ -16,11 +16,9 @@ export default function Product({id='12234',title='asdad',image='asdad',price='a
                 title:title,
                 image:image,
                 price:price,
-                rating:rating
+                rating:rating,
+                count:1
             },
-            count:{
-
-            }
         })
         toast.error('Added to Cart', {
             position: "bottom-right",

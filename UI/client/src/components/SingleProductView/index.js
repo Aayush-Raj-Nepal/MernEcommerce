@@ -4,11 +4,38 @@ import { getSingleProduct } from "../../api/helper";
 import renderHTML from "react-render-html";
 import ImageCarousel from "../ImageCarousel/Index";
 import { getDiscountedPrice, getMediaUrl } from "../../api/functions";
-function Index({ id }) {
+import {  toast } from 'react-toastify';
+import { useStateValue } from "../../StateProvider";
+
+export default function Index({id}) {
   const [product, setProduct] = useState({});
   useEffect(() => {
     fetchProduct(id);
   }, []);
+  const [state,dispatch]=useStateValue();
+  const addToBasket=(product)=>{
+    // dispatch the item insto the data-layer
+    dispatch({
+        type:'ADD_TO_BASKET',
+        item:{
+            id:product.id,
+            title:product.title,
+            image:product.image,
+            price:product.price,
+            rating:product.rating,
+            count:1
+        },
+    })
+    toast.error('Added to Cart', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        }); 
+  };
   const fetchProduct = (id) => {
     getSingleProduct(id)
       .then((resp) => {
@@ -17,7 +44,7 @@ function Index({ id }) {
       .catch((err) => {
         console.log(err);
       });
-  };
+    }
   return (
     <div>
       {product && product.category && (
@@ -146,7 +173,7 @@ function Index({ id }) {
                               </ul>
                               <ul className="ordr-crt-share">
                                 <li>
-                                  <button className="add-cart-btn hover-btn">
+                                  <button className="add-cart-btn hover-btn" onClick={()=>addToBasket(product)}>
                                     <i className="uil uil-shopping-cart-alt"></i>
                                     Add to Cart
                                   </button>
@@ -386,5 +413,3 @@ function Index({ id }) {
     </div>
   );
 }
-
-export default Index;

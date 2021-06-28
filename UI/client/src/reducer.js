@@ -11,11 +11,24 @@ const reducer = (state, action) => {
   console.log(state, action);
   switch (action.type) {
     case "ADD_TO_BASKET":
+      let st=[...state.basket]
+      let indx=st.findIndex((b) => b.id == action.item.id)
+      console.log(indx)
+      if (indx>=0) {
+       action.item.count+=st[indx].count
+       st[indx]=action.item
       return {
         ...state,
-        basket: [...state.basket, action.item],
-      };
-    case "REMOVE_FROM_BASKET":
+        basket: [...st],
+      }; 
+      } else {
+        return {
+          ...state,
+          basket: [...state.basket, action.item],
+        }; 
+      }
+    case "REMOVE_FROM_CART":
+      console.log(action)
       const index = state.basket.findIndex((b) => b.id === action.id);
       let newBasket = [...state.basket];
       if (index >= 0) {

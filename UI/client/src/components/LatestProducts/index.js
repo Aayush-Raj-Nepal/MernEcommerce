@@ -91,7 +91,7 @@ function LatestProducts() {
                       key={index}
                       id={product._id}
                       discount={product.discount}
-                      title={product.name}
+                      title={product.eng_name}
                       price={product.price}
                       image={getMediaUrl("product/" + product.images[0])}
                       rating={5}

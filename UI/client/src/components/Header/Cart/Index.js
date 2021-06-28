@@ -2,15 +2,45 @@ import React, { useEffect, useState } from "react";
 import { useStateValue } from "../../../StateProvider";
 import "react-pro-sidebar/dist/css/styles.css";
 import Sidebar from "../../Sidebar/Index";
-// goto components/sidebar/style.css for styling of sidebar
+import {  toast } from 'react-toastify';
 
 function Index() {
   const [{ basket, user }, dispatch] = useStateValue();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const getTotal=()=>{
+	return(basket.length>0)? basket.reduce((total,item)=>{
+	  item.count=Number(item.count)
+	  item.price=Number(item.price)
+	  return total+=item.price*item.count
+	},0):0
+  }
+  const getTotalItem=()=>{
+	return(basket.length>0)? basket.reduce((total,item)=>{
+	  item.count=Number(item.count)
+	  return total+=item.count
+	},0):0
+  }
+  const removeFromBasket=(id)=>{
+	// dispatch the item insto the data-layer
+	dispatch({
+		type:'REMOVE_FROM_CART',
+		id:id
+	})
+	toast.error('Removed From Cart', {
+		position: "bottom-right",
+		autoClose: 5000,
+		hideProgressBar: true,
+		closeOnClick: true,
+		pauseOnHover: true,
+		draggable: true,
+		progress: undefined,
+		}); 
+}
   let toggleSidebar = (status) => {
     setSidebarOpen(!status);
   };
   useEffect(() => {
+	  console.log(basket)
     if (basket.length > 0) {
       toggleSidebar(false);
     }
@@ -32,7 +62,7 @@ function Index() {
           <>
             <div className="bs-canvas-header side-cart-header p-3 ">
               <div className="d-inline-block  main-cart-title">
-                My Cart <span>(2 Items)</span>
+                My Cart <span>{getTotalItem}Items</span>
               </div>
               <button
                 type="button"
@@ -44,26 +74,16 @@ function Index() {
               </button>
             </div>
             <div className="bs-canvas-body">
-              <div className="cart-top-total">
-                <div className="cart-total-dil">
-                  <h4>Gambo Super Market</h4>
-                  <span>$34</span>
-                </div>
-                <div className="cart-total-dil pt-2">
-                  <h4>Delivery Charges</h4>
-                  <span>$1</span>
-                </div>
-              </div>
               <div className="side-cart-items">
                 {basket.length > 0
                   ? basket.map((item, index) => (
-                      <div className="cart-item">
+                      <div className="cart-item" key={index}> 
                         <div className="cart-product-img">
                           <img src={item.image} alt="" />
                           <div className="offer-badge">-{item.discount}%</div>
                         </div>
                         <div className="cart-text">
-                          <h4>{item.name}</h4>
+                          <h4>{item.title}</h4>
                           <div className="cart-radio">
                             {/* <ul className="kggrm-now">
 									<li>
@@ -86,25 +106,17 @@ function Index() {
                           </div>
                           <div className="qty-group">
                             <div className="quantity buttons_added">
-                              <input
-                                type="button"
-                                className="minus minus-btn"
-                              />
-                              <input
-                                type="number"
-                                step="1"
-                                name="quantity"
-                                className="input-text qty text"
-                              />
-                              <input type="button" className="plus plus-btn" />
+                              <button className="" ><i className="fa fa-minus"></i></button>
+							  <input style={{maxWidth:"20px"}} type="text" value={item.count} />
+							  <button className=""><i className="fa fa-plus"></i></button>
                             </div>
                             <div className="cart-item-price">
                               Rs{item.price} <span>Rs{item.price}</span>
                             </div>
                           </div>
 
-                          <button type="button" className="cart-close-btn">
-                            <i className="uil uil-multiply"></i>
+                          <button type="button" className="cart-close-btn" onClick={()=>removeFromBasket(item.id)}>
+                            <i className="fa fa-times"></i>
                           </button>
                         </div>
                       </div>
@@ -114,12 +126,12 @@ function Index() {
             </div>
             <div className="bs-canvas-footer">
               <div className="cart-total-dil saving-total ">
-                <h4>Total Saving</h4>
-                <span>$11</span>
+                {/* <h4>Total Saving</h4>
+                <span>$11</span> */}
               </div>
               <div className="main-total-cart">
                 <h2>Total</h2>
-                <span>$35</span>
+                <span>Rs{getTotal()}</span>
               </div>
               <div className="checkout-cart">
                 <a href="#" className="promo-code">
