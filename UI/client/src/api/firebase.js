@@ -20,6 +20,7 @@ const db = firebase.firestore();
 
 // collection references
 const extrasCollection = db.collection("extras");
+const contactMessageCollection = db.collection("contactMessage");
 
 // export utils/refs
-export { db, extrasCollection };
+export { db, extrasCollection, contactMessageCollection };
