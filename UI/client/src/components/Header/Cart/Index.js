@@ -14,6 +14,9 @@ function Index() {
 	  return total+=item.price*item.count
 	},0):0
   }
+  const newCount=(e,v)=>{
+console.log(e.target)
+  }
   const getTotalItem=()=>{
 	return(basket.length>0)? basket.reduce((total,item)=>{
 	  item.count=Number(item.count)
@@ -107,7 +110,7 @@ function Index() {
                           <div className="qty-group">
                             <div className="quantity buttons_added">
                               <button className="" ><i className="fa fa-minus"></i></button>
-							  <input style={{maxWidth:"20px"}} type="text" value={item.count} />
+							  <input style={{maxWidth:"20px"}} type="text" onChange={newCount} value={item.count} />
 							  <button className=""><i className="fa fa-plus"></i></button>
                             </div>
                             <div className="cart-item-price">

@@ -6,7 +6,6 @@ import ImageCarousel from "../ImageCarousel/Index";
 import { getDiscountedPrice, getMediaUrl } from "../../api/functions";
 import {  toast } from 'react-toastify';
 import { useStateValue } from "../../StateProvider";
-
 export default function Index({id}) {
   const [product, setProduct] = useState({});
   useEffect(() => {
@@ -14,15 +13,17 @@ export default function Index({id}) {
   }, []);
   const [state,dispatch]=useStateValue();
   const addToBasket=(product)=>{
+    console.log(product)
+    // return
     // dispatch the item insto the data-layer
     dispatch({
         type:'ADD_TO_BASKET',
         item:{
-            id:product.id,
-            title:product.title,
-            image:product.image,
+            id:product._id,
+            title:product.eng_name,
+            image:getMediaUrl("product/" + product.images[0]),
             price:product.price,
-            rating:product.rating,
+            // rating:product.rating,
             count:1
         },
     })
