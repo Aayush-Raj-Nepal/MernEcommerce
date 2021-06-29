@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { useStateValue } from "../../../StateProvider";
 import "react-pro-sidebar/dist/css/styles.css";
 import Sidebar from "../../Sidebar/Index";
+import { useLocation } from 'react-router-dom'
 import {  toast } from 'react-toastify';
 
-function Index() {
-  const [{ basket, user }, dispatch] = useStateValue();
+function Index({match}) {
+  const [{ basket,cartSidebar, user }, dispatch] = useStateValue();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const getTotal=()=>{
 	return(basket.length>0)? basket.reduce((total,item)=>{
@@ -15,7 +16,7 @@ function Index() {
 	},0):0
   }
   const newCount=(e,v)=>{
-console.log(e.target)
+    console.log(e.target)
   }
   const getTotalItem=()=>{
 	return(basket.length>0)? basket.reduce((total,item)=>{
@@ -40,18 +41,22 @@ console.log(e.target)
 		}); 
 }
   let toggleSidebar = (status) => {
-    setSidebarOpen(!status);
-  };
-  useEffect(() => {
-	  console.log(basket)
-    if (basket.length > 0) {
-      toggleSidebar(false);
-    }
-  }, [basket]);
+    dispatch({
+      type:'CART_SIDEBAR_TOGGLE',
+    })
+  }
+  const location = useLocation();
+  console.log(location.pathname);
+  // useEffect(() => {
+	   
+  //   if (basket.length > 0) {
+  //     toggleSidebar(false);
+  //   }
+  // }, [basket]);
   return (
     <div className="header_cart order-1">
       <Sidebar
-        isSidebarOpen={sidebarOpen}
+        isSidebarOpen={cartSidebar}
         onSidebarToggle={toggleSidebar}
         togglerButton={
           <a className="cart__btn hover-btn pull-bs-canvas-left" title="Cart">

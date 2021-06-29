@@ -13,14 +13,16 @@ import { getMediaUrl } from "../../api/functions";
 
 function HeaderBottom() {
   const [show, setShow] = useState(false);
-  const [cartSidebar, setCartSidebar] = useState(false);
+  // const [cartSidebar, setCartSidebar] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [{ basket, user }, dispatch] = useStateValue();
+  const [{ basket,cartSidebar, user }, dispatch] = useStateValue();
   const [drop1, setDrop1] = useState(false);
   const [drop2, setDrop2] = useState(false);
   let toggleCartSidebar = (status) => {
-    setCartSidebar(!status);
+    dispatch({
+      type:'CART_SIDEBAR_TOGGLE',
+    })
   };
   const [category, setCategory] = useState([]);
   useEffect(() => {
@@ -39,7 +41,6 @@ function HeaderBottom() {
       case 2:
         setDrop2(!drop2);
         break;
-
       default:
         break;
     }

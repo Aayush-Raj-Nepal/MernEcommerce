@@ -20,6 +20,7 @@ export default function Product({id='12234',title='asdad',image='asdad',price='a
                 count:1
             },
         })
+       
         toast.error('Added to Cart', {
             position: "bottom-right",
             autoClose: 5000,

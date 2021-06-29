@@ -2,6 +2,7 @@ export const initialState = {
   basket: [],
   user: null,
   extras: [],
+  cartSidebar:false,
 };
 
 export const getBasketTotal = (basket) => {
@@ -20,12 +21,16 @@ const reducer = (state, action) => {
       return {
         ...state,
         basket: [...st],
+        cartSidebar:true
+
       }; 
       } else {
         return {
           ...state,
           basket: [...state.basket, action.item],
+          cartSidebar:true
         }; 
+        
       }
     case "REMOVE_FROM_CART":
       console.log(action)
@@ -41,6 +46,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         basket: newBasket,
+        prevBasketItemCount:state.basket.length
       };
     case "SET_USER":
       return {
@@ -57,6 +63,14 @@ const reducer = (state, action) => {
         ...state,
         extras: action.extras,
       };
+    case "CART_SIDEBAR_TOGGLE":
+      
+        return{
+          ...state,
+          cartSidebar:!state.cartSidebar
+        }
+    
+      
     default:
       return state;
   }
