@@ -13,6 +13,13 @@ var firebaseConfig = {
   measurementId: "G-9G0WF7PJ05",
 };
 firebase.initializeApp(firebaseConfig);
+firebase.auth().languageCode = 'it';
+window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+  'size': 'invisible',
+  'callback': (response) => {
+    onSignInSubmit();
+  }
+});
 
 // utils
 const db = firebase.firestore();
@@ -20,8 +27,14 @@ const db = firebase.firestore();
 
 // collection references
 const extrasCollection = db.collection("extras");
+<<<<<<< HEAD
 const contactMessageCollection = db.collection("contactMessage");
 const emailCollection = db.collection("newsletter");
 
 // export utils/refs
 export { db, extrasCollection, contactMessageCollection, emailCollection };
+=======
+
+// export utils/refs
+export {firebase, db, extrasCollection };
+>>>>>>> 110762da7a8b310f001decf6c69388fdb7d2d92a

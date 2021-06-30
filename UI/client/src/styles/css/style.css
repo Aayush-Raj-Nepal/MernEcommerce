@@ -6228,7 +6228,14 @@ textarea {
     font-size: 18px;
     color: #2b2f4c;
 }
-
+/* edited by aayush  */
+.lgn_icon_right {
+    position: absolute;
+    top: 26%;
+    right: 2%;
+    font-size: 18px;
+    color: #2b2f4c;
+}
 .form-control:focus+.lgn_icon  {
 	color: #f55d2c;
 }

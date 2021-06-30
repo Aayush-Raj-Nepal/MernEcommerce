@@ -68,12 +68,13 @@ exports.signup = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({
-      error: errors.array()[0].msg
+      error_message: errors.array()[0].msg
     });
   }
   const user = new User(req.body);
   user.save((err, user) => {
     if (err) {
+      console.log(err)
       return res.status(400).json({
         err: "NOT able to save user in DB"
       });
@@ -81,7 +82,6 @@ exports.signup = (req, res) => {
     return res.json({
       name: user.name,
       email: user.email,
-      phone: user.phone,
       id: user._id
     });
   });
@@ -97,7 +97,6 @@ exports.googlesignup = (req, res) => {
     return res.json({
       name: user.name,
       email: user.email,
-      phone: user.phone,
       id: user._id
     });
   });
@@ -109,7 +108,7 @@ exports.signin = (req, res) => {
 
   if (!errors.isEmpty()) {
     return res.status(422).json({
-      error: errors.array()[0].msg
+      error_message: errors.array()[0].msg
     });
   }
 
@@ -119,21 +118,15 @@ exports.signin = (req, res) => {
         error: "USER email does not exists"
       });
     }
-
     if (!user.autheticate(password)) {
       return res.status(401).json({
         error: "Email and password do not match"
       });
     }
-
-    // //create token
-    // const token = jwt.sign({ _id: user._id }, process.env.SECRET);
-    // //put token in cookie
-    // res.cookie("token", token, { expire: new Date() + 9999 });
-
-    // //send response to front end
-    // const { _id, name, email, role, status,phone } = user;
-    // return res.json({ token, user: { _id, name, email, role, status,phone } });
+    //create token
+    const token = jwt.sign({ _id: user._id }, process.env.SECRET);
+    const { _id, name, email, role, status,phone } = user;
+    return res.json({ token:{token:token,expire:new Date()+9999}, user: { _id, name, email, role, status,phone } });
   });
 };
 
