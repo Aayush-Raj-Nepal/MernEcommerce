@@ -67,6 +67,11 @@ function Sidebar(props) {
             </SubMenu>
           </Menu>
           <Menu iconShape="square">
+            <MenuItem icon={<i className="fa fa-envelope"></i>}>
+              Contact Messages <Link to="/contactmessage"></Link>
+            </MenuItem>
+          </Menu>
+          <Menu iconShape="square">
             <MenuItem
               icon={<i className="fa fa-bars"></i>}
               onClick={() => swal.fire("Coming soon")}

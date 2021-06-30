@@ -68,7 +68,7 @@ function Index() {
                             Contact Us Page
                             <div className="btn-group float-right">
                                {editContent!=content &&
-                                                               <button onClick={()=>save()} className="btn btn-light btn-sm">Save <i className="fa fa-pencil"></i></button>
+                                <button onClick={()=>save()} className="btn btn-light btn-sm">Save <i className="fa fa-pencil"></i></button>
 
                                }
                                 <button className="btn btn-primary btn-sm">Edit <i className="fa fa-pencil"></i></button>

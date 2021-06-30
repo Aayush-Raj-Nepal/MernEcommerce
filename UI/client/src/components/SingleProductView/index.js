@@ -91,7 +91,7 @@ export default function Index({id}) {
                             <h2>{product.eng_name}</h2>
                             <div className="no-stock">
                               <p className="pd-no">
-                                Product No.<span>12345</span>
+                                Product No.<span>{product.productId}</span>
                               </p>
                               <p className="stock-qty">
                                 Available :

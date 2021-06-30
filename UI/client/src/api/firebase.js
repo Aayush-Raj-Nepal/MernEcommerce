@@ -13,6 +13,13 @@ var firebaseConfig = {
   measurementId: "G-9G0WF7PJ05",
 };
 firebase.initializeApp(firebaseConfig);
+firebase.auth().languageCode = 'it';
+window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+  'size': 'invisible',
+  'callback': (response) => {
+    onSignInSubmit();
+  }
+});
 
 // utils
 const db = firebase.firestore();

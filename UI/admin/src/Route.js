@@ -14,6 +14,7 @@ import ProductEdit from "./views/Products/Edit";
 import CategoryEdit from "./views/Category/Edit";
 import Contact from "./views/Contact/Index";
 import About from "./views/About/Index";
+import ContactMessage from "./views/ContactMessage/Index";
 const Routes = () => {
   return (
     <HashRouter>
@@ -50,6 +51,7 @@ const Routes = () => {
         ></AdminRoute>
         <AdminRoute exact path="/contactus" component={Contact}></AdminRoute>
         <AdminRoute exact path="/aboutus" component={About}></AdminRoute>
+        <AdminRoute exact path="/contactmessage" component={ContactMessage}></AdminRoute>
         <Route exact path="/login" component={Login}></Route>
       </Switch>
     </HashRouter>
