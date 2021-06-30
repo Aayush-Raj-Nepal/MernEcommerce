@@ -22,4 +22,4 @@ const db = firebase.firestore();
 const extrasCollection = db.collection("extras");
 
 // export utils/refs
-export { db, extrasCollection };
+export {firebase, db, extrasCollection };

@@ -1,6 +1,7 @@
 const mongoose=require('mongoose')
 import { Schema, model as Model } from "mongoose"
-
+const crypto = require("crypto");
+const uuidv1 = require("uuid/v1");
 mongoose.promise=global.Promise;
 import {SchemaProvider} from "../library/schema/provider"
 import SocialSchema from "../library/schema/social"
@@ -29,10 +30,13 @@ let balanceSchema=new Schema(
 let UserSchema=Schema(
     {
         name:{
-            type:String
+            type:String,
+            required:true
         },
         email:{
-            type:String
+            type:String,
+            required:true,
+            unique:true
         },
         phone:{
             type:String
@@ -53,7 +57,10 @@ let UserSchema=Schema(
             type:String,
         },
         socials:[SocialSchema],
-        password_history:[historySchema],
+        encry_password: {
+            type: String,
+          },
+          salt: String,
         rated_products:[RatedProductsSchema],
         images:[
             {
@@ -64,14 +71,40 @@ let UserSchema=Schema(
         last_active:{
             type:Date
         },
-    
         commented_products:[CommentedProductsSchema]
-
-
     },{
         timestamps:true
 
     }
 )
+
+UserSchema
+  .virtual("password")
+  .set(function(password) {
+    this._password = password;
+    this.salt = uuidv1();
+    this.encry_password = this.securePassword(password);
+  })
+  .get(function() {
+    return this._password;
+  });
+
+UserSchema.methods = {
+  autheticate: function(plainpassword) {
+    return this.securePassword(plainpassword) === this.encry_password;
+  },
+
+  securePassword: function(plainpassword) {
+    if (!plainpassword) return "";
+    try {
+      return crypto
+        .createHmac("sha256", this.salt)
+        .update(plainpassword)
+        .digest("hex");
+    } catch (err) {
+      return "";
+    }
+  }
+};
 
 module.exports=mongoose.models.User || Model("User",UserSchema,'users')
