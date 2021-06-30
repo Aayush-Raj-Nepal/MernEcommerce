@@ -64,11 +64,25 @@ function Sidebar(props) {
               <MenuItem>
                 About Us <Link to="/aboutus"></Link>
               </MenuItem>
+              <MenuItem>
+                Privacy Policy <Link to="/privacypolicy"></Link>
+              </MenuItem>
+              <MenuItem>
+                Terms & Conditions <Link to="/terms"></Link>
+              </MenuItem>
+              <MenuItem>
+                Refund & Return Policy <Link to="/refundpolicy"></Link>
+              </MenuItem>
             </SubMenu>
           </Menu>
           <Menu iconShape="square">
             <MenuItem icon={<i className="fa fa-envelope"></i>}>
               Contact Messages <Link to="/contactmessage"></Link>
+            </MenuItem>
+          </Menu>
+          <Menu iconShape="square">
+            <MenuItem icon={<i className="fa fa-envelope"></i>}>
+              Newsletter Mails <Link to="/newsletter"></Link>
             </MenuItem>
           </Menu>
           <Menu iconShape="square">

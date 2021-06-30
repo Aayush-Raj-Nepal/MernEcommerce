@@ -18,6 +18,9 @@ import FaQ from "./views/Faq";
 import RequestProduct from "./views/Requestproduct"
 import OrderPlaced from "./views/Orderplaced"
 import Dashboard from "./views/Overview"
+import PrivacyPolicy from "./views/Privacypolicy";
+import TermsConditions from "./views/Termsconditions";
+import RefundPolicy from "./views/Refundpolicy";
 
 
 import PageNotFound from "./views/404"
@@ -66,6 +69,11 @@ const Routes = () => {
         <Route path="/requestproduct" exact component={RequestProduct}/>
         <Route path="/orderplaced" exact component={OrderPlaced}/>
         <Route path="/dashboard" component={Dashboard}/>
+        <Route path="/privacypolicy" exact component={PrivacyPolicy}/>
+        <Route path="/terms" exact component={TermsConditions}/>
+        <Route path="/refundpolicy" exact component={RefundPolicy}/>
+
+
 
 
 

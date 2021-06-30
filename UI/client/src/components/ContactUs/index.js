@@ -46,13 +46,11 @@ function ContactUs() {
             </div>
           </div>
         </div>
-        <div className="all-product-grid">
+        <div className="all-product-grid ">
           <div className="container">
             <div className="row">
-              <div className="col-lg-6 col-md-6">
-                <Location></Location>
-              </div>
-              <div className="col-lg-6 col-md-6">
+              
+              <div className="col-lg-8 offset-lg-2">
                 {renderHTML(content)}
                 <Form></Form>
               </div>
