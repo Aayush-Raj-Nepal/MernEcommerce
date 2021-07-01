@@ -1,4 +1,6 @@
 import React from 'react'
+import Accordion from 'react-bootstrap/Accordion'
+import Card from 'react-bootstrap/Card'
 
 function index() {
     return (
@@ -26,120 +28,120 @@ function index() {
 							<h2>Frequently Asked Questions</h2>
 							<img src="images/line.svg" alt=""/>
 						</div>
-						<div className="panel-group accordion pt-1" id="accordion0">
-							<div className="panel panel-default">
-								<div className="panel-heading" id="headingOne">
+						<Accordion defaultActiveKey="0" className="panel-group accordion pt-1">
+							<Card className="panel panel-default">
+								<div className="panel-heading">
 									<div className="panel-title">
-										<a className="collapsed" data-toggle="collapse" data-target="#collapseOne" href="#" aria-expanded="false" aria-controls="collapseOne">
+										<Accordion.Toggle as={Card.Header} eventKey="0" className="collapsed">
 											Registration
-										</a>
+										</Accordion.Toggle>
 									</div>
 								</div>
-								<div id="collapseOne" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion0" >
+								<Accordion.Collapse eventKey="0" className="panel-collapse collapse fw-bold">
 									<div className="panel-body">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</p>
+										<Card.Body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</Card.Body>
+									</div>
+								</Accordion.Collapse>
+							</Card>
+							<Card className="panel panel-default">
+								<div className="panel-heading">
+									<div className="panel-title">
+										<Accordion.Toggle as={Card.Header} eventKey="1" className="collapsed" >
+											Account Related
+										</Accordion.Toggle>
 									</div>
 								</div>
-							</div>
-							<div className="panel panel-default">
+								<Accordion.Collapse eventKey="1" className="panel-collapse collapse fw-bold">
+									<div className="panel-body">
+										<Card.Body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</Card.Body>
+									</div>
+								</Accordion.Collapse>
+							</Card>	
+						    <Card className="panel panel-default">
+								<div className="panel-heading">
+									<div className="panel-title">
+										<Accordion.Toggle as={Card.Header} eventKey="2" className="collapsed" >
+											Payment
+										</Accordion.Toggle>
+									</div>
+								</div>
+								<Accordion.Collapse eventKey="2" className="panel-collapse collapse fw-bold">
+									<div className="panel-body">
+										<Card.Body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</Card.Body>
+									</div>
+								</Accordion.Collapse>
+							</Card>	
+						    <Card className="panel panel-default">
+								<div className="panel-heading">
+									<div className="panel-title">
+										<Accordion.Toggle as={Card.Header} eventKey="3" className="collapsed" >
+											Delivery Related
+										</Accordion.Toggle>
+									</div>
+								</div>
+								<Accordion.Collapse eventKey="3"  className="panel-collapse collapse fw-bold">
+									<div className="panel-body">
+										<Card.Body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</Card.Body>
+									</div>
+								</Accordion.Collapse>
+							</Card>
+							<Card className="panel panel-default">
+								<div className="panel-heading">
+									<div className="panel-title">
+										<Accordion.Toggle as={Card.Header} eventKey="4" className="collapsed" >
+											Product Related
+										</Accordion.Toggle>
+									</div>
+								</div>
+								<Accordion.Collapse eventKey="4" className="panel-collapse collapse fw-bold">
+									<div className="panel-body">
+										<Card.Body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</Card.Body>
+									</div>
+								</Accordion.Collapse>
+							</Card>
+							<Card className="panel panel-default">
+								<div className="panel-heading">
+									<div className="panel-title">
+										<Accordion.Toggle as={Card.Header} eventKey="5" className="collapsed" >
+											Customer Related
+										</Accordion.Toggle>
+									</div>
+								</div>
+								<Accordion.Collapse eventKey="5" className="panel-collapse collapse fw-bold">
+									<div className="panel-body">
+										<Card.Body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</Card.Body>
+									</div>
+								</Accordion.Collapse>
+							</Card>
+							<Card className="panel panel-default">
+								<div className="panel-heading" >
+									<div className="panel-title">
+										<Accordion.Toggle as={Card.Header} eventKey="6" className="collapsed" >
+											Refund & Return
+										</Accordion.Toggle>
+									</div>
+								</div>
+								<Accordion.Collapse eventKey="6" className="panel-collapse collapse fw-bold">
+									<div className="panel-body">
+										<Card.Body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</Card.Body>
+									</div>
+								</Accordion.Collapse>
+							</Card>
+							<Card className="panel panel-default">
 								<div className="panel-heading" id="headingTwo">
 									<div className="panel-title">
-										<a className="collapsed" data-toggle="collapse" data-target="#collapseTwo" href="#" aria-expanded="false" aria-controls="collapseTwo">
-											Account Related
-										</a>
-									</div>
-								</div>
-								<div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion0">
-									<div className="panel-body">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</p>
-									</div>
-								</div>
-							</div>
-							<div className="panel panel-default">
-								<div className="panel-heading" id="headingThree">
-									 <div className="panel-title">
-										<a className="collapsed" data-toggle="collapse" data-target="#collapseThree" href="#" aria-expanded="false" aria-controls="collapseThree">
-											Payment
-										</a>
-									</div>
-								</div>
-								<div id="collapseThree" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion0">
-									<div className="panel-body">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</p>
-									</div>
-								</div>
-							</div>
-							<div className="panel panel-default">
-								<div className="panel-heading" id="headingfour">
-									<div className="panel-title">
-										<a className="collapsed" data-toggle="collapse" data-target="#collapsefour" href="#" aria-expanded="false" aria-controls="collapsefour">
-											Delivery Related
-										</a>
-									</div>
-								</div>
-								<div id="collapsefour" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingfour" data-parent="#accordion0">
-									<div className="panel-body">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</p>
-									</div>
-								</div>
-							</div>
-							<div className="panel panel-default">
-								<div className="panel-heading" id="headingfive">
-									<div className="panel-title">
-										<a className="collapsed" data-toggle="collapse" data-target="#collapsefive" href="#" aria-expanded="false" aria-controls="collapsefive">
-											Order Related
-										</a>
-									</div>
-								</div>
-								<div id="collapsefive" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingfive" data-parent="#accordion0">
-									<div className="panel-body">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</p>
-									</div>
-								</div>
-							</div>
-							<div className="panel panel-default">
-								<div className="panel-heading" id="headingsix">
-									<div className="panel-title">
-										<a className="collapsed" data-toggle="collapse" data-target="#collapsesix" href="#" aria-expanded="false" aria-controls="collapsesix">
-											Customer Related
-										</a>
-									</div>
-								</div>
-								<div id="collapsesix" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingsix" data-parent="#accordion0">
-									<div className="panel-body">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</p>
-									</div>
-								</div>
-							</div>
-							<div className="panel panel-default">
-								<div className="panel-heading" id="headingseven">
-									<div className="panel-title">
-										<a className="collapsed" data-toggle="collapse" data-target="#collapseseven" href="#" aria-expanded="false" aria-controls="collapseseven">
-											Return & Refund
-										</a>
-									</div>
-								</div>
-								<div id="collapseseven" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingseven" data-parent="#accordion0">
-									<div className="panel-body">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</p>
-									</div>
-								</div>
-							</div>
-							<div className="panel panel-default">
-								<div className="panel-heading" id="headingeight">
-									<div className="panel-title">
-										<a className="collapsed" data-toggle="collapse" data-target="#collapseeight" href="#" aria-expanded="false" aria-controls="collapseeight">
+										<Accordion.Toggle as={Card.Header} eventKey="7" className="collapsed" >
 											How Does it Work
-										</a>
+										</Accordion.Toggle>
 									</div>
 								</div>
-								<div id="collapseeight" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeight" data-parent="#accordion0">
+								<Accordion.Collapse eventKey="7" className="panel-collapse collapse fw-bold">
 									<div className="panel-body">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</p>
+										<Card.Body>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam semper faucibus erat a efficitur. Praesent vulputate mauris eget augue semper, at eleifend enim aliquam. Vivamus suscipit lacinia neque eget suscipit. Morbi vitae nisl ac justo placerat vulputate ac quis lectus. Vestibulum pellentesque, orci eu ultrices molestie, nisi libero hendrerit eros, vel interdum augue tortor vel urna. Nullam enim dolor, pulvinar in metus vitae, tincidunt dignissim neque. Pellentesque tempor nulla eu neque hendrerit fringilla. Suspendisse ultricies venenatis maximus. Suspendisse erat elit, ultricies eu porta nec, luctus sit amet dui. Fusce feugiat odio semper, hendrerit lectus vitae, convallis nisl. Ut a justo diam. Donec vitae leo lorem. Cras pharetra libero ut urna condimentum, non imperdiet leo posuere.</Card.Body>
 									</div>
-								</div>
-							</div>							
-						</div>
+								</Accordion.Collapse>
+							</Card>
+						</Accordion>							
 					</div>
 				</div>
 			</div>
