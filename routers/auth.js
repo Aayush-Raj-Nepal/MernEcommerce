@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const { check, validationResult } = require("express-validator");
-const { signout, signup, signin } = require("../controllers/Auth");
+const { signout, signup, signin,resetPassword,forgetP } = require("../controllers/Auth");
 import AdminAuthRouter from "./adminAuth"
 
 router.use("/admin", AdminAuthRouter)
@@ -13,8 +13,7 @@ router.post(
   [
     check("name", "name should be at least 3 char").isLength({ min: 3 }),
     check("email", "email is required").isEmail(),
-    check("password", "password should be at least 3 char").isLength({ min: 3 }),
-    check("phone","correct phone number is required").isLength({min:10,max:10}),
+    check("password", "password should be at least 3 char").isLength({ min: 3 })
   ],
   signup
 );
@@ -27,6 +26,22 @@ router.post(
   ],
   signin
 );
+// router.post(
+//   "/forgetpassword",
+//   [
+//     check("email", "email is required").isEmail(),
+//   ],
+//   forgetPassword
+// );
+// router.post(
+//   "/resetPassword",
+//   [
+//     check("resetPasswordToken", "Password Reset Token Invalid!").isEmail(),
+//     check("password", "password field is required").isLength({ min: 8 }),
+//     check("newPassword", "new password field is required").isLength({ min: 8 })
+//   ],
+//   resetPassword
+// );
 
 router.get("/signout", signout);
 

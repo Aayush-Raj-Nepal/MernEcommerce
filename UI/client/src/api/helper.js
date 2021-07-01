@@ -1,6 +1,9 @@
 import { API } from "./backend";
 import axios from "axios";
 
+export const login=(userData)=>{
+
+}
 export const getLatestProducts = (data) => {
   return axios
     .get(API + "product/latest")

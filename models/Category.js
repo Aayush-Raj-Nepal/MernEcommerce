@@ -67,6 +67,11 @@ let CategorySchema = new Schema(
   }
 );
 
-CategorySchema.plugin(autoIncrement.plugin, "Category");
+CategorySchema.plugin(autoIncrement.plugin,{
+  model: 'Category',
+  field: '_id',
+  startAt: 1000,
+  incrementBy:1
+});
 module.exports =
   mongoose.models.Category || Model("Category", CategorySchema, "category");

@@ -24,4 +24,8 @@ const contactMessageCollection = db.collection("contactMessage");
 const emailCollection = db.collection("newsletter");
 
 // export utils/refs
+<<<<<<< HEAD
 export { db, extrasCollection, contactMessageCollection, emailCollection };
+=======
+export { db, extrasCollection, contactMessageCollection, emailCollection };
+>>>>>>> c1f990f047db0670c37362ef82aac8df3d7399aa

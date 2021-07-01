@@ -69,6 +69,7 @@ const Routes = () => {
         <Route path="/requestproduct" exact component={RequestProduct}/>
         <Route path="/orderplaced" exact component={OrderPlaced}/>
         <Route path="/dashboard" component={Dashboard}/>
+        <Route path="/category/:id" component={CategoryProducts}/>
         <Route path="/privacypolicy" exact component={PrivacyPolicy}/>
         <Route path="/terms" exact component={TermsConditions}/>
         <Route path="/refundpolicy" exact component={RefundPolicy}/>
