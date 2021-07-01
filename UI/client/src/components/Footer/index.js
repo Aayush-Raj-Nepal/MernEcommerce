@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getCategory } from "../../api/helper";
 import { Link } from "react-router-dom";
+import * as fb from "../../api/firebase";
+import swal from "sweetalert2";
 function Footer() {
   const [category, setCategory] = useState([]);
   useEffect(() => {
@@ -10,7 +12,50 @@ function Footer() {
         setCategory(res);
       });
     })();
+  },[]);
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+    error: "",
+    loading: false,
+  });
+ const {email}=values
+  useEffect(() => {
+    setValues({ ...values, error: "", success: false });
   }, []);
+  const handleChange = (name) => (event) => {
+    const value = event.target.value;
+    setValues({ ...values, [name]: value });
+  };
+  const onSubmit = async(event) => {
+    event.preventDefault();
+    setValues({ ...values, error: false, loading: true });
+    console.log(values);
+    let error=(values.email=="")
+    if (error) {
+      swal.fire({
+        title:"Email Required",
+        icon:"warning",
+      })
+    } else {
+      await fb.emailCollection.add({
+        createdOn: new Date(),
+        email: values.email,
+      });
+      swal.fire({
+        title:"Thanks for Subscribing",
+        icon:"success",
+      })
+      setValues({
+      email: "",
+      error: "",
+      loading: false,})
+    }
+  };
+
+  
   return (
     <div>
       <footer className="footer">
@@ -187,14 +232,16 @@ function Footer() {
                   <div className="newsletter-input">
                     <input
                       id="email"
+                      onChange={handleChange("email")}
+                      value={email}
                       name="email"
                       type="text"
                       placeholder="Email Address"
                       className="form-control input-md"
                       required=""
                     />
-                    <button className="newsletter-btn hover-btn" type="submit">
-                      <i className="uil uil-telegram-alt"></i>
+                    <button className="newsletter-btn hover-btn" type="submit" onClick={onSubmit}>
+                      <i className="fa fa-envelope"></i>
                     </button>
                   </div>
                 </div>

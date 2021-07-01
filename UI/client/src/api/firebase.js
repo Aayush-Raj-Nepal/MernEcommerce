@@ -13,13 +13,15 @@ var firebaseConfig = {
   measurementId: "G-9G0WF7PJ05",
 };
 firebase.initializeApp(firebaseConfig);
+
 // utils
 const db = firebase.firestore();
 // const auth = firebase.auth();
 
 // collection references
-const contactMessageCollection=db.collection("contactMessage")
 const extrasCollection = db.collection("extras");
+const contactMessageCollection = db.collection("contactMessage");
+const emailCollection = db.collection("newsletter");
 
 // export utils/refs
-export {firebase, db, extrasCollection,contactMessageCollection };
+export { db, extrasCollection, contactMessageCollection, emailCollection };
