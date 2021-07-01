@@ -18,7 +18,7 @@ import FaQ from "./views/Faq";
 import RequestProduct from "./views/Requestproduct"
 import OrderPlaced from "./views/Orderplaced"
 import Dashboard from "./views/Overview"
-
+import CategoryProducts from "./views/CategoryProduct"
 
 import PageNotFound from "./views/404"
 
@@ -66,6 +66,7 @@ const Routes = () => {
         <Route path="/requestproduct" exact component={RequestProduct}/>
         <Route path="/orderplaced" exact component={OrderPlaced}/>
         <Route path="/dashboard" component={Dashboard}/>
+        <Route path="/category/:id" component={CategoryProducts}/>
 
 
 

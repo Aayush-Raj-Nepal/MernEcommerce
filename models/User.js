@@ -88,7 +88,6 @@ UserSchema
   .get(function() {
     return this._password;
   });
-
 UserSchema.methods = {
   autheticate: function(plainpassword) {
     return this.securePassword(plainpassword) === this.encry_password;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getCategory } from "../../api/helper";
 import { getMediaUrl } from "../../api/functions";
-
+import {Link} from 'react-router-dom'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 const responsive = {
@@ -98,7 +98,7 @@ function CategorySlider() {
                   {category?.length > 0 ? (
                     category?.map((cat, index) => (
                       <div className="item" key={index}>
-                        <a href="#" className="category-item">
+                          <Link to={`/category/${cat._id}`}  className="category-item">
                           <div className="cate-img1">
                             <img
                               style={imageStyle}
@@ -107,7 +107,7 @@ function CategorySlider() {
                             />
                           </div>
                           <h4>{cat.eng_name}</h4>
-                        </a>
+                          </Link>
                       </div>
                     ))
                   ) : (

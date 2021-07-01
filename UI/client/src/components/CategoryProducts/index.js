@@ -1,5 +1,6 @@
 import { useState, useEffect, setState, Fragment } from "react";
 import { useStateValue } from "../../StateProvider";
+import {Link} from 'react-router-dom'
 import Products from "./Products";
 import "react-multi-carousel/lib/styles.css";
 import { getHomeCategories } from "../../api/helper";
@@ -32,9 +33,9 @@ function CategoryProducts() {
                       {/*  This section is for additional info <span></span> */}
                       <h2>{cat.eng_name}</h2>
                     </div>
-                    <a href="#" className="see-more-btn">
+                    <Link to={`/category/${cat._id}`} className="see-more-btn">
                       See All
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="col-md-12">

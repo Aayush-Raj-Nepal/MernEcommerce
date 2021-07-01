@@ -13,20 +13,13 @@ var firebaseConfig = {
   measurementId: "G-9G0WF7PJ05",
 };
 firebase.initializeApp(firebaseConfig);
-firebase.auth().languageCode = 'it';
-window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-  'size': 'invisible',
-  'callback': (response) => {
-    onSignInSubmit();
-  }
-});
-
 // utils
 const db = firebase.firestore();
 // const auth = firebase.auth();
 
 // collection references
+const contactMessageCollection=db.collection("contactMessage")
 const extrasCollection = db.collection("extras");
 
 // export utils/refs
-export {firebase, db, extrasCollection };
+export {firebase, db, extrasCollection,contactMessageCollection };

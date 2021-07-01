@@ -82,7 +82,8 @@ function HeaderBottom() {
                       {category && category.length > 0
                         ? category.map((cat, index) => (
                             <li key={index}>
-                              <a href="#" className="single-cat-item">
+                                                        <Link className="single-cat-item" to={`/category/${cat._id}`}>
+
                                 <div className="icon">
                                   <img
                                     src={getMediaUrl("product/" + cat.image)}
@@ -90,8 +91,7 @@ function HeaderBottom() {
                                   />
                                 </div>
                                 <div className="text"> {cat.eng_name}</div>
-                              </a>
-                            </li>
+</Link>                            </li>
                           ))
                         : "fetching categories.."}
                     </ul>
