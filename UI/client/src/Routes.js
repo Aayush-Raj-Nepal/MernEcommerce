@@ -14,6 +14,7 @@ import SingleProductView from "./views/Singleproductview";
 import CheckOut from "./views/Checkout";
 import BillSlip from "./views/Bill";
 import OfferS from "./views/Offer";
+import FeaturedProduct from "./views/FeaturedProduct";
 import FaQ from "./views/Faq";
 import RequestProduct from "./views/Requestproduct"
 import OrderPlaced from "./views/Orderplaced"
@@ -21,6 +22,7 @@ import Dashboard from "./views/Overview"
 import PrivacyPolicy from "./views/Privacypolicy";
 import TermsConditions from "./views/Termsconditions";
 import RefundPolicy from "./views/Refundpolicy";
+import CategoryProducts from "./views/CategoryProduct"
 
 
 import PageNotFound from "./views/404"
@@ -73,6 +75,7 @@ const Routes = () => {
         <Route path="/privacypolicy" exact component={PrivacyPolicy}/>
         <Route path="/terms" exact component={TermsConditions}/>
         <Route path="/refundpolicy" exact component={RefundPolicy}/>
+        <Route path="/featuredproduct" exact component={FeaturedProduct}/>
 
 
 

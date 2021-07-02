@@ -108,7 +108,7 @@ function Footer() {
                       category.length > 0 &&
                       category.map((cat, index) => (
                         <li key={index}>
-                          <Link to="/">{cat.eng_name}</Link>
+                          <Link to={`/category/${cat._id}`}>{cat.eng_name}</Link>
                         </li>
                       ))}
                   </ul>
@@ -119,25 +119,25 @@ function Footer() {
                   <h4>Useful Links</h4>
                   <ul>
                     <li>
-                      <a href="about_us.html">About US</a>
+                      <Link to={`/aboutus`}>About US</Link>
                     </li>
                     <li>
-                      <a href="shop_grid.html">Featured Products</a>
+                      <Link to={`/featuredproduct`}>Featured Products</Link>
                     </li>
                     <li>
-                      <a href="offers.html">Offers</a>
+                      <Link to={`/offers`}>Offers</Link>
                     </li>
                     <li>
-                      <a href="our_blog.html">Blog</a>
+                      <Link to={`/blog`}>Blog</Link>
                     </li>
                     <li>
-                      <a href="faq.html">Faq</a>
+                      <Link to={`/faq`}>Faq</Link>
                     </li>
                     <li>
-                      <a href="career.html">Careers</a>
+                      <Link to={`/careers`}>Careers</Link>
                     </li>
                     <li>
-                      <a href="contact_us.html">Contact Us</a>
+                      <Link to={`/contact`}>Contact Us</Link>
                     </li>
                   </ul>
                 </div>
@@ -149,7 +149,7 @@ function Footer() {
                     <li>
                       <a href="#">Kathmandu</a>
                     </li>
-                    <li>
+                    {/* <li>
                       <a href="#">Biratnagar</a>
                     </li>
                     <li>
@@ -157,73 +157,36 @@ function Footer() {
                     </li>
                     <li>
                       <a href="#">Dhangadhi</a>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>
-              <div className="col-lg-3 col-md-6 col-sm-6">
-                <div className="second-row-item-app">
-                  <h4>Download App</h4>
-                  <ul>
-                    <li>
-                      <a href="#">
-                        <img
-                          className="download-btn"
-                          src="images/download-1.svg"
-                          alt=""
-                        />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <img
-                          className="download-btn"
-                          src="images/download-2.svg"
-                          alt=""
-                        />
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+              <div className="col-lg-3 col-md-6 col-sm-6">         
                 <div className="second-row-item-payment">
                   <h4>Payment Method</h4>
                   <div className="footer-payments">
                     <ul id="paypal-gateway" className="financial-institutes">
                       <li className="financial-institutes__logo">
                         <img
-                          alt="Visa"
-                          title="Visa"
-                          src="images/footer-icons/pyicon-6.svg"
+                          alt="Khalti"
+                          title="Khalti"
+                          src="images/khalti.png"
                         />
                       </li>
-                      <li className="financial-institutes__logo">
+                      <li className="financial-institutes__logo" >
                         <img
-                          alt="Visa"
-                          title="Visa"
-                          src="images/footer-icons/pyicon-1.svg"
+                          alt="esewa"
+                          title="esewa"
+                          src="images/esewa.jpg"
                         />
                       </li>
-                      <li className="financial-institutes__logo">
+                      {/* <li className="financial-institutes__logo">
                         <img
                           alt="MasterCard"
                           title="MasterCard"
                           src="images/footer-icons/pyicon-2.svg"
                         />
-                      </li>
-                      <li className="financial-institutes__logo">
-                        <img
-                          alt="American Express"
-                          title="American Express"
-                          src="images/footer-icons/pyicon-3.svg"
-                        />
-                      </li>
-                      <li className="financial-institutes__logo">
-                        <img
-                          alt="Discover"
-                          title="Discover"
-                          src="images/footer-icons/pyicon-4.svg"
-                        />
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                 </div>
@@ -256,21 +219,21 @@ function Footer() {
                 <div className="footer-bottom-links">
                   <ul>
                     <li>
-                      <a href="about_us.html">About</a>
+                      <Link to={`/aboutus`}>About</Link>
                     </li>
                     <li>
-                      <a href="contact_us.html">Contact</a>
+                      <Link to={`/contact`}>Contact</Link>
                     </li>
                     <li>
-                      <a href="privacy_policy.html">Privacy Policy</a>
+                      <Link to={`/privacypolicy`}>Privacy Policy</Link>
                     </li>
                     <li>
-                      <a href="term_and_conditions.html">Term & Conditions</a>
+                      <Link to={`/terms`}>Term & Conditions</Link>
                     </li>
                     <li>
-                      <a href="refund_and_return_policy.html">
+                      <Link to={`/refundpolicy`}>
                         Refund & Return Policy
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>

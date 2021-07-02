@@ -5,6 +5,7 @@ import Product from "../Product/home";
 import "react-multi-carousel/lib/styles.css";
 import { getLatestProducts } from "../../api/helper";
 import { getMediaUrl } from "../../api/functions";
+import { Link } from "react-router-dom"
 
 const Responsive = {
   desktop: {
@@ -16,7 +17,7 @@ const Responsive = {
     partialVisibilityGutter: 40,
   },
   mobile: {
-    breakpoint: {
+breakpoint: {
       max: 464,
       min: 0,
     },
@@ -66,7 +67,8 @@ function LatestProducts() {
         setProducts(res);
       });
     })();
-  }, []);
+  }, 
+[]);
   return (
     <div>
       {products && (
@@ -79,9 +81,9 @@ function LatestProducts() {
                     <span>For You</span>
                     <h2>Added New Products</h2>
                   </div>
-                  <a href="#" className="see-more-btn">
+                  <Link to={`/newproduct`} className="see-more-btn">
                     See All
-                  </a>
+                    </Link>
                 </div>
               </div>
               <div className="col-md-12">
