@@ -5,6 +5,8 @@ import Product from "../Product/home";
 import { featuredProducts } from "../../api/helper";
 import { getMediaUrl } from "../../api/functions";
 import "react-multi-carousel/lib/styles.css";
+import { Link } from "react-router-dom"
+
 
 function FeaturedProducts() {
   const [state, dispatch] = useStateValue();
@@ -80,9 +82,9 @@ function FeaturedProducts() {
                     <span>For You</span>
                     <h2>Top Featured Products</h2>
                   </div>
-                  <a href="#" className="see-more-btn">
+                  <Link to={`/featuredproduct`} className="see-more-btn">
                     See All
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="col-md-12">

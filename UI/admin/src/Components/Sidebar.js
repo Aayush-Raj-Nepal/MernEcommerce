@@ -81,7 +81,12 @@ function Sidebar(props) {
             </MenuItem>
           </Menu>
           <Menu iconShape="square">
-            <MenuItem icon={<i className="fa fa-envelope"></i>}>
+            <MenuItem icon={<i className="fa fa-question-circle"></i>}>
+              FAQ <Link to="/faq"></Link>
+            </MenuItem>
+          </Menu>
+          <Menu iconShape="square">
+            <MenuItem icon={<i className="fa fa-newspaper"></i>}>
               Newsletter Mails <Link to="/newsletter"></Link>
             </MenuItem>
           </Menu>

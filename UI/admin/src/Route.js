@@ -19,6 +19,7 @@ import PrivacyPolicy from "./views/PrivacyPolicy/Index"
 import TermsConditions from "./views/TermsConditions/Index"
 import RefundPolicy from "./views/RefundPolicy/Index"
 import Newsletter from "./views/Newsletter/Index"
+import Faq from "./views/Faq/Index"
 
 const Routes = () => {
   return (
@@ -61,6 +62,7 @@ const Routes = () => {
         <AdminRoute exact path="/terms" component={TermsConditions}></AdminRoute>
         <AdminRoute exact path="/contactmessage" component={ContactMessage}></AdminRoute>
         <AdminRoute exact path="/newsletter" component={Newsletter}></AdminRoute>
+        <AdminRoute exact path="/faq" component={Faq}></AdminRoute>
         <Route exact path="/login" component={Login}></Route>
       </Switch>
     </HashRouter>

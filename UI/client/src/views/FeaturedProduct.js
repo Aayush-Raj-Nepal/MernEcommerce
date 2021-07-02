@@ -15,7 +15,7 @@ function Newproduct({match}) {
       fetchProducts()
     }, [])
     const fetchProducts=()=>{
-        axios.get(API+"/product/latest").then(resp=>{
+        axios.get(API+"/product/featured").then(resp=>{
             setProducts(resp.data)
             console.log(resp.data)
           }).catch(err=>{
@@ -41,7 +41,7 @@ function Newproduct({match}) {
                      <nav aria-label="breadcrumb">
                              <ol className="breadcrumb">
                                  <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-                                 <li className="breadcrumb-item active" aria-current="page">New product</li>
+                                 <li className="breadcrumb-item active" aria-current="page">Featured product</li>
                              </ol>
                          </nav>
                      </div>
@@ -54,7 +54,7 @@ function Newproduct({match}) {
                      <div className="col-lg-12">
                      <div className="product-top-dt">
                              <div className="product-left-title">
-                                 <h2>New Product</h2>
+                                 <h2>Featured Product</h2>
                              </div>
                              <a href="#" className="filter-btn pull-bs-canvas-right">Filters</a>
                              <div className="product-sort">

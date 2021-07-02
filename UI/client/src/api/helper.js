@@ -32,6 +32,14 @@ export const getHomeCategories = (id) => {
     })
     .catch((err) => console.log(err));
 };
+export const getHomeNewProduct = (id) => {
+  return axios
+    .get(`${API}newproduct/inHome`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => console.log(err));
+};
 export const featuredProducts = (data) => {
   return axios
     .get(API + "product/featured")

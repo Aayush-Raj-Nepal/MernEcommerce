@@ -1,7 +1,8 @@
 const mongoose=require('mongoose')
 import { Schema, model as Model } from "mongoose"
 const crypto = require("crypto");
-const uuidv1 = require("uuid/v1");
+// const uuidv1 = require("uuid/v1");
+import { v1 as uuidv1 } from 'uuid';
 mongoose.promise=global.Promise;
 import {SchemaProvider} from "../library/schema/provider"
 import SocialSchema from "../library/schema/social"
