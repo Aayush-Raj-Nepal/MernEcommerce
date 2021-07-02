@@ -1,18 +1,19 @@
 var express = require("express");
 var router = express.Router();
 const { check, validationResult } = require("express-validator");
-const { signout, signup, signin,resetPassword,forgetP } = require("../controllers/Auth");
+const { signout, signup, signin,resetPassword,forgetP,checkUserExist } = require("../controllers/Auth");
+import {Auth,Request} from "../middlewares"
 import AdminAuthRouter from "./adminAuth"
 
 router.use("/admin", AdminAuthRouter)
 
-
+router.get("/user/exists/:id",Request.ParamsToBody, checkUserExist)
 // admin
 router.post(
   "/signup",
   [
     check("name", "name should be at least 3 char").isLength({ min: 3 }),
-    check("email", "email is required").isEmail(),
+    check("email", "correct email is required").isEmail(),
     check("password", "password should be at least 3 char").isLength({ min: 3 })
   ],
   signup

@@ -21,7 +21,7 @@ import Dashboard from "./views/Overview"
 import PrivacyPolicy from "./views/Privacypolicy";
 import TermsConditions from "./views/Termsconditions";
 import RefundPolicy from "./views/Refundpolicy";
-
+import CategoryProducts from "./views/CategoryProduct"
 
 import PageNotFound from "./views/404"
 
@@ -73,7 +73,6 @@ const Routes = () => {
         <Route path="/privacypolicy" exact component={PrivacyPolicy}/>
         <Route path="/terms" exact component={TermsConditions}/>
         <Route path="/refundpolicy" exact component={RefundPolicy}/>
-
 
 
 

@@ -3,6 +3,8 @@ import {InputGroup,FormControl} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import firebase from "firebase/app"
 import swal from "sweetalert2"
+import axios from 'axios'
+import {API} from "../../api/backend"
 const Index=()=>{
 	const [user,setUser]=useState({
 		name:'',
@@ -10,6 +12,9 @@ const Index=()=>{
 		phone:'',
 		password:''
 	})
+	const[typing,setTyping]=useState(false)
+    const[ typingTimeout,setTypingTimeout]=useState(0)
+	const {phone}=user
 	const[invalid,setInvalid]=useState(false)
 	const [loading,setLoading]=useState(false)
 	const[sent,setSent]=useState(false)
@@ -19,27 +24,34 @@ const Index=()=>{
 		let number=user.phone
 		// console.log(user)
        if (number && number.length>=10) {
-		firebase.auth().signInWithPhoneNumber('+977'+number, window.recaptchaVerifier).then(function (confirmationResult) {
-            //s is in lowercase
-            window.confirmationResult = confirmationResult;
-            var coderesult = confirmationResult;
-            console.log(coderesult);
-            // alert("Message sent");
-			setSent(true)
-        }).catch(function (error) {
-            alert(error.message);
-        });
+		axios.get(API+"auth/user/exists/"+number).then(resp=>{
+			firebase.auth().signInWithPhoneNumber('+977'+number, window.recaptchaVerifier).then(function (confirmationResult) {
+				//s is in lowercase
+				window.confirmationResult = confirmationResult;
+				var coderesult = confirmationResult;
+				console.log(coderesult);
+				// alert("Message sent");
+				setSent(true)
+			}).catch(function (error) {
+				alert(error.message);
+			});
+		}).catch(err=>{
+			console.log(err)	
+			swal.fire({title:"Phone Number Already Registered !",icon:"warning"})
+		})
+		
 	   } else {
 		   swal.fire({title:"provide valid phone number",icon:'info'})
 	   }
     }
 
-	const handleChange = (name) => (event) => {
-		setUser({ ...user, [name]: event.target.value });
+	const handleChange =  (name) => (event) => {
+				setUser({ ...user, [name]: event.target.value });
 	  };
 	const handleCode = (event) => {
 		// console.log(event.target.value)
 		setInvalid(false)
+		
 		return event.target.value.length==6?verifyCode(event.target.value):''
 	};
 	function signup(){
@@ -60,7 +72,14 @@ const Index=()=>{
 		if (error && error!='') {
 		swal.fire(error)
 			
-		} else {
+		} else {console.log(user)
+			axios.post(API+"auth/signup",{
+				...user
+			}).then(resp=>{
+				console.log(resp)
+			}).catch(err=>{
+				console.log(err)
+			})
 		swal.fire('success')
 		}
 	}
@@ -118,7 +137,7 @@ const Index=()=>{
       	<InputGroup.Append>
           <InputGroup.Text className="bg-transparent"><i className="fa fa-mobile-alt bg-none border-0"></i></InputGroup.Text>
         </InputGroup.Append>
-        <input type="Number" maxLength={6} disabled={sent} className="form-control"  onChange={handleChange("phone") }placeholder="Phone Number" />
+        <input type="Number" maxLength={6} disabled={sent} className="form-control" value={phone}  onChange={handleChange("phone") }placeholder="Phone Number" />
 		{!verified && 	<InputGroup.Append className="border-0">
 			<InputGroup.Text className="bg-transparent"><span style={{cursor:'pointer'}}  id='sign-in-button' onClick={phoneAuth}>Send Code</span></InputGroup.Text>
 		  </InputGroup.Append>}

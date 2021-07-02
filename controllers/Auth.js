@@ -64,6 +64,24 @@ exports.adminSignin=(req,res)=>{
 }
 
 // client functions
+exports.checkUserExist=(req,res)=>{
+  User.findOne({phone:req.body.id}).then(user=>{
+    if (user) {
+      return res.status(400).json({
+        error_message:"User Already Exists"
+      })
+    } else {
+      return res.status(200).json({
+        message:"New user can be created !"
+      })
+    }
+  }).catch(err=>{
+    console.log(err)
+    return res.status(400).json({
+      error_message:"Error while checking user"
+    })
+  })
+}
 exports.signup = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -82,6 +100,7 @@ exports.signup = (req, res) => {
     return res.json({
       name: user.name,
       email: user.email,
+      phone:user.phone,
       id: user._id
     });
   });
