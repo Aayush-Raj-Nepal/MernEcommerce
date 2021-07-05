@@ -8,7 +8,6 @@ router.post(
   "/product",
   Auth.VerifyAdmin,
   multer.single("media"),
-
   createProductImage
 );
 router.get("/product/:id", Request.ParamsToBody, getProductImage);

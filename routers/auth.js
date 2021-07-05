@@ -22,7 +22,7 @@ router.post(
 router.post(
   "/signin",
   [
-    check("email", "email is required").isEmail(),
+    check("phone", "phone is required").isLength({ min: 10 }),
     check("password", "password field is required").isLength({ min: 1 })
   ],
   signin

@@ -89,6 +89,16 @@ exports.signup = (req, res) => {
       error_message: errors.array()[0].msg
     });
   }
+  req.body.password_history=[
+    {
+      key: "String",
+      value: bcrypt.hashSync(req.body.password, 10),
+    },
+  ],
+  delete req.body.password
+  req.body.tokens=[TokenFactory.produceToken()]
+  // console.log(req.body)
+  // let user=req.body
   const user = new User(req.body);
   user.save((err, user) => {
     if (err) {
@@ -101,6 +111,7 @@ exports.signup = (req, res) => {
       name: user.name,
       email: user.email,
       phone:user.phone,
+      token:user.tokens.pop(),
       id: user._id
     });
   });
@@ -123,30 +134,55 @@ exports.googlesignup = (req, res) => {
 
 exports.signin = (req, res) => {
   const errors = validationResult(req);
-  const { email, password } = req.body;
-
   if (!errors.isEmpty()) {
     return res.status(422).json({
       error_message: errors.array()[0].msg
     });
   }
-
-  User.findOne({ email }, (err, user) => {
-    if (err || !user) {
-      return res.status(400).json({
-        error: "USER email does not exists"
-      });
-    }
-    if (!user.autheticate(password)) {
-      return res.status(401).json({
-        error: "Email and password do not match"
-      });
-    }
-    //create token
-    const token = jwt.sign({ _id: user._id }, process.env.SECRET);
-    const { _id, name, email, role, status,phone } = user;
-    return res.json({ token:{token:token,expire:new Date()+9999}, user: { _id, name, email, role, status,phone } });
-  });
+  const { phone, password } = req.body;
+  User.findOne({
+    phone:phone,
+  })
+    .then(async (user) => {
+     
+      let result = await bcrypt.compare(
+        password,
+        GetRecent(user.password_history)
+      )
+      // console.log(user.password_history)
+      // console.log(password)
+      // return
+      if (result) {
+        let token = TokenFactory.produceToken()
+        if (user.tokens == null) user.tokens = []
+        console.log(user.tokens)
+        User.findByIdAndUpdate(user._id, {
+          $set: { tokens: token },
+        })
+          .then((d) => {
+            res.status(200).json({
+              
+                name:d.name,
+                phone:d.email,
+                email:d.email,
+                token:token
+            })
+          })
+          .catch((e) => {
+            res.status(404).json({
+              message: "Something Went Wrong",
+              code: 10,
+            })
+          })
+      } else {
+        throw "Wrong password"
+      }
+    })
+    .catch((err) => {
+      res.status(400).json({
+        message: err.message,
+      })
+    })
 };
 
 exports.signout = (req, res) => {

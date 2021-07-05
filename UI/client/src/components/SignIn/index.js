@@ -1,7 +1,60 @@
 import React,{useState,useEffect} from 'react'
+import {useHistory} from "react-router-dom"
 import {Link} from 'react-router-dom'
-
+import swal from "sweetalert2"
+import axios from 'axios'
+import {API} from "../../api/backend"
+import {useStateValue} from "../../StateProvider"
 function LogIn() {
+	const [user,setUser]=useState({
+		phone:'',
+		password:''
+	})
+	const history=useHistory()
+	const [state,dispatch]=useStateValue()
+	const [seePassword,setSeePassword]=useState(false)
+	const handleChange =  (name) => (event) => {
+				setUser({ ...user, [name]: event.target.value });
+	  };
+
+	function signin(){
+		console.log(user)
+		let error=''
+	 if (user.password=='') {
+			error='Password is required'
+		}else if (user.phone=='' ||user.phone.length!==10) {
+			error='Correct Phone Number is required'
+		}
+
+		if (error && error!='') {
+		swal.fire(error)
+			
+		} else {console.log(user)
+			axios.post(API+"auth/signin",{
+				...user
+			}).then(resp=>{
+				if (resp.error_message) {
+					swal.fire({title:resp.error_message,icon:"error"})
+				} else {
+					dispatch({
+						type:"USER_LOGIN",
+						user:resp.data,
+					})
+					swal.fire("Login success")
+					history.push("/")
+				}
+				console.log(resp)
+			}).catch(err=>{
+				console.log(err)
+			})
+		swal.fire('success')
+		}
+	}
+
+	useEffect(()=>{
+	
+	
+	},[])
     return (
         <div>
             <div className="sign-inup">
@@ -16,18 +69,17 @@ function LogIn() {
 							</div>
 							<div className="form-dt">
 								<div className="form-inpts checout-address-step">
-									<form>
 										<div className="form-title"><h6>Sign In</h6></div>
 										<div className="form-group pos_rel">
-											<input id="phone[number]" name="phone" type="Number" placeholder="Enter Phone Number" className="form-control lgn_input" required=""/>
+											<input id="phone[number]" onChange={handleChange('phone')} name="phone" type="Number" placeholder="Enter Phone Number" className="form-control lgn_input" required=""/>
 											<i className="fa fa-mobile-alt lgn_icon text-secondary" style={{fontSize:'16px'}}></i>
 										</div>
 										<div className="form-group pos_rel">
-											<input id="password1" name="password1" type="password" placeholder="Enter Password" className="form-control lgn_input" required=""/>
-											<i className="fa fa-lock lgn_icon text-secondary" style={{fontSize:'16px'}}></i>
+											<input  id="password1" name="password1" type={seePassword?'text':'password'} placeholder="New Password" onChange={handleChange("password")}className="form-control lgn_input"/>
+											<i className="fa fa-lock lgn_icon"></i>
+											<i className={(seePassword?"fa fa-eye":"fa fa-eye-slash")+' lgn_icon_right text-secondary'} onClick={()=>setSeePassword(!seePassword)}></i>
 										</div>
-										<button className="login-btn hover-btn" type="submit">Sign In Now</button>
-									</form>
+										<button className="login-btn hover-btn" onClick={()=>signin()} >Sign In Now</button>
 								</div>
 								<div className="password-forgor">
 									<a href="forgot_password.html">Forgot Password?</a>

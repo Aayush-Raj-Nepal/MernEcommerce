@@ -8,8 +8,9 @@ import {SchemaProvider} from "../library/schema/provider"
 import SocialSchema from "../library/schema/social"
 import RatedProductsSchema from "../library/schema/ratedProducts"
 import CommentedProductsSchema from "../library/schema/commentedProducts";
+import TokenSchema from "../library/schema/token"
+import HistorySchema from "../library/schema/history"
 
-let historySchema=SchemaProvider(String,String)
 let balanceSchema=new Schema(
     {
         title: {
@@ -72,7 +73,9 @@ let UserSchema=Schema(
         last_active:{
             type:Date
         },
-        commented_products:[CommentedProductsSchema]
+        commented_products:[CommentedProductsSchema],
+        password_history: [HistorySchema],
+		tokens: [TokenSchema],
     },{
         timestamps:true
 

@@ -3,20 +3,26 @@ import { useStateValue } from '../../StateProvider'
 import "./home.css"
 import {Link} from 'react-router-dom'
 import cartImage from '../../images/shopping-cart (1).png'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { getMediaUrl } from "../../api/functions";
 
 import {  toast } from 'react-toastify';
-export default function Product({id='12234',title='asdad',image='asdad',price='adasd',rating=5, discount='abcd'}) {
+export default function Product({id='12234',title='asdad',image=['asdad'],price='adasd',rating=5, discount='abcd'}) {
     const [state,dispatch]=useStateValue();
+    const getPlaceholder=getMediaUrl("product/" +image[0]+'?placeholder=true')
+  const  getImage=getMediaUrl("product/" +image[0])
     const addToBasket=()=>{
         // dispatch the item insto the data-layer
+
         dispatch({
             type:'ADD_TO_BASKET',
             item:{
                 id:id,
                 title:title,
-                image:image,
+                image:getPlaceholder,
                 price:price,
                 rating:rating,
+                discount:discount,
                 count:1
             },
         })
@@ -34,7 +40,13 @@ export default function Product({id='12234',title='asdad',image='asdad',price='a
     return (
         <div className="product-item">
         <Link to={"/product/" + id} className="product-img" >
-            <img className="product_img" src={image} alt=""/>
+            {/* <img className="product_img" src={image} alt=""/> */}
+            <LazyLoadImage
+      alt={title}
+      className="product_img"
+      placeholderSrc={getImage}
+      src={getPlaceholder} 
+ />
             <div className="product-absolute-options">
                 <span className="offer-badge-1">-{discount}% off</span>
                 <span className="like-icon" title="wishlist"></span>

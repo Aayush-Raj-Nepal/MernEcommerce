@@ -18,7 +18,8 @@ let OrderSchema=new Schema({
             },
             item_type:{
                 type:String,
-                enum:['offer','product']
+                enum:['offer','product'],
+                default:'product'
             }
         }
     ],

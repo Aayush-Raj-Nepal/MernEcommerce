@@ -83,7 +83,7 @@ function CategoryProduct({match}) {
                       discount={product.discount}
                       title={product.eng_name}
                       price={product.price}
-                      image={getMediaUrl("product/" + product.images[0])}
+                      image={product.images}
                       rating={5}
                     ></Product>
                     </div>

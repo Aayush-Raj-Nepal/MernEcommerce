@@ -4,13 +4,20 @@ const { validationResult } = require("express-validator");
 exports.getLatestProducts = (req, res) => {
   Product.find({ status: "Active" })
     .sort({ createdAt: -1 })
-    .limit(20)
+    .limit(20).lean()
     .then((Products) => {
       if (Products.length == 0) {
         res.status(404).json({
           error_message: "No Products found",
         });
       } else {
+        Products.map((product) => {
+          product.price = product.price_history.pop().value;
+          product.discount = product.discount_history.pop().value;
+          delete product.price_history;
+          delete product.discount_history;
+          return product;
+        });
         res.status(200).json(Products);
       }
     })

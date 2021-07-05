@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import {Link} from "react-router-dom"
 import { getSingleProduct } from "../../api/helper";
 import renderHTML from "react-render-html";
 import ImageCarousel from "../ImageCarousel/Index";
@@ -58,7 +59,7 @@ export default function Index({id}) {
                     <nav aria-label="breadcrumb">
                       <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                          <a>Home</a>
+                          <Link to="/">Home</Link>
                         </li>
                         <li className="breadcrumb-item">
                           <a>{product.category ? product.category.name : ""}</a>

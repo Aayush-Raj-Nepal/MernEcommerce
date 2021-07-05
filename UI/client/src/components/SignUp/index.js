@@ -1,10 +1,12 @@
 import React,{useState,useEffect} from 'react'
+import {useHistory} from "react-router-dom"
 import {InputGroup,FormControl} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import firebase from "firebase/app"
 import swal from "sweetalert2"
 import axios from 'axios'
 import {API} from "../../api/backend"
+import {useStateValue} from "../../StateProvider"
 const Index=()=>{
 	const [user,setUser]=useState({
 		name:'',
@@ -12,9 +14,11 @@ const Index=()=>{
 		phone:'',
 		password:''
 	})
+	const history=useHistory()
 	const[typing,setTyping]=useState(false)
     const[ typingTimeout,setTypingTimeout]=useState(0)
 	const {phone}=user
+	const [state,dispatch]=useStateValue()
 	const[invalid,setInvalid]=useState(false)
 	const [loading,setLoading]=useState(false)
 	const[sent,setSent]=useState(false)
@@ -63,10 +67,10 @@ const Index=()=>{
 			error='Email is required'
 		}else if (user.password=='') {
 			error='Password is required'
-		}else if(!verified){
-			error="Please verify phone number"
-		}else if (user.phone=='' ||user.phone.length!==10) {
-			error='Correct Phone Number is required'
+		// }else if(!verified){
+		// 	error="Please verify phone number"
+		// }else if (user.phone=='' ||user.phone.length!==10) {
+		// 	error='Correct Phone Number is required'
 		}
 
 		if (error && error!='') {
@@ -76,6 +80,16 @@ const Index=()=>{
 			axios.post(API+"auth/signup",{
 				...user
 			}).then(resp=>{
+				if (resp.error_message) {
+					swal.fire({title:resp.error_message,icon:"error"})
+				} else {
+					dispatch({
+						type:"USER_LOGIN",
+						user:resp.data,
+					})
+					swal.fire("Login success")
+					history.push("/")
+				}
 				console.log(resp)
 			}).catch(err=>{
 				console.log(err)
@@ -115,6 +129,7 @@ const Index=()=>{
 			<div className="row justify-content-center">
 				<div className="col-lg-5">
 					<div className="sign-form">
+						{JSON.stringify(state.user)}
 						<div className="sign-inner">
 							<div className="sign-logo" id="logo">
 								<Link to="/"><img src="images/slogo.svg" alt=""/></Link>
@@ -137,7 +152,7 @@ const Index=()=>{
       	<InputGroup.Append>
           <InputGroup.Text className="bg-transparent"><i className="fa fa-mobile-alt bg-none border-0"></i></InputGroup.Text>
         </InputGroup.Append>
-        <input type="Number" maxLength={6} disabled={sent} className="form-control" value={phone}  onChange={handleChange("phone") }placeholder="Phone Number" />
+        <input type="Number" disabled={sent} className="form-control" value={phone}  onChange={handleChange("phone") }placeholder="Phone Number" />
 		{!verified && 	<InputGroup.Append className="border-0">
 			<InputGroup.Text className="bg-transparent"><span style={{cursor:'pointer'}}  id='sign-in-button' onClick={phoneAuth}>Send Code</span></InputGroup.Text>
 		  </InputGroup.Append>}
