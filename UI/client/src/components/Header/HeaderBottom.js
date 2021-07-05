@@ -54,13 +54,12 @@ function HeaderBottom() {
             <a className="bg-white">
               <i className="uil uil-apps"></i>
               <span className="cate__icon">
-                <button
+                <div
                   className="category_drop hover-btn btn"
                   title="Categories"
                   onClick={handleShow}
-                >
-                  Select Category
-                </button>
+                >Select Category
+                </div>
               </span>
             </a>
             <Modal size="lg" show={show} onHide={handleClose} animation={false}>
@@ -99,7 +98,7 @@ function HeaderBottom() {
                   </ModalBody>
                   <ModalFooter>
                     <a href="#" className="morecate-btn">
-                      <i className="uil uil-apps"></i>More Categories
+                      <i className="fa fa-bars"></i>More Categories
                     </a>
                   </ModalFooter>
                 </div>
@@ -121,94 +120,10 @@ function HeaderBottom() {
                   </Link>
                 </Nav.Link>
                 <Nav.Link className="navbar__nav__link">
-                  <Link to="/newproduct" className="navbarlink">
+                  <Link to="/featuredproduct" className="navbarlink">
                     Featured Products
                   </Link>
                 </Nav.Link>
-                <NavDropdown
-                  title={
-                    <span className="navbar__nav__dropdown__link navbarlink ">
-                      Pages <i className="uil uil-angle-down"></i>
-                    </span>
-                  }
-                  show={drop1}
-                  onMouseEnter={(e) => showDropdown(e, 1)}
-                  onMouseLeave={(e) => showDropdown(e, 1)}
-                  id="basic-nav-dropdown"
-                >
-                  <NavDropdown.Item
-                    className="item channel_item page__links"
-                    to="/"
-                  >
-                    Account
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="item channel_item page__links"
-                    to="/"
-                  >
-                    About Us
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="item channel_item page__links"
-                    to="/"
-                  >
-                    Shop Grid
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="item channel_item page__links"
-                    to="/"
-                  >
-                    Single Product View
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="item channel_item page__links"
-                    to="/"
-                  >
-                    CheckOut
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="item channel_item page__links"
-                    to="/"
-                  >
-                    Product Request
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="item channel_item page__links"
-                    to="/"
-                  >
-                    Order Placed
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="item channel_item page__links"
-                    to="/"
-                  >
-                    Bill Slip
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="item channel_item page__links"
-                    to="/"
-                  >
-                    Sign In
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="item channel_item page__links"
-                    to="/"
-                  >
-                    Sign Up
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="item channel_item page__links"
-                    to="/"
-                  >
-                    Forget Password
-                  </NavDropdown.Item>
-                  <NavDropdown.Item
-                    className="item channel_item page__links"
-                    to="/"
-                  >
-                    Contact Us
-                  </NavDropdown.Item>
-                </NavDropdown>
                 <Nav.Link className="navbar__nav__link">
                   <Link to="/contact" className="navbarlink">
                     Contact Us

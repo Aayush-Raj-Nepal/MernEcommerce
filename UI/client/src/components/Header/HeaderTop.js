@@ -67,7 +67,7 @@ function HeaderTop() {
                   type="text"
                   placeholder="Search for products.."
                 />
-                <i className="uil uil-search-alt icon icon1"></i>
+                <i className="fa fa-search icon icon1"></i>
               </div>
             </div>
           </div>
@@ -75,18 +75,18 @@ function HeaderTop() {
             <ul>
               <li>
                 <a href="#" className="offer-link">
-                  <i className="uil uil-phone-alt"></i>9851095624
+                  <i className="fa fa-phone-alt"></i>9851095624
                 </a>
               </li>
               <li>
-                <a href="offers.html" className="offer-link">
-                  <i className="uil uil-gift"></i>Offers
-                </a>
+                <Link to={`/offers`} className="offer-link">
+                  <i className="fa fa-gift"></i>Offers
+                </Link>
               </li>
               <li>
-                <a href="faq.html" className="offer-link">
-                  <i className="uil uil-question-circle"></i>Help
-                </a>
+                <Link to={`/faq`} className="offer-link">
+                  <i className="fa fa-question-circle"></i>Help
+                </Link>
               </li>
               {isSignedIn && (
                 <li>
@@ -132,7 +132,7 @@ function HeaderTop() {
                       href="dashboard_my_wishlist.html"
                       className="item channel_item"
                     >
-                      <i className="uil uil-heart icon__1"></i>My Wishlist
+                      <i className="fa fa-heart icon__1"></i>My Wishlist
                     </a>
                     <a
                       href="dashboard_my_wallet.html"
@@ -148,10 +148,10 @@ function HeaderTop() {
                       Address
                     </a>
                     <a href="offers.html" className="item channel_item">
-                      <i className="uil uil-gift icon__1"></i>Offers
+                      <i className="fa fa-gift icon__1"></i>Offers
                     </a>
                     <a href="faq.html" className="item channel_item">
-                      <i className="uil uil-info-circle icon__1"></i>Faq
+                      <i className="fa fa-info-circle icon__1"></i>Faq
                     </a>
                     <a href="sign_in.html" className="item channel_item">
                       <i className="uil uil-lock-alt icon__1"></i>Logout

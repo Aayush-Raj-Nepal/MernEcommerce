@@ -114,9 +114,9 @@ function Index({match}) {
                           </div>
                           <div className="qty-group">
                             <div className="quantity buttons_added">
-                              <button className="" ><i className="fa fa-minus"></i></button>
-							  <input style={{maxWidth:"20px"}} type="text" onChange={newCount} value={item.count} />
-							  <button className=""><i className="fa fa-plus"></i></button>
+                              <button className="minus-btn" style={{width:"16px",border:"1px solid #000"}}><i className="fa fa-minus" style={{fontSize:"10px"}}></i></button>
+							  <input style={{maxWidth:"16px", border:"1px solid #000"}} type="text" onChange={newCount} value={item.count} />
+							  <button className="" style={{width:"16px",border:"1px solid #000"}}><i className="fa fa-plus" style={{fontSize:"10px"}}></i></button>
                             </div>
                             <div className="cart-item-price">
                               Rs{item.price} <span>Rs{item.price}</span>
