@@ -93,7 +93,7 @@ function Index({match}) {
                 {/* <a href="#" className="promo-code">
                   Have a promocode?
                 </a> */}
-                <Link to="/checkout" className="cart-checkout-btn hover-btn">
+                <Link to="/checkout" onClick={()=>toggleSidebar(true)} className="cart-checkout-btn hover-btn">
                   Proceed to Checkout <i className="fa fa-arrow-right" style={{padding:"5px"}}></i>
                 </Link>
               </div>
