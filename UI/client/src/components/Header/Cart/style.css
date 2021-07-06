@@ -1,0 +1,24 @@
+.edit-no{
+    display: flex;
+    height: 22px;
+}
+.edit-btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+ }
+
+ .edit-no .edit-btn1 {
+     border-radius: 5px 0 0 0;
+     background: #21a1d2;
+     border: 1px solid #21a1d2;
+     color: #fff;
+     padding: 5px 5px;
+ }
+
+ .edit-no .edit-btn2 {
+    border-radius: 0px 0px 5px 0px;
+    background: #21a1d2;
+    border: 1px solid #21a1d2;
+    color: #fff;
+    padding: 5px 5px;
+}

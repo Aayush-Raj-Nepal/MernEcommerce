@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Routes from "./Routes";
 import { useStateValue } from "./StateProvider";
 import * as fb from "./api/firebase";
-
+import axios from "axios"
 // style sheets
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,8 +20,10 @@ import "./styles/css/night-mode.css";
 import "./App.css";
 
 function App() {
-  const [{ user, extras }, dispatch] = useStateValue();
+  const [store, dispatch] = useStateValue();
   useEffect(() => {
+    localStorage.setItem("store",JSON.stringify(store))
+    // console.log("data added")
     const fetchExtras = () => {
       fb.extrasCollection
         .orderBy("createdOn", "desc")
@@ -39,24 +41,25 @@ function App() {
         });
     };
     fetchExtras();
-    // auth.onAuthStateChanged(authUser=>{
-    //   console.log('THE USER IS >>>>',authUser)
-    //   if (authUser) {
-    //     dispatch({
-    //       type:'SET_USER',
-    //       user:authUser
-    //     })
-    //   }else{
-    //     dispatch({
-    //       type:'SET_USER',
-    //       user:null
-    //     })
-
-    //   }
-    // })
-  }, []);
+   
+  }, [store]);
+  let interceptorConfig=()=>{
+    axios.interceptors.request.use(async config => {
+    let apiUrl = process.env.NODE_ENV === "production" ? "/" : "http://127.0.0.1:4000/api"
+            const token =(store.user&& store.user.token)?store.user.token.token:null
+            config.baseURL = apiUrl
+            if(token){
+                config.headers.Authorization = token
+            }
+            return config
+        },function(err){
+            console.log(err)
+            return Promise.reject(err)
+        })
+      }
   return (
     <div className="App">
+      {interceptorConfig()}
       <link
         href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"

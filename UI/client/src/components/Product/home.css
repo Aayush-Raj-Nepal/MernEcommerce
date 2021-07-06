@@ -7,3 +7,24 @@
     object-fit: cover;
     object-position: center;
 }
+
+.qty-cart span{
+    border-radius: 8px 3px 8px 3px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.offer-badge-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    background: #3bafe9;
+    padding: 3px 10px;
+    border-radius: 3px;
+    line-height: 20px;
+	text-transform: uppercase
+}
