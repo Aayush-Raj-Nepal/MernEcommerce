@@ -28,7 +28,7 @@ function HeaderTop() {
         <div className="top-header">
           <div className="main_logo" id="logo">
             <Link to="/">
-              <img src="images/subidhalogo.svg" alt="" />
+              <img src="images/logo.png" style={{maxHeight:"50px", maxWidth:"100px"}} alt="" />
             </Link>
           </div>
           <div className="select_location">
