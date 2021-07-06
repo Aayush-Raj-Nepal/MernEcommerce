@@ -62,7 +62,7 @@ export default function Product({id='12234',title='asdad',image=['asdad'],price=
                     <input type="number" step="1" name="quantity"  className="input-text qty text"/>
                     <input type="button"  className="plus plus-btn"/>
                 </div> */}
-                <span className="btn " onClick={addToBasket}>Add to cart<img style={{height:"20px", paddingtop:"1px"}} src={cartImage} alt="cart"></img></span>
+                <span className="btn " onClick={addToBasket}>Add to cart <i className="fa fa-shopping-cart"></i></span>
             </div>
         </div>
 </div>

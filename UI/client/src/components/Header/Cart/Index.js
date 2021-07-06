@@ -48,7 +48,7 @@ function Index({match}) {
         togglerButton={
           <a className="cart__btn hover-btn pull-bs-canvas-left" title="Cart">
             <i className="fa fa-shopping-cart p-1"></i>Cart
-            <ins>{basket?.length}</ins>
+            <sup className="badge">{basket?.length}</sup>
             <i className="fa fa-angle-down p-2"></i>
           </a>
         }
@@ -77,13 +77,14 @@ function Index({match}) {
                      </div>
                     ))
                   : ""}
-              </div>
-            </div>
-            <div className="bs-canvas-footer">
-              <div className="cart-total-dil saving-total ">
+                     <div className="cart-total-dil saving-total ">
                 <h4 style={{margin:"auto",textAlign:'center', fontWeight:'bolder'}}>Enjoy Your Shopping<i className="fa fa-smile" style={{padding:"8px"}}></i></h4>
                 {/* <span>$11</span>  */}
               </div>
+              </div>
+            </div>
+            <div className="bs-canvas-footer">
+           
               <div className="main-total-cart">
                 <h2>Total</h2>
                 <span>Rs{getTotal()}</span>

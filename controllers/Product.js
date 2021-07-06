@@ -1,7 +1,112 @@
 import Product from "../models/Product";
 
 const { validationResult } = require("express-validator");
+exports.getSimilarProducts=(req,res)=>{	
+		let queryTOSearch = [
+			{
+				$match:{
+					$or: [
+						{
+							authors: {
+								$regex: req.body.search + ".*",
+								$options: "i",
+							},
+						},
+						{
+							eng_name: {
+								$regex: req.body.search + ".*",
+								$options: "i",
+							},
+						},
+						{
+							sub_category: {
+								$regex: req.body.search + ".*",
+								$options: "i",
+							},
+						},
+						{
+							bookid: {
+								$regex: req.body.search + ".*",
+								$options: "i",
+							},
+						},
+						{
+							serial_no: Number(req.body.search),
+						},
+						{
+							publications: {
+								$regex: req.body.search + ".*",
+								$options: "i",
+							},
+						},
+						{
+							tags: {
+								$regex: req.body.search + ".*",
+								$options: "i",
+							},
+						},
+					],
+				},
+			},
+			{
+				$group: {
+					_id: null,
+					count: {
+						$sum: 1,
+					},
+					results: {
+						$push: "$$ROOT",
+					},
+				},
+			},
+			{
+				$unwind: "$results",
+			},
+			{
+				$skip: parseInt(req.body.page_size) * (req.body.page_no - 1),
+			},
+			{
+				$limit: parseInt(req.body.page_size),
+			},
+			{
+				$group: {
+					_id: null,
+					count: {
+						$last: "$count",
+					},
+					results: {
+						$push: "$$ROOT.results",
+					},
+				},
+			},
+			{
+				$project: {
+					_id: 0,
+				},
+			},
+		]
+
+		let isAdmin = req.body.admin
+		console.log(isAdmin)
+		if (!isAdmin) {
+			queryTOSearch[0].$match["hidden"] = false
+		}
+
+		let query = Book.aggregate(queryTOSearch)
+		query
+			.then((result) => {
+				console.log(result)
+				return res.status(200).json(result)
+			})
+			.catch((err) => {
+				res.status(400).json({
+					message: err.message,
+				})
+			})
+	}
+
 exports.getLatestProducts = (req, res) => {
+  
   Product.find({ status: "Active" })
     .sort({ createdAt: -1 })
     .limit(20).lean()
@@ -29,13 +134,20 @@ exports.getLatestProducts = (req, res) => {
     });
 };
 exports.getFeaturedProducts = (req, res) => {
-  Product.find({ status: "Active", featured: true })
+  Product.find({ status: "Active", featured: true }).lean()
     .then((Products) => {
       if (Products.length == 0) {
         res.status(404).json({
           error_message: "No Featured Products found",
         });
       } else {
+        Products.map((product) => {
+          product.price = product.price_history.pop().value;
+          product.discount = product.discount_history.pop().value;
+          delete product.price_history;
+          delete product.discount_history;
+          return product;
+        });
         res.status(200).json(Products);
       }
     })

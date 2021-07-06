@@ -1546,7 +1546,7 @@ i.icon1 {
     position: absolute;
     width: 100%;
     top: 48px;
-    bottom: 190px;
+    bottom: 150px;
     overflow-y: scroll;
 }
 
@@ -2057,14 +2057,13 @@ span.like-icon {
     left: 0;
     font-size: 12px;
     font-weight: 500;
-    color: #fff;
-    background: #3bafe9;
+    color:#fff;
+    background-color:#1784d2 !important;
     padding: 3px 10px;
     border-radius: 3px;
     line-height: 20px;
 	text-transform: uppercase
 }
-
 .product-text-dt p {
 	font-size: 12px;
     font-weight: 500;
