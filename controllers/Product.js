@@ -1,13 +1,14 @@
 import Product from "../models/Product";
 
 const { validationResult } = require("express-validator");
-exports.getSimilarProducts=(req,res)=>{	
+exports.searchProducts=(req,res)=>{	
+  
 		let queryTOSearch = [
 			{
 				$match:{
 					$or: [
 						{
-							authors: {
+							'category.name': {
 								$regex: req.body.search + ".*",
 								$options: "i",
 							},
@@ -18,23 +19,20 @@ exports.getSimilarProducts=(req,res)=>{
 								$options: "i",
 							},
 						},
-						{
-							sub_category: {
+            {
+							nep_name: {
 								$regex: req.body.search + ".*",
 								$options: "i",
 							},
 						},
 						{
-							bookid: {
+							short_description: {
 								$regex: req.body.search + ".*",
 								$options: "i",
 							},
 						},
 						{
-							serial_no: Number(req.body.search),
-						},
-						{
-							publications: {
+							description: {
 								$regex: req.body.search + ".*",
 								$options: "i",
 							},
@@ -89,10 +87,10 @@ exports.getSimilarProducts=(req,res)=>{
 		let isAdmin = req.body.admin
 		console.log(isAdmin)
 		if (!isAdmin) {
-			queryTOSearch[0].$match["hidden"] = false
+			queryTOSearch[0].$match["status"] = "Active"
 		}
 
-		let query = Book.aggregate(queryTOSearch)
+		let query = Product.aggregate(queryTOSearch)
 		query
 			.then((result) => {
 				console.log(result)
@@ -100,11 +98,127 @@ exports.getSimilarProducts=(req,res)=>{
 			})
 			.catch((err) => {
 				res.status(400).json({
-					message: err.message,
+					error_message: err.message,
 				})
 			})
 	}
+  exports.getSimilarProducts=(req,res)=>{	
+    if (req.query.id && req.query.count) {
+      Product.findOne({_id:req.body.id}).then(product=>{
+        if (product) {
+      let count=req.query.count
+     
+      let queryToMatch = [
+        {
+          $match:{
+            $or: [
+              {
+                'category.name': {
+                  $regex: product.category.name + ".*",
+                  $options: "i",
+                },
+              },
+              {
+                eng_name: {
+                  $regex: product.eng_name + ".*",
+                  $options: "i",
+                },
+              },
+              {
+                nep_name: {
+                  $regex: product.nep_name + ".*",
+                  $options: "i",
+                },
+              },
+              {
+                tags: {
+                  $regex: product.tags.search + ".*",
+                  $options: "i",
+                },
+              },
+            ],
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            count: {
+              $sum: 1,
+            },
+            results: {
+              $push: "$$ROOT",
+            },
+          },
+        },
+        {
+          $unwind: "$results",
+        },
+        // {
+        // 	$skip: parseInt(req.body.page_size) * (req.body.page_no - 1),
+        // },
+        {
+          $limit: parseInt(count?count:5),
+        },
+        {
+          $group: {
+            _id: null,
+            count: {
+              $last: "$count",
+            },
+            results: {
+              $push: "$$ROOT.results",
+            },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+          },
+        },
+      ]
+  
+      let isAdmin = req.body.admin
+      console.log(isAdmin)
+      if (!isAdmin) {
+        queryToMatch[0].$match["status"] = "Active"
+      }
+  
+      let query = Product.aggregate(queryToMatch)
+      query
+        .then((result) => {
+          console.log(result)
+          let Products=result[0].results
+          Products.map((product) => {
+            product.price = product.price_history.pop().value;
+            product.discount = product.discount_history.pop().value;
+            product.image=product.images[0]
+            delete product.price_history;
+            delete product.discount_history;
+            delete product.images
+            return product;
+          });
+          return  res.status(200).json(Products);
+        })
+        .catch((err) => {
+          res.status(400).json({
+            error_message: err.message,
+          })
+        })
+      
+      } else {
+        res.status(400).json({
+          error_message: "invalid id",
+        })
+      }
+      })
 
+    } else {
+      res.status(400).json({
+        error_message: "invalid id",
+      })
+    }
+   
+	}
 exports.getLatestProducts = (req, res) => {
   
   Product.find({ status: "Active" })

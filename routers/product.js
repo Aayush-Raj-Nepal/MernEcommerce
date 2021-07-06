@@ -10,6 +10,7 @@ import {
   getsingleproduct,
   updateProduct,
   getProductByCategory,
+  getSimilarProducts
 } from "../controllers/Product";
 import { Auth } from "../middlewares/index";
 const { check } = require("express-validator");
@@ -20,7 +21,7 @@ let router = Router();
 // product routes
 router.get("/", Auth.VerifyAdmin, getAllProducts);
 router.put("/", Auth.VerifyAdmin, Request.ParamsToBody, updateProduct);
-
+router.get("/getSimilar",Request.ParamsToBody,getSimilarProducts)
 router.get("/latest", getLatestProducts);
 router.delete("/:id", Auth.VerifyAdmin, Request.ParamsToBody, deleteProduct);
 router.get("/featured", getFeaturedProducts);

@@ -7,6 +7,7 @@ import ImageCarousel from "../ImageCarousel/Index";
 import { getDiscountedPrice, getMediaUrl } from "../../api/functions";
 import {  toast } from 'react-toastify';
 import { useStateValue } from "../../StateProvider";
+import SimilarProducts from "./SimilarProducts"
 export default function Index({id}) {
   const [product, setProduct] = useState({});
   useEffect(() => {
@@ -98,29 +99,22 @@ export default function Index({id}) {
                                 Available :
                                 <span
                                   className={
-                                    product.stock && product.stock > 0
+                                    product.stock && Number(product.stock) == 0
                                       ? "text-danger"
                                       : ""
                                   }
                                 >
-                                  (
-                                  {product.stock && product.stock > 0
-                                    ? `In Stock(${product.stock})`
+                                  
+                                  {product.stock && Number(product.stock) > 0
+                                    ? `${product.stock} In Stock`
                                     : "Out Of Stock"}
-                                  )
+                                  
                                 </span>
                               </p>
                             </div>
 
                             <p className="pp-descp">
-                              Lorem ipsum dolor sit amet, consectetur adipiscing
-                              elit. Nullam vulputate, purus at tempor blandit,
-                              nulla felis dictum eros, sed volutpat odio sapien
-                              id lectus. Cras mollis massa ac congue posuere.
-                              Fusce viverra mauris vel magna pretium aliquet.
-                              Nunc tincidunt, velit id tempus tristique, velit
-                              dolor hendrerit nibh, at scelerisque neque mauris
-                              sed ex.
+                              {product.short_description}
                             </p>
                             <div className="product-group-dt">
                               <ul>
@@ -138,11 +132,11 @@ export default function Index({id}) {
                                 </li>
                                 <li>
                                   <div className="main-price mrp-price">
-                                    MRP Price<span>Rs{product.price}</span>
+                                   <span>Rs{product.price}</span>
                                   </div>
                                 </li>
                               </ul>
-                              <ul className="gty-wish-share">
+                              {/* <ul className="gty-wish-share">
                                 <li>
                                   <div className="qty-product">
                                     <div className="quantity buttons_added">
@@ -172,7 +166,7 @@ export default function Index({id}) {
                                     title="wishlist"
                                   ></span>
                                 </li>
-                              </ul>
+                              </ul> */}
                               <ul className="ordr-crt-share">
                                 <li>
                                   <button className="add-cart-btn hover-btn" onClick={()=>addToBasket(product)}>
@@ -180,11 +174,11 @@ export default function Index({id}) {
                                     Add to Cart
                                   </button>
                                 </li>
-                                <li>
+                                {/* <li>
                                   <button className="order-btn hover-btn">
                                     Order Now
                                   </button>
-                                </li>
+                                </li> */}
                               </ul>
                             </div>
                             {/* <div className="pdp-details">
@@ -230,172 +224,7 @@ export default function Index({id}) {
           </div>
           <div className="container mb-4">
             <div className="row">
-              <div className="col-lg-4 col-md-12">
-                <div className="pdpt-bg">
-                  <div className="pdpt-title">
-                    <h4>More Like This</h4>
-                  </div>
-                  <div className="pdpt-body scrollstyle_4">
-                    <div className="cart-item border_radius">
-                      <a
-                        href="http://gambolthemes.net/html-items/gambo_supermarket_demo/single_product_view.html"
-                        className="cart-product-img"
-                      >
-                        <img src="images/product/img-6.jpg" alt="" />
-                        <div className="offer-badge">4% OFF</div>
-                      </a>
-                      <div className="cart-text">
-                        <h4>Product Title Here</h4>
-                        <div className="cart-radio">
-                          <ul className="kggrm-now">
-                            <li>
-                              <input type="radio" id="k1" name="cart1" />
-                              <label>0.50</label>
-                            </li>
-                            <li>
-                              <input type="radio" id="k2" name="cart1" />
-                              <label>1kg</label>
-                            </li>
-                            <li>
-                              <input type="radio" id="k3" name="cart1" />
-                              <label>2kg</label>
-                            </li>
-                            <li>
-                              <input type="radio" id="k4" name="cart1" />
-                              <label>3kg</label>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="qty-group">
-                          <div className="quantity buttons_added">
-                            <input
-                              type="button"
-                              value="-"
-                              className="minus minus-btn"
-                            />
-                            <input
-                              type="number"
-                              step="1"
-                              name="quantity"
-                              value="1"
-                              className="input-text qty text"
-                            />
-                            <input
-                              type="button"
-                              value="+"
-                              className="plus plus-btn"
-                            />
-                          </div>
-                          <div className="cart-item-price">
-                            $12 <span>$15</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="cart-item border_radius">
-                      <a
-                        href="http://gambolthemes.net/html-items/gambo_supermarket_demo/single_product_view.html"
-                        className="cart-product-img"
-                      >
-                        <img src="images/product/img-2.jpg" alt="" />
-                        <div className="offer-badge">6% OFF</div>
-                      </a>
-                      <div className="cart-text">
-                        <h4>Product Title Here</h4>
-                        <div className="cart-radio">
-                          <ul className="kggrm-now">
-                            <li>
-                              <input type="radio" id="k5" name="cart2" />
-                              <label>0.50</label>
-                            </li>
-                            <li>
-                              <input type="radio" id="k6" name="cart2" />
-                              <label>1kg</label>
-                            </li>
-                            <li>
-                              <input type="radio" id="k7" name="cart2" />
-                              <label>2kg</label>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="qty-group">
-                          <div className="quantity buttons_added">
-                            <input
-                              type="button"
-                              value="-"
-                              className="minus minus-btn"
-                            />
-                            <input
-                              type="number"
-                              step="1"
-                              name="quantity"
-                              value="1"
-                              className="input-text qty text"
-                            />
-                            <input
-                              type="button"
-                              value="+"
-                              className="plus plus-btn"
-                            />
-                          </div>
-                          <div className="cart-item-price">
-                            $24 <span>$30</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="cart-item border_radius">
-                      <a
-                        href="http://gambolthemes.net/html-items/gambo_supermarket_demo/single_product_view.html"
-                        className="cart-product-img"
-                      >
-                        <img src="images/product/img-5.jpg" alt="" />
-                      </a>
-                      <div className="cart-text">
-                        <h4>Product Title Here</h4>
-                        <div className="cart-radio">
-                          <ul className="kggrm-now">
-                            <li>
-                              <input type="radio" id="k8" name="cart3" />
-                              <label>0.50</label>
-                            </li>
-                            <li>
-                              <input type="radio" id="k9" name="cart3" />
-                              <label>1kg</label>
-                            </li>
-                            <li>
-                              <input type="radio" id="k10" name="cart3" />
-                              <label>1.50kg</label>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="qty-group">
-                          <div className="quantity buttons_added">
-                            <input
-                              type="button"
-                              value="-"
-                              className="minus minus-btn"
-                            />
-                            <input
-                              type="number"
-                              step="1"
-                              name="quantity"
-                              value="1"
-                              className="input-text qty text"
-                            />
-                            <input
-                              type="button"
-                              value="+"
-                              className="plus plus-btn"
-                            />
-                          </div>
-                          <div className="cart-item-price">$15</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          
               <div className="col-lg-8 col-md-12">
                 <div className="pdpt-bg">
                   <div className="pdpt-title">
@@ -407,6 +236,9 @@ export default function Index({id}) {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="col-lg-4 col-md-12">
+                <SimilarProducts product={product}></SimilarProducts>
               </div>
             </div>
           </div>
