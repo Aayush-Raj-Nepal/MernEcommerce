@@ -1346,7 +1346,7 @@ i.icon1 {
     font-size: 10px;
     font-weight: 700;
     color: #fff;
-    background: #21a1d2;
+    transition: opacity 0.3s, transform 0.4s cubic-bezier(.0, -.41, .19, 2.5);
     padding: 1px 8px 0px;
     border-radius: 3px;
     line-height: 20px;
@@ -2091,7 +2091,7 @@ span.like-icon {
     font-size: 18px;
     font-weight: 500;
     line-height: 26px;
-    color: #21a1d2;
+    color: #eb5c4b;
     text-align: center;
 }
 
