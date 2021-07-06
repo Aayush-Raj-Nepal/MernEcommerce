@@ -1,20 +1,16 @@
 import React from 'react'
+import Accordion from 'react-bootstrap/Accordion'
+import Card from 'react-bootstrap/Card'
 
 function PhoneVerify() {
     return (
-        <div>
-            <div className="checkout-step">
-								<div className="checkout-card" id="headingOne"> 
-									<span className="checkout-step-number">1</span>
-									<h4 className="checkout-step-title"> 
-										<button className="wizard-btn" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> Phone Number Verification</button>
-									</h4>
-								</div>
-								<div id="collapseOne" className="collapse in show" data-parent="#checkout_wizard">
-									<div className="checkout-step-body">
+					<div className="checkout-step-body">
 										<p>We need your phone number so we can inform you about any delay or problem.</p>	
-										<p className="phn145">4 digits code send your phone <span>+918437176189</span><a className="edit-no-btn hover-btn" data-toggle="collapse" href="#edit-number">Edit</a></p>
-										<div className="collapse" id="edit-number">
+										<p className="phn145">4 digits code send your phone <span>+918437176189</span></p>
+										<Accordion>
+											<Card>
+										<Accordion.Toggle as={Card.Header} eventKey="3" className="edit-no-btn hover-btn" data-toggle="collapse" href="#edit-number">Edit</Accordion.Toggle>
+										<Accordion.Collapse eventKey="3" className="collapse" id="edit-number">
 											<div className="row">
 												<div className="col-lg-8">
 													<div className="checkout-login">
@@ -27,8 +23,10 @@ function PhoneVerify() {
 													</div>
 												</div>
 											</div>
-										</div>
-								<div className="otp-verifaction">
+										</Accordion.Collapse>
+										</Card>
+										</Accordion>
+										<div className="otp-verifaction">
 											<div className="row">
 												<div className="col-lg-12">
 													<div className="form-group mb-0">
@@ -56,9 +54,6 @@ function PhoneVerify() {
 											</div>
 										</div>
 									</div>
-								</div>
-							</div>
-        </div>
     )
 }
 
