@@ -73,6 +73,10 @@ let UserSchema=Schema(
         last_active:{
             type:Date
         },
+        verified:{
+            type:Boolean,
+            default:false
+        },
         commented_products:[CommentedProductsSchema],
         password_history: [HistorySchema],
 		tokens: [TokenSchema],

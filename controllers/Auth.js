@@ -3,13 +3,24 @@ const User = require("../models/User");
 var uniqid = require('uniqid');
 import bcrypt from "bcrypt"
 import {GetRecent} from "../library/helpers"
+import Verify from "../models/Verify"
 import Admin from "../models/Admin"
+import Sender from "../library/utilities/helper"
 import TokenFactory from "../library/factories/token"
 const { check, validationResult } = require("express-validator");
 var jwt = require("jsonwebtoken");
 var expressJwt = require("express-jwt");
 // Admin functions
 
+let serverUrl =
+	process.env.NODE_ENV == "production"
+		? "http://subidhaonline.com/api/"
+		: "http://localhost:4000/api/"
+
+    let redirectUrl =
+    process.env.NODE_ENV == "production"
+      ? "http://subidhaonline.com/"
+      : "http://localhost:3001/"
 exports.adminSignout=(req,res)=>{
     return res.send('admin signout')
 }
@@ -107,6 +118,7 @@ exports.signup = (req, res) => {
         err: "NOT able to save user in DB"
       });
     }
+    Sender.SendEmailVerificationMail(user._id,user.email)
     return res.json({
       name: user.name,
       email: user.email,
@@ -139,9 +151,9 @@ exports.signin = (req, res) => {
       error_message: errors.array()[0].msg
     });
   }
-  const { phone, password } = req.body;
+  const { email, password } = req.body;
   User.findOne({
-    phone:phone,
+    email:email,verified:true
   })
     .then(async (user) => {
      
@@ -163,7 +175,7 @@ exports.signin = (req, res) => {
             res.status(200).json({
               
                 name:d.name,
-                phone:d.email,
+                phone:d.phone,
                 email:d.email,
                 token:token
             })
@@ -192,31 +204,61 @@ exports.signout = (req, res) => {
     message: "User signout successfully"
   });
 };
+exports.verifyUser=(req, res)=>{
+  var hash = req.body.hash
+  Verify.findOne({
+    hash: hash,
+    used: false,
+  })
+    .then((data) => {
+      if (data) {
+        data.used = true
+        data.save(function (err, d) {
+          if (err) {
+            console.log(err)
+            res.redirect(redirectUrl + "#/verifyEmail?icon=warning&message=link%20invalid%20or%20expired")
+          }
+          // 
+          User.findByIdAndUpdate(data.user, {
+            $set: { verified: true },
+          })
+            .then((resp) => {
+              res.redirect(redirectUrl + "#/verifyEmail?icon=success&message=Email%20Verified!")
+            })
+            .catch((err) => {
+              res.redirect(redirectUrl + "#/verifyEmail?icon=warning&message=link%20invalid%20or%20expired")
+            })
+        })
+      } else {
+        res.redirect(redirectUrl + "#/verifyEmail?icon=warning&message=link%20invalid%20or%20expired")
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+      res.redirect(redirectUrl + "#/verifyEmail?icon=warning&message=link%20invalid%20or%20expired")
+    })
 
-// protected routes
+  // client.verifyIdToken(req.body.oobCode).then(data => {
+  //     console.log(data)
+  // })
 
-exports.isSignedIn = expressJwt({
-  secret: process.env.SECRET,
-  userProperty: "auth",  algorithms: ['RS256']
+  // firebase.auth().applyActionCode(req.body.oobCode).then(data => {
+  //         console.log(data)
+  //     }).catch(err => {
+  //         console.log(err)
+  //     })
+  // if (req.body.payload.email != null) {
+  //     User.findOne({ email: req.body.payload.email }).then(function(user) {
+  //         user.verified = true
+  //         user.save()
+  //         res.status(200).json({
+  //             message: "Successfull"
+  //         })
+  //     }).catch(err => {
+  //         res.status(501).json({
+  //             message: "Unverified"
+  //         })
 
-});
-
-//custom middlewares
-exports.isAuthenticated = (req, res, next) => {
-  let checker = req.profile && req.auth && req.profile._id == req.auth._id;
-  if (!checker) {
-    return res.status(403).json({
-      error: "ACCESS DENIED"
-    });
-  }
-  next();
-};
-
-exports.isAdmin = (req, res, next) => {
-  if (req.profile.role !== 1) {
-    return res.status(403).json({
-      error: "You are not ADMIN, Access denied"
-    });
-  }
-  next();
-};
+  //     })
+  // }
+}

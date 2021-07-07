@@ -23,8 +23,7 @@ import PrivacyPolicy from "./views/Privacypolicy";
 import TermsConditions from "./views/Termsconditions";
 import RefundPolicy from "./views/Refundpolicy";
 import CategoryProducts from "./views/CategoryProduct"
-
-
+import EmailVerified from "./views/EmailVerified"
 import PageNotFound from "./views/404"
 
 const Routes = () => {
@@ -52,10 +51,7 @@ const Routes = () => {
         <Route path="/terms" exact component={TermsConditions}/>
         <Route path="/refundpolicy" exact component={RefundPolicy}/>
         <Route path="/featuredproduct" exact component={FeaturedProduct}/>
-
-
-
-
+        <Route path="/verifyEmail" exact component={EmailVerified}/>
         <Route path="*" component={PageNotFound}/>
       </Switch>
     </HashRouter>
