@@ -6256,6 +6256,13 @@ textarea {
 
 .panel-title {
     vertical-align: middle;
+    color: #000;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 30px;
+    margin: 10px;
+    background-color: #d0d7dd;
+    font-weight: 600;
 }
 
 .panel-default {

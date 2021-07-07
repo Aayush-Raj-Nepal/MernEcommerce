@@ -66,12 +66,12 @@ function Footer() {
                 <ul className="call-email-alt">
                   <li>
                     <a href="#" className="callemail">
-                      <i className="uil uil-dialpad-alt"></i>977 9851095624
+                      <i className="fa fa-phone-alt"></i>977 9851095624
                     </a>
                   </li>
                   <li>
                     <a href="#" className="callemail">
-                      <i className="uil uil-envelope-alt"></i>
+                      <i className="fa fa-envelope"></i>
                       esubidhaonline@gmail.com
                     </a>
                   </li>
@@ -127,15 +127,15 @@ function Footer() {
                     <li>
                       <Link to={`/offers`}>Offers</Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link to={`/blog`}>Blog</Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link to={`/faq`}>Faq</Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link to={`/careers`}>Careers</Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link to={`/contact`}>Contact Us</Link>
                     </li>
