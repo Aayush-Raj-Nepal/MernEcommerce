@@ -1,5 +1,21 @@
 @charset "utf-8";
 
+
+
+
+
+/* our custom css */
+.google-social-btn .btn {
+    margin: 10px 0;
+    font-size: 15px;
+    text-align: left;
+    line-height: 24px;
+}
+.google-social-btn .btn i {
+    float: left;
+    margin: 4px 15px 0 5px;
+    min-width: 15px;
+}
 /* ------------------------------------------------------------------
  * Name         : Gambo - Online Grocery Supermarket HTML Template
  * File         : style.css
@@ -6194,15 +6210,15 @@ textarea {
 	margin-top: 30px;
 	border-radius: 0 0 5px 5px;
     text-align: center;
-    padding: 15px 10px;
-	background: #21a1d2;
+    padding: 5px 50px;
+	background: #30b7ec;
 	transition: all .2s ease-in-out;
 	-webkit-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
-	background-image: -webkit-linear-gradient(left, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
-    background-image: linear-gradient(to right, rgba(230, 92, 91, 0.9), rgba(245, 93, 44, 0.9));
+	background-image: -webkit-linear-gradient(left, rgba(91, 230, 218, 0.9), rgba(35, 181, 218, 0.9));
+    background-image: linear-gradient(to right, rgba(42, 245, 201, 0.9), rgba(35, 181, 218, 0.9));
 }
 
 .signup-link p {
@@ -6214,9 +6230,9 @@ textarea {
 .signup-link p a {
     color: #fff;
 	font-size: 12px;
-    background: #2b2f4c;
-    padding: 7px 10px;
-    border-radius: 3px;
+    background: #024d79;
+    padding: 4px 6px;
+    border-radius: 4px;
     display: inline-block;
     margin-left: 5px;
 }

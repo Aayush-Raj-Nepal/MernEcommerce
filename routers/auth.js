@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const { check, validationResult } = require("express-validator");
-const { signout, signup, signin,resetPassword,forgetP,checkUserExist } = require("../controllers/Auth");
+const { signout, signup, signin,resetPassword,forgetP,checkUserExist,verifyUser } = require("../controllers/Auth");
 import {Auth,Request} from "../middlewares"
 import AdminAuthRouter from "./adminAuth"
 
@@ -18,11 +18,11 @@ router.post(
   ],
   signup
 );
-
+router.get("/verifyUser", Request.ParamsToBody, verifyUser)
 router.post(
   "/signin",
   [
-    check("phone", "phone is required").isLength({ min: 10 }),
+    check("email", "mail is required").isEmail(),
     check("password", "password field is required").isLength({ min: 1 })
   ],
   signin

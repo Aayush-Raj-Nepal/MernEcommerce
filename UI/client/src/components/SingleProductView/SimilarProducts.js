@@ -14,7 +14,7 @@ function SimilarProducts({product}) {
     const getPlaceholder=(image)=>console.log(image)
     //  getMediaUrl("product/" +image[0]+'?placeholder=true')
     const  getImage=(image)=>console.log(image)
-    //  getMediaUrl("product/" +image[0])
+    //  getMediaUrl("product/" +image[0])cvt
     useEffect(() => {
        if (product && product!={}) {
            axios.get("/product/getSimilar",{

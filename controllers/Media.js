@@ -72,11 +72,11 @@ const s3 = require("../app/aws")
 			if (media) {
                 if (req.body.placeholder && req.body.placeholder=='true') {
                     let url = await getSignedURL(media.placeholder)
-					console.log('placeholder')
+					// console.log('placeholder')
                     res.redirect(url)
                 } else {
                     let url = await getSignedURL(media.url)
-					console.log('original')
+					// console.log('original')
                     res.redirect(url)
                 }    
             } else {
