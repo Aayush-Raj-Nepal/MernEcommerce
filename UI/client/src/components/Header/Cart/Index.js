@@ -49,7 +49,6 @@ function Index({match}) {
           <a className="cart__btn hover-btn pull-bs-canvas-left" title="Cart">
             <i className="fa fa-shopping-cart p-1"></i>Cart
             <sup className="badge">{basket?.length}</sup>
-            <i className="fa fa-angle-down p-2"></i>
           </a>
         }
         sidebarCloseIcon={<i className="fa fa-close"></i>}
