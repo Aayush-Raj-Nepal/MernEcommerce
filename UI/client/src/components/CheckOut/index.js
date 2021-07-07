@@ -90,14 +90,19 @@ function Index() {
                 <Accordion
                   id="checkout_wizard"
                   className="alert-primary checkout"
+                  defaultActiveKey="0"
                 >
                   <Card className="checkout-step">
                     <div className="checkout-card" id="headingOne">
                       <h4 className="checkout-step-title">
-                        <Accordion.Toggle as={Card.Header} eventKey="0">
-                          {" "}
+                        <Accordion.Toggle
+                          as={Card.Header}
+                          eventKey="0"
+                          className="c-pointer"
+                        >
                           <span className="checkout-step-number">1</span>
                           Phone Number Verification
+                          <i className="fa fa-chevron-down float-right "></i>
                         </Accordion.Toggle>
                       </h4>
                     </div>
@@ -108,9 +113,14 @@ function Index() {
                   <Card className="checkout-step">
                     <div className="checkout-card" id="headingTwo">
                       <h4 className="checkout-step-title">
-                        <Accordion.Toggle as={Card.Header} eventKey="1">
+                        <Accordion.Toggle
+                          as={Card.Header}
+                          eventKey="1"
+                          className="c-pointer"
+                        >
                           <span className="checkout-step-number">2</span>
                           Delivery Address
+                          <i className="fa fa-chevron-down float-right "></i>
                         </Accordion.Toggle>
                       </h4>
                     </div>
@@ -121,9 +131,14 @@ function Index() {
                   <Card className="checkout-step">
                     <div className="checkout-card" id="headingFour">
                       <h4 className="checkout-step-title">
-                        <Accordion.Toggle as={Card.Header} eventKey="2">
+                        <Accordion.Toggle
+                          as={Card.Header}
+                          eventKey="2"
+                          className="c-pointer"
+                        >
                           <span className="checkout-step-number">3</span>
                           Payment
+                          <i className="fa fa-chevron-down float-right "></i>
                         </Accordion.Toggle>
                       </h4>
                     </div>
