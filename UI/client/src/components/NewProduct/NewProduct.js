@@ -10,7 +10,6 @@ export default function Product({id='12234',eng_name='No Title', nep_name='No Ti
             type:'ADD_TO_BASKET',
             item:{
                 id:id,
-                title:title,
                 image:image,
                 price:price,
                 rating:rating

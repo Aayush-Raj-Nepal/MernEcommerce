@@ -1,16 +1,17 @@
 import React from 'react'
-import Accordion from 'react-bootstrap/Accordion'
-import Card from 'react-bootstrap/Card'
+import { useState } from 'react';
+import Collapse from 'react-bootstrap/Collapse'
+import Button from 'react-bootstrap/Button'
 
 function PhoneVerify() {
+	const [open, setOpen] = useState(false);
     return (
 					<div className="checkout-step-body">
-										<p>We need your phone number so we can inform you about any delay or problem.</p>	
-										<p className="phn145">4 digits code send your phone <span>+918437176189</span></p>
-										<Accordion>
-									<Card>
-										<Accordion.Toggle as={Card.Header} eventKey="3" className="edit-no-btn hover-btn" data-toggle="collapse" href="#edit-number">Edit</Accordion.Toggle>
-										<Accordion.Collapse eventKey="3" className="collapse" id="edit-number">
+										<p className="phn-title">We need your phone number so we can inform you about any delay or problem.</p>	
+										<p className="phn145">4 digits code send your phone <span>+918437176189</span><Button onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open} className="edit-no-btn hover-btn" data-toggle="collapse">Edit</Button>
+                                        </p>
+										<Collapse in={open}>
+										<div eventKey="3" className="collapse" id="edit-number">
 											<div className="row">
 												<div className="col-lg-8">
 													<div className="checkout-login">
@@ -23,9 +24,8 @@ function PhoneVerify() {
 													</div>
 												</div>
 											</div>
-										</Accordion.Collapse>
-										</Card>
-										</Accordion>
+											</div>
+										</Collapse>
 										<div className="otp-verifaction">
 											<div className="row">
 												<div className="col-lg-12">

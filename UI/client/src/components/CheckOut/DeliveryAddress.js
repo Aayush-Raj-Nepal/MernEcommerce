@@ -12,20 +12,6 @@ function DeliveryAddress() {
 						{/* <!-- Multiple Radios (inline) --> */}
 						<div className="form-group">
 							<div className="product-radio">
-								<ul className="product-now">
-									<li>
-										<input type="radio" id="ad1" name="address1" checked/>
-										<label for="ad1">Home</label>
-									</li>
-									<li>
-										<input type="radio" id="ad2" name="address1"/>
-										<label for="ad2">Office</label>
-									</li>
-									<li>
-										<input type="radio" id="ad3" name="address1"/>
-										<label for="ad3">Other</label>
-									</li>
-								</ul>
 							</div>
 						</div>
 						<div className="address-fieldset">
