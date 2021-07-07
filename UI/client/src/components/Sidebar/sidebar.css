@@ -29,3 +29,9 @@
         padding: 15px 20px;
         color: #fff;
   }
+
+  @media (max-width: 760px) {
+    .sidebar-menu.open{
+      width: 320px !important;
+    }
+  }

@@ -80,9 +80,8 @@ const paymenttogglerButton=()=>{
 			<div className="container">
 				<div className="row">
 					<div className="col-lg-8 col-md-7">
-						<div id="checkout_wizard" className="alert-primary checkout accordion left-chck145">
+						<Accordion id="checkout_wizard" className="alert-primary checkout accordion left-chck145">
 						<div>
-						<Accordion defaultActiveKey="0" id="checkout_wizard" className="checkout accordion left-chck145">
 							<Card className="checkout-step">
 								<div className="checkout-card" id="headingOne"> 
 									<span className="checkout-step-number">1</span>
@@ -94,43 +93,38 @@ const paymenttogglerButton=()=>{
 								<PhoneVerify></PhoneVerify>
 								</Accordion.Collapse>
 							</Card>
-						</Accordion>
-					</div>
-							<div>
-                          <Accordion defaultActiveKey="1" id="checkout_wizard" class="checkout accordion left-chck145">
-                           <Card class="checkout-step">
-								<div class="checkout-card" id="headingTwo">
-									<span class="checkout-step-number">2</span>
-									<h4 class="checkout-step-title">
-										<Accordion.Toggle as={Card.Header} eventKey="1" class="wizard-btn collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Delivery Address</Accordion.Toggle>
+					    </div>
+							<div>  
+                           <Card className="checkout-step">
+								<div className="checkout-card" id="headingTwo">
+									<span className="checkout-step-number">2</span>
+									<h4 className="checkout-step-title">
+										<Accordion.Toggle as={Card.Header} eventKey="1" className="wizard-btn collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Delivery Address</Accordion.Toggle>
 									</h4>
 								</div>
-								<Accordion.Collapse eventKey="1" id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#checkout_wizard">
+								<Accordion.Collapse eventKey="1" id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#checkout_wizard">
 								<DeliveryAddress></DeliveryAddress>
 								</Accordion.Collapse>
 							</Card>
-                            </Accordion>
+                            
                          </div>
-					<div>
-                        <Accordion defaultActiveKey="2" id="checkout_wizard" class="checkout accordion left-chck145">
-                           <Card class="checkout-step">
-								<div class="checkout-card" id="headingFour">
-									<span class="checkout-step-number">3</span>
-									<h4 class="checkout-step-title"> 
-										<Accordion.Toggle as={Card.Header} eventKey="2" class="wizard-btn collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Payment</Accordion.Toggle>
+                           <Card className="checkout-step">
+								<div className="checkout-card" id="headingFour">
+									<span className="checkout-step-number">3</span>
+									<h4 className="checkout-step-title"> 
+										<Accordion.Toggle as={Card.Header} eventKey="2" className="wizard-btn collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Payment</Accordion.Toggle>
 									</h4>
 								</div>
-								<Accordion.Collapse eventKey="2" id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#checkout_wizard">
+								<Accordion.Collapse eventKey="2" id="collapseFour" className="collapse" aria-labelledby="headingFour" data-parent="#checkout_wizard">
 								<PaymentMethod></PaymentMethod>
 								</Accordion.Collapse>
 							</Card>
-                        </Accordion>
-                    </div>
+					</Accordion>
 							{/* <button className="btn-block btn-lg btn-info rounded-0" onClick={placeOrder}>Place Order</button>
 							<PaymentModal showStatus={showPaymentModal} togglerButton={paymenttogglerButton}></PaymentModal> */}
 				</div>
 					</div>
-					<div className="col-lg-4 col-md-5">
+					<div className="col-lg-6 col-md-5">
 						<div className="pdpt-bg mt-0">
 							<div className="pdpt-title">
 								<h4>Order Summary</h4>
@@ -185,9 +179,8 @@ const paymenttogglerButton=()=>{
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>	
-	</div>
-        </div>
     )
 }
 

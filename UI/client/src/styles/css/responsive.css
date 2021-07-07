@@ -109,12 +109,25 @@
 }
 
 .cart__btn {
-    padding: 22px 10px 21px !important;
+   display: flex;
+    padding: 7px 7px !important;
+    margin-right: -40px;
 }
+
+/* .cart__btn {
+    padding: 24px 30px 24px !important;
+} */
 
 .cart__btn span {
 	display: none;
 }
+/* .cart__btn {
+    padding: 24px !important;
+}
+
+.cart__btn {
+    padding: 24px 30px 24px !important;
+} */
 
 .icon__14 {
     top: 0px;
@@ -165,9 +178,6 @@
     padding-top: 60px !important;
 }
 
-.cart__btn {
-    padding: 24px !important;
-}
 
 .catey__icon {
 	display: block !important;
@@ -424,10 +434,6 @@ ul.signup-code-list input {
     display: none;
 }
 
-.cart__btn {
-    padding: 24px 30px 24px !important;
-}
-
 .catey__icon {
 	display: block !important;
 }
@@ -438,6 +444,7 @@ ul.signup-code-list input {
 
 .offers-banner .owl-stage-outer {
     overflow: hidden !important;
+    display: block;
 }
 
 .footer-last-row {
@@ -620,10 +627,6 @@ img.download-btn {
     display: none;
 }
 
-.cart__btn {
-    padding: 24px 30px 24px !important;
-}
-
 .catey__icon {
 	display: block !important;
 }
@@ -690,10 +693,10 @@ body {
 	float: none;
 }
 
-.search120 {
+/* .search120 {
     width: 25% !important;
     margin-left: 40px;
-}
+} */
 
 .header_right ul li:first-child {
     display: none;
@@ -742,4 +745,149 @@ body {
    z-index: 9999 !important;
 }
 
+}
+@media (min-width: 600px) and (max-width: 780px){
+    .Offer-shop-btn{
+        padding: 8px 8px !important;
+        margin-bottom: -10px;
+        margin-right: 50px;
+    }
+    .offer-item{
+        height: 180px;
+        width: 280px;
+    }
+    .offer-top-text-banner{
+        width: 176px;
+        height: 110px;
+    }
+    .gambo-overlay{
+        width: 100%;
+    }
+    .offers-banner .owl-stage-outer {
+        overflow: hidden !important;
+    }
+    .offer-top-text-banner p{
+        font-size: 12px;
+        bottom: 10px;
+        position: relative;
+    }
+    .top-text-1{
+        font-size: 13px;
+        bottom: 10px;
+        position: relative;
+    }
+    .offer-top-text-banner span {
+        font-size: 12px;
+        bottom: 20px;
+        position: relative;
+    }
+}
+@media (min-width: 780px) and (max-width: 1200px){
+    .Offer-shop-btn{
+        padding: 8px 8px !important;
+        margin-bottom: -10px;
+        margin-right: 10px;
+    }
+    .offer-item{
+        height: 180px;
+        width: 280px;
+    }
+    .offer-top-text-banner{
+        width: 176px;
+        height: 110px;
+    }
+    .gambo-overlay{
+        width: 100%;
+    }
+    .offers-banner .owl-stage-outer {
+        overflow: hidden !important;
+    }
+    .offer-top-text-banner p{
+        font-size: 12px;
+        bottom: 10px;
+        position: relative;
+    }
+    .top-text-1{
+        font-size: 13px;
+        bottom: 10px;
+        position: relative;
+    }
+    .offer-top-text-banner span {
+        font-size: 12px;
+        bottom: 20px;
+        position: relative;
+    }
+}
+@media (min-width: 340px) and (max-width: 600px){
+    .Offer-shop-btn{
+        padding: 5px 5px !important;
+        margin-bottom: -15px;
+        margin-right: 120px;
+    }
+    .offer-item{
+        height: 180px;
+        width: 280px;
+    }
+    .offer-top-text-banner{
+        width: 146px;
+        height: 110px;
+    }
+    .gambo-overlay{
+        width: 100%;
+    }
+    .offers-banner .owl-stage-outer {
+        overflow: hidden !important;
+    }
+    .offer-top-text-banner p{
+        font-size: 12px;
+        bottom: 16px;
+        position: relative;
+    }
+    .top-text-1{
+        font-size: 13px;
+        bottom: 23px;
+        position: relative;
+    }
+    .offer-top-text-banner span {
+        font-size: 12px;
+        bottom: 33px;
+        position: relative;
+    }
+}
+
+@media (min-width: 200px) and (max-width: 340px){
+    .Offer-shop-btn{
+        padding: 5px 5px !important;
+        margin-bottom: -15px;
+        margin-right: 140px;
+    }
+    .offer-item{
+        height: 180px;
+        width: 280px;
+    }
+    .offer-top-text-banner{
+        width: 146px;
+        height: 110px;
+    }
+    .gambo-overlay{
+        width: 100%;
+    }
+    .offers-banner .owl-stage-outer {
+        overflow: hidden !important;
+    }
+    .offer-top-text-banner p{
+        font-size: 12px;
+        bottom: 5px;
+        position: relative;
+    }
+    .top-text-1{
+        font-size: 10px;
+        bottom: 10px;
+        position: relative;
+    }
+    .offer-top-text-banner span {
+        font-size: 12px;
+        bottom: 20px;
+        position: relative;
+    }
 }

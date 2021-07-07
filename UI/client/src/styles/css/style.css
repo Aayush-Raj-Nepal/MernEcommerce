@@ -901,7 +901,7 @@ i.icon1 {
 	background: #1784d2;
     padding: 10px 20px;
 	text-align: center;
-    border-radius: 8px 3px 8px 3px;
+    border-radius: 8px 3px 3px 3px;
 }
 
 .cart__btn span {
@@ -1025,6 +1025,11 @@ i.icon1 {
     color: #fff !important;
 	padding: 20px 20px 21px;
 	background: #2b2f4c;
+}
+@media (max-width: 960px) {
+    .search__btn{
+        visibility: hidden;
+    }
 }
 
 /* --- Category Mode --- */
@@ -1738,7 +1743,6 @@ i.icon1 {
     border-radius: 5px;
     width: 100%;
 }
-
 .gambo-overlay {
     position: absolute;
     top: 0;

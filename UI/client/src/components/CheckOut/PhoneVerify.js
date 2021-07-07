@@ -8,7 +8,7 @@ function PhoneVerify() {
 										<p>We need your phone number so we can inform you about any delay or problem.</p>	
 										<p className="phn145">4 digits code send your phone <span>+918437176189</span></p>
 										<Accordion>
-											<Card>
+									<Card>
 										<Accordion.Toggle as={Card.Header} eventKey="3" className="edit-no-btn hover-btn" data-toggle="collapse" href="#edit-number">Edit</Accordion.Toggle>
 										<Accordion.Collapse eventKey="3" className="collapse" id="edit-number">
 											<div className="row">
