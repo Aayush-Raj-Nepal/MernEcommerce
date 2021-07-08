@@ -27,7 +27,7 @@ export default function Product({id='12234',title='asdad',image=['asdad'],price=
             },
         })
        
-        toast.error('Added to Cart', {
+        toast.info('Added to Cart', {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: true,

@@ -7,9 +7,14 @@ import {getMediaUrl} from "../api/functions"
 import swal from "sweetalert2"
 import Product from "../components/Product/home"
 import {Link} from "react-router-dom"
+import { collapseToast } from "react-toastify";
+import Collapse from 'react-bootstrap/Collapse'
+import Button from 'react-bootstrap/Button'
+import Pagination from 'react-bootstrap/Pagination'
 
 
 function Newproduct({match}) {
+    const [open, setOpen] = useState(false);
     const[products,setProducts]=useState([])
     useEffect(() => {
       fetchProducts()
@@ -61,7 +66,8 @@ function Newproduct({match}) {
                                  <div className="ui selection dropdown vchrt-dropdown">
                                      <input name="gender" type="hidden" value="default"/>
                                      <i className="dropdown icon d-icon"></i>
-                                     <div className="text">Popularity</div>
+                                     <Button onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open} className="text">Popularity</Button>
+                                     <Collapse in={open}>
                                      <div className="menu">
                                          <div className="item" data-value="0">Popularity</div>
                                          <div className="item" data-value="1">Price - Low to High</div>
@@ -71,7 +77,7 @@ function Newproduct({match}) {
                                          <div className="item" data-value="5">Saving - Low to High</div>
                                          <div className="item" data-value="6">% Off - High to Low</div>
                                      </div>
-                                 </div>
+                                     </Collapse>                                 </div>
                              </div>
                          </div>
                      </div>
@@ -90,16 +96,24 @@ function Newproduct({match}) {
                      ></Product>
                      </div>
                    ))}
-                             
-                         
-                         <div className="col-md-12">
-                             <div className="more-product-btn">
-                                 <button className="show-more-btn hover-btn" onclick="window.location.href = '#';">Show More</button>
-                             </div>
-                         </div>
                      </div>
                  </div>
-             
+            <Pagination className="pagination">
+               <Pagination.First />
+               <Pagination.Prev />
+               <Pagination.Item active>{1}</Pagination.Item>
+                <Pagination.Item>{2}</Pagination.Item>
+                <Pagination.Item>{3}</Pagination.Item>
+                <Pagination.Item >{4}</Pagination.Item>
+                <Pagination.Item>{5}</Pagination.Item>
+                <Pagination.Ellipsis />
+                <Pagination.Item >{14}</Pagination.Item>
+                <Pagination.Item >{15}</Pagination.Item>
+                <Pagination.Ellipsis />
+                <Pagination.Item>{20}</Pagination.Item>
+                <Pagination.Next />
+                <Pagination.Last />
+            </Pagination>
              </div>
          </div>
      </div>

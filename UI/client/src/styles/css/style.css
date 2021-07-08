@@ -16,6 +16,9 @@
     margin: 4px 15px 0 5px;
     min-width: 15px;
 }
+.toastProgress{
+    background-color: #000
+}
 /* ------------------------------------------------------------------
  * Name         : Gambo - Online Grocery Supermarket HTML Template
  * File         : style.css
@@ -477,8 +480,8 @@ input[type=text] {
 
 .search120 {
     float: left;
-    margin-left: 35px;
-	width: 25%;
+    margin-left: 45px;
+	width: 40%;
 }
 
 .main_logo img {
@@ -834,10 +837,16 @@ i.icon1 {
 }
 
 .select_location {
-    margin-left: 34px;
+    margin-left: -45px;
     float: left;
+    font-weight: 600;
+    cursor: pointer;
 }
+.select_location p{
+    font-size: 20px;
+    color: #2b2f4c;
 
+}
 .ui.inline.dropdown.loc-title>.text {
     font-weight: 500 !important;
     color: #2b2f4c;
@@ -5698,7 +5707,11 @@ textarea {
     white-space: nowrap;
     line-height: 1.5;
 }
-
+.pagination{
+    position: relative;
+    margin-left: 400px;
+    margin-top: 50px;
+}
 .pagination-area .page-numbers {
     width: 33px;
     height: 33px;

@@ -125,13 +125,8 @@ function HeaderBottom() {
                   </Link>
                 </Nav.Link>
                 <Nav.Link className="navbar__nav__link">
-                  <Link to="/contact" className="navbarlink">
-                    Contact Us
-                  </Link>
-                </Nav.Link>
-                <Nav.Link className="navbar__nav__link">
-                  <Link to="/aboutus" className="navbarlink">
-                    About Us
+                  <Link to="/offers" className="navbarlink">
+                    Offers
                   </Link>
                 </Nav.Link>
               </Nav>
