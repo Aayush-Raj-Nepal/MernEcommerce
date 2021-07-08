@@ -38,6 +38,7 @@ function HeaderSearch() {
   return (
     <div>
       <div class="search input-group">
+        <span className="fa fa-search icon"></span>
         <input
           type="text"
           className="form-control form-control-sm"

@@ -7,6 +7,8 @@ import { getMediaUrl } from "../api/functions";
 import swal from "sweetalert2";
 import Product from "../components/Product/home";
 import { Link } from "react-router-dom";
+import Pagination from 'react-bootstrap/Pagination'
+
 
 function Newproduct({ match }) {
   const [products, setProducts] = useState([]);
@@ -32,9 +34,6 @@ function Newproduct({ match }) {
     <div>
       <Header></Header>
       <div>
-        <div>
-          <Header></Header>
-          <div>
             <div>
               {products && products.length > 0 && (
                 <div className="wrapper">
@@ -125,26 +124,29 @@ function Newproduct({ match }) {
                             </div>
                           ))}
 
-                          <div className="col-md-12">
-                            <div className="more-product-btn">
-                              <button
-                                className="show-more-btn hover-btn"
-                                onclick="window.location.href = '#';"
-                              >
-                                Show More
-                              </button>
-                            </div>
-                          </div>
+                          
                         </div>
                       </div>
+                      <Pagination className="pagination">
+               <Pagination.First />
+               <Pagination.Prev />
+               <Pagination.Item active >{1}</Pagination.Item>
+                <Pagination.Item>{2}</Pagination.Item>
+                <Pagination.Item>{3}</Pagination.Item>
+                <Pagination.Item >{4}</Pagination.Item>
+                <Pagination.Item>{5}</Pagination.Item>
+                <Pagination.Ellipsis />
+                <Pagination.Item >{14}</Pagination.Item>
+                <Pagination.Item >{15}</Pagination.Item>
+                <Pagination.Ellipsis />
+                <Pagination.Item>{20}</Pagination.Item>
+                <Pagination.Next />
+                <Pagination.Last />
+            </Pagination>
                     </div>
                   </div>
                 </div>
               )}
-            </div>
-            <Footer></Footer>
-          </div>
-          )
         </div>
         <Footer></Footer>
       </div>
