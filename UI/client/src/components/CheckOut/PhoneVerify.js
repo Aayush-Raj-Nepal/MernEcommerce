@@ -28,7 +28,7 @@ function PhoneVerify() {
           window.confirmationResult = confirmationResult;
           var coderesult = confirmationResult;
           console.log(coderesult);
-          // alert("Message sent");
+          swal.fire("Code sent");
           setSent(true);
         })
         .catch(function (error) {
@@ -46,67 +46,30 @@ function PhoneVerify() {
       swal.fire({ title: "provide valid phone number", icon: "info" });
     }
   }
-
   const handleCode = (event) => {
     // console.log(event.target.value)
     setInvalid(false);
     return event.target.value.length == 6 ? verifyCode(event.target.value) : "";
   };
-  function signup() {
-    console.log(user);
-    let error = "";
-    if (user.name == "") {
-      error = "Name is required";
-    } else if (user.email == "") {
-      error = "Email is required";
-    } else if (user.password == "") {
-      error = "Password is required";
-      // }else if(!verified){
-      // 	error="Please verify phone number"
-      // }else if (user.phone=='' ||user.phone.length!==10) {
-      // 	error='Correct Phone Number is required'
-    }
 
-    if (error && error != "") {
-      swal.fire(error);
-    } else {
-      console.log(user);
-      axios
-        .post(API + "auth/signup", {
-          ...user,
-        })
-        .then((resp) => {
-          if (resp.error_message) {
-            swal.fire({ title: resp.error_message, icon: "error" });
-          } else {
-            dispatch({
-              type: "USER_LOGIN",
-              user: resp.data,
-            });
-            swal.fire("Login success");
-            history.push("/");
-          }
-          console.log(resp);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      swal.fire("success");
-    }
-  }
   function verifyCode(code) {
-    //    console.log(code)
-    // setLoading(true)
-    // var code = document.getElementById('verificationCode').value;
     return window.confirmationResult
       .confirm(code)
       .then(function (result) {
-        // if(verifyUserPhone(isAutheticated().token, isAutheticated().user._id)){
-        //     setLoading(false)
-        setVerified(true);
-        // }else{
-        //     setLoading(false)
-        // }
+        axios
+          .put(API + "user/verifyPhone", {
+            phone: phone,
+          })
+          .then((resp) => {
+            setVerified(true);
+            dispatch({
+              type: "USER_VERIFIED",
+            });
+          })
+          .catch((err) => {
+            swal.fire("Error verifying phone number");
+            console.log(err);
+          });
       })
       .catch(function (error) {
         setInvalid(true);
@@ -128,64 +91,7 @@ function PhoneVerify() {
       }
     );
   }, []);
-  return (
-    <div className="checkout-step-body">
-      <p>
-        We need your phone number so we can inform you about any delay or
-        problem.
-      </p>
-      4 digits code will be sent to your phone :
-      <div id="recaptcha-container"></div>
-      <InputGroup className="mb-2">
-        <InputGroup.Append>
-          <InputGroup.Text className="bg-transparent">
-            <i className="fa fa-mobile-alt bg-none border-0"></i>
-          </InputGroup.Text>
-        </InputGroup.Append>
-        <input
-          type="Number"
-          disabled={sent}
-          className="form-control"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          placeholder="Phone Number"
-        />
-        {!verified && (
-          <InputGroup.Append className="border-0">
-            <InputGroup.Text className="bg-transparent">
-              <span
-                style={{ cursor: "pointer" }}
-                id="sign-in-button"
-                onClick={phoneAuth}
-              >
-                Send Code
-              </span>
-            </InputGroup.Text>
-          </InputGroup.Append>
-        )}
-      </InputGroup>
-      {sent && !verified && (
-        <div className="form-group pos_rel">
-          <label className="control-label">Enter Code</label>
-          <input type="Number" className="form-control" onChange={handleCode} />
-          <a href="#" className="resend-link">
-            Resend Code
-          </a>
-        </div>
-      )}
-      {verified && !invalid && (
-        <span>
-          Verified <i className="text-success fa fa-check"></i>
-        </span>
-      )}
-      {invalid && (
-        <span>
-          {" "}
-          <i className="text-danger fa fa-exclamation"></i>
-        </span>
-      )}
-    </div>
-  );
+  return <div className="checkout-step-body"></div>;
 }
 
 export default PhoneVerify;

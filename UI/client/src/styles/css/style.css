@@ -598,7 +598,11 @@ i.icon1 {
   font-weight: 500;
   border: 0 !important;
 }
-
+/* aayush */
+.ui .search {
+  position: relative;
+  margin: 0;
+}
 .ui.search .prompt {
   border-radius: 0.3rem !important;
   width: 100%;
@@ -1428,8 +1432,6 @@ i.icon1 {
   border-bottom: 0;
 }
 
-.side-cart-items {
-}
 /* edited-pranish */
 .cart-product-img {
   width: 120px;
@@ -1614,6 +1616,7 @@ i.icon1 {
 .cart-item-price span {
   color: #c7c7c7;
   text-decoration: line-through;
+  padding-right: 6px;
   margin-left: 7px;
   font-weight: 600;
 }
@@ -3153,11 +3156,34 @@ span.save-icon {
   text-align: left;
 }
 
+.checkout-step-number {
+  border: 2px solid #21a1d2;
+  background: #21a1d2;
+  border-radius: 50px 50px 50px 50px;
+  padding-right: 12px;
+  padding-left: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-left: 10px;
+  margin-right: 15px;
+  color: #fff;
+}
+.checkout-step-title {
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.phn-title {
+  padding-left: 35px;
+  padding-top: 15px;
+}
 .phn145 {
   font-size: 14px;
   font-weight: 500;
   line-height: 24px;
   color: #3e3f5e;
+  padding-top: 10px;
+  padding-left: 35px;
 }
 
 .phn145 span {
@@ -3171,11 +3197,22 @@ span.save-icon {
   margin-left: 15px;
   display: inline-block;
   padding: 0px 10px;
+  outline: none;
   color: #fff;
   background: #21a1d2;
   border-radius: 5px;
 }
-
+.edit-no-btn:hover {
+  border: none !important;
+}
+.otp-verifaction {
+  padding-top: 10px;
+  padding-left: 30px;
+}
+.checkout-login {
+  padding-top: 15px;
+  padding-left: 30px;
+}
 .code-alrt-inputs li {
   display: inline-block;
   vertical-align: middle;
@@ -3184,7 +3221,9 @@ span.save-icon {
 .code-alrt-inputs input {
   text-align: center;
 }
-
+.login-phone {
+  padding-right: 190px;
+}
 ul.code-alrt-inputs input {
   width: 40px;
   border: 1px solid #efefef;
@@ -3214,6 +3253,7 @@ label.control-label {
   padding: 8px 15px;
   font-weight: 500;
   border-radius: 5px;
+  margin-top: 10px;
 }
 
 .resend-link {
@@ -3238,6 +3278,16 @@ label.control-label {
   padding: 0 1rem 0 1rem;
 }
 
+.form-group {
+  padding: 8px;
+}
+.radio-item_1 {
+  padding-top: 15px;
+  padding-left: 20px;
+}
+.next-btn16 {
+  margin: 15px;
+}
 .form-control:focus {
   outline: none !important;
   box-shadow: none !important;
@@ -6441,6 +6491,13 @@ textarea {
 
 .panel-title {
   vertical-align: middle;
+  color: #000;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 30px;
+  margin: 10px;
+  background-color: #d0d7dd;
+  font-weight: 600;
 }
 
 .panel-default {

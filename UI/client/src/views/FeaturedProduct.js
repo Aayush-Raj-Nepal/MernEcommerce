@@ -79,7 +79,7 @@ function Newproduct({match}) {
                  <div className="product-list-view">
                      <div className="row">
                      {products.map((product, index) => (
-                                                 <div  key={index} className="col-lg-3 col-md-6">
+                                                 <div  key={index} className="col-lg-3 col-md-6 mt-3">
                      <Product
                        id={product._id}
                        discount={product.discount}

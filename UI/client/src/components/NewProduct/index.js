@@ -28,7 +28,7 @@ function index() {
 				</div>
 				<div className="product-list-view">
 					<div className="row">
-						<div className="col-lg-3 col-md-6">
+						<div className="col-lg-6 col-md-6">
 							<div className="product-item mb-30">
 								<a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/single_product_view.html" className="product-img">
 									<img src="images/product/img-1.jpg" alt=""/>
