@@ -15,6 +15,9 @@
 .c-pointer {
   cursor: pointer;
 }
+.toastProgress{
+    background-color: #000
+}
 /* ------------------------------------------------------------------
  * Name         : Gambo - Online Grocery Supermarket HTML Template
  * File         : style.css
@@ -925,7 +928,16 @@ i.icon1 {
   margin-left: 34px;
   float: left;
 }
+.select_location p{
+    font-size: 20px;
+    color: #2b2f4c;
 
+}
+.ui.inline.dropdown.loc-title>.text {
+    font-weight: 500 !important;
+    color: #2b2f4c;
+    font-size: 14px;
+}
 .ui.inline.dropdown.loc-title > .text {
   font-weight: 500 !important;
   color: #2b2f4c;
@@ -5853,7 +5865,11 @@ textarea {
   white-space: nowrap;
   line-height: 1.5;
 }
-
+.pagination{
+    position: relative;
+    margin-left: 400px;
+    margin-top: 50px;
+}
 .pagination-area .page-numbers {
   width: 33px;
   height: 33px;

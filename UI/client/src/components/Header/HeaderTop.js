@@ -38,47 +38,7 @@ function HeaderTop() {
             </Link>
           </div>
           <div className="select_location">
-            {/* <div className="ui inline dropdown loc-title">
-              <div className="text">
-                <i className="uil uil-location-point"></i>
-                Kathmandu
-              </div>
-              <i className="uil uil-angle-down icon__14"></i>
-              <div className="menu dropdown_loc">
-                <div className="item channel_item">
-                  <i className="uil uil-location-point"></i>
-                  Kathmandu
-                </div>
-                <div className="item channel_item">
-                  <i className="uil uil-location-point"></i>
-                  New Delhi
-                </div>
-                <div className="item channel_item">
-                  <i className="uil uil-location-point"></i>
-                  Bangaluru
-                </div>
-                <div className="item channel_item">
-                  <i className="uil uil-location-point"></i>
-                  Mumbai
-                </div>
-                <div className="item channel_item">
-                  <i className="uil uil-location-point"></i>
-                  Hyderabad
-                </div>
-                <div className="item channel_item">
-                  <i className="uil uil-location-point"></i>
-                  Kolkata
-                </div>
-                <div className="item channel_item">
-                  <i className="uil uil-location-point"></i>
-                  Ludhiana
-                </div>
-                <div className="item channel_item">
-                  <i className="uil uil-location-point"></i>
-                  Chandigrah
-                </div>
-              </div>
-            </div> */}
+            <p>Subidha Online</p>
           </div>
           <div className="search120">
             <Search></Search>

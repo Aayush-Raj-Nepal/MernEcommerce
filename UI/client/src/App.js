@@ -4,8 +4,8 @@ import { useStateValue } from "./StateProvider";
 import * as fb from "./api/firebase";
 import axios from "axios";
 // style sheets
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from 'react-toastify';
 
 // import './styles/unicons-2.0.1/css/unicons.css'
 import "./styles/fontawesome-free/css/all.min.css";
@@ -18,7 +18,7 @@ import "./styles/css/responsive.css";
 import "./styles/css/night-mode.css";
 
 import "./App.css";
-
+import { getHeight } from "jimp";
 function App() {
   const [store, dispatch] = useStateValue();
   useEffect(() => {
@@ -70,7 +70,8 @@ function App() {
         href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
       />
-      <ToastContainer newestOnTop={true} />
+      <ToastContainer
+     style={{width:"200px"}} newestOnTop={true} />
 
       <Routes />
     </div>
