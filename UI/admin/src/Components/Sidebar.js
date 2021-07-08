@@ -36,6 +36,16 @@ function Sidebar(props) {
               </SubMenu>
             </Menu>
             <Menu iconShape="square">
+              <SubMenu title="Offers" icon={<i className="fa fa-gift"></i>}>
+                <MenuItem>
+                  Create Offers <Link to="/offers/create"></Link>
+                </MenuItem>
+                <MenuItem>
+                  All Offers <Link to="/offers/all"></Link>
+                </MenuItem>
+              </SubMenu>
+            </Menu>
+            <Menu iconShape="square">
               <SubMenu title="Category" icon={<i className="fa fa-list"></i>}>
                 <MenuItem>
                   Create Category <Link to="/category/create"></Link>

@@ -37,7 +37,7 @@ function HeaderSearch() {
   };
   return (
     <div>
-      <div class="search input-group">
+      <div className="search input-group">
         <input
           type="text"
           className="form-control form-control-sm"
@@ -46,7 +46,7 @@ function HeaderSearch() {
           onKeyPress={handleKeyPress}
         />{" "}
         {products.length > 0 && (
-          <ul class="results" style={{ display: `block` }}>
+          <ul className="results" style={{ display: `block` }}>
             {products &&
               products.map((p) => (
                 <li onClick={() => productDetail(p._id)}>

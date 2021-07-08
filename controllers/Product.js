@@ -114,6 +114,115 @@ exports.searchProducts = (req, res) => {
       });
     });
 };
+exports.searchListProducts = (req, res) => {
+  let queryTOSearch = [
+    {
+      $match: {
+        $or: [
+          {
+            "category.name": {
+              $regex: req.body.query + ".*",
+              $options: "i",
+            },
+          },
+          {
+            eng_name: {
+              $regex: req.body.query + ".*",
+              $options: "i",
+            },
+          },
+          {
+            nep_name: {
+              $regex: req.body.query + ".*",
+              $options: "i",
+            },
+          },
+          {
+            short_description: {
+              $regex: req.body.query + ".*",
+              $options: "i",
+            },
+          },
+          {
+            description: {
+              $regex: req.body.query + ".*",
+              $options: "i",
+            },
+          },
+          {
+            tags: {
+              $regex: req.body.query + ".*",
+              $options: "i",
+            },
+          },
+        ],
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        count: {
+          $sum: 1,
+        },
+        results: {
+          $push: "$$ROOT",
+        },
+      },
+    },
+    {
+      $unwind: "$results",
+    },
+    {
+      $limit: 20,
+    },
+    {
+      $group: {
+        _id: null,
+        count: {
+          $last: "$count",
+        },
+        results: {
+          $push: "$$ROOT.results",
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+      },
+    },
+  ];
+
+  let isAdmin = req.body.admin;
+  console.log(isAdmin);
+  if (!isAdmin) {
+    queryTOSearch[0].$match["status"] = "Active";
+  }
+
+  let query = Product.aggregate(queryTOSearch);
+  query
+    .then((result) => {
+      console.log(result);
+      if (result[0]) {
+        let Products = result[0].results.map((product) => {
+          return {
+            name: product.eng_name,
+            _id: product._id,
+            image: product.images[0],
+            category: product.category,
+          };
+        });
+        res.status(200).json(Products);
+      } else {
+        return res.status(200).json([]);
+      }
+    })
+    .catch((err) => {
+      res.status(400).json({
+        error_message: err.message,
+      });
+    });
+};
 exports.getSimilarProducts = (req, res) => {
   if (req.query.id && req.query.count) {
     Product.findOne({ _id: req.body.id }).then((product) => {
@@ -200,15 +309,16 @@ exports.getSimilarProducts = (req, res) => {
           .then((result) => {
             console.log(result);
             let Products = result[0].results;
-            Products.map((product) => {
-              product.price = product.price_history.pop().value;
-              product.discount = product.discount_history.pop().value;
-              product.image = product.images[0];
-              delete product.price_history;
-              delete product.discount_history;
-              delete product.images;
-              return product;
+            Products.map((p) => {
+              p.price = p.price_history.pop().value;
+              p.discount = p.discount_history.pop().value;
+              p.image = p.images[0];
+              delete p.price_history;
+              delete p.discount_history;
+              delete p.images;
+              return p;
             });
+            Products.filter((p) => p._id != product._id);
             return res.status(200).json(Products);
           })
           .catch((err) => {

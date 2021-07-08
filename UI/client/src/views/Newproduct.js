@@ -67,12 +67,9 @@ function Newproduct({ match }) {
                             <div className="product-left-title">
                               <h2>New Product</h2>
                             </div>
-                            <a
-                              href="#"
-                              className="filter-btn pull-bs-canvas-right"
-                            >
+                            <span className="filter-btn pull-bs-canvas-right">
                               Filters
-                            </a>
+                            </span>
                             <div className="product-sort">
                               <div className="ui selection dropdown vchrt-dropdown">
                                 <input

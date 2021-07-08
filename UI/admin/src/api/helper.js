@@ -78,10 +78,42 @@ export const deleteProduct = (data) => {
       }
     });
 };
-
+export const deleteOffer = (data) => {
+  return axios
+    .delete(API + "offer/" + data._id)
+    .then((resp) => {
+      console.log(resp);
+      return resp.data;
+    })
+    .catch((err) => {
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
+    });
+};
 export const updateProduct = (data, update) => {
   return axios
     .put(API + "product", { query: { _id: data._id }, update })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
+    });
+};
+export const updateOffer = (data, update) => {
+  return axios
+    .put(API + "offer", { query: { _id: data._id }, update })
     .then((res) => {
       return res.data;
     })
@@ -176,6 +208,7 @@ export const createProduct = (data) => {
       }
     });
 };
+
 export const editProduct = (data, id) => {
   return axios
     .put(API + "product/" + id, data)
@@ -193,6 +226,42 @@ export const editProduct = (data, id) => {
       }
     });
 };
+
+export const createOffer = (data) => {
+  return axios
+    .post(API + "offer", data)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
+    });
+};
+
+export const editOffer = (data, id) => {
+  return axios
+    .put(API + "offer/" + id, data)
+    .then((res) => {
+      console.log(res).data;
+      return res.data;
+    })
+    .catch((err) => {
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
+    });
+};
+
 export const updateCategory = (data, update) => {
   return axios
     .put(API + "category", { query: { _id: data._id }, update })
@@ -265,6 +334,23 @@ export const createaProduct = (userId, token, product) => {
 export const getAllProducts = () => {
   return axios
     .get(`${API}product`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      if (err.response) {
+        return {
+          error_message: err.response.data.error_message,
+        };
+      } else {
+        return err;
+      }
+    });
+};
+//get all offers
+export const getAllOffers = () => {
+  return axios
+    .get(`${API}offer`)
     .then((res) => {
       return res.data;
     })

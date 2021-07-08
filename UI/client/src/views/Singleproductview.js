@@ -7,6 +7,7 @@ function Singleproductview({ match }) {
   let { id } = match.params;
   useEffect(() => {
     id = match.params.id;
+    window.scrollTo(0, 0);
   }, [id]);
   return (
     <div>
