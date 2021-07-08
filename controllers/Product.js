@@ -1,229 +1,238 @@
 import Product from "../models/Product";
 
 const { validationResult } = require("express-validator");
-exports.searchProducts=(req,res)=>{	
-  
-		let queryTOSearch = [
-			{
-				$match:{
-					$or: [
-						{
-							'category.name': {
-								$regex: req.body.search + ".*",
-								$options: "i",
-							},
-						},
-						{
-							eng_name: {
-								$regex: req.body.search + ".*",
-								$options: "i",
-							},
-						},
-            {
-							nep_name: {
-								$regex: req.body.search + ".*",
-								$options: "i",
-							},
-						},
-						{
-							short_description: {
-								$regex: req.body.search + ".*",
-								$options: "i",
-							},
-						},
-						{
-							description: {
-								$regex: req.body.search + ".*",
-								$options: "i",
-							},
-						},
-						{
-							tags: {
-								$regex: req.body.search + ".*",
-								$options: "i",
-							},
-						},
-					],
-				},
-			},
-			{
-				$group: {
-					_id: null,
-					count: {
-						$sum: 1,
-					},
-					results: {
-						$push: "$$ROOT",
-					},
-				},
-			},
-			{
-				$unwind: "$results",
-			},
-			{
-				$skip: parseInt(req.body.page_size) * (req.body.page_no - 1),
-			},
-			{
-				$limit: parseInt(req.body.page_size),
-			},
-			{
-				$group: {
-					_id: null,
-					count: {
-						$last: "$count",
-					},
-					results: {
-						$push: "$$ROOT.results",
-					},
-				},
-			},
-			{
-				$project: {
-					_id: 0,
-				},
-			},
-		]
+exports.searchProducts = (req, res) => {
+  req.body.page_size = req.body.page_size ? req.body.page_size : 10;
+  req.body.page_no = req.body.page_no ? req.body.page_no : 1;
+  let queryTOSearch = [
+    {
+      $match: {
+        $or: [
+          {
+            "category.name": {
+              $regex: req.body.query + ".*",
+              $options: "i",
+            },
+          },
+          {
+            eng_name: {
+              $regex: req.body.query + ".*",
+              $options: "i",
+            },
+          },
+          {
+            nep_name: {
+              $regex: req.body.query + ".*",
+              $options: "i",
+            },
+          },
+          {
+            short_description: {
+              $regex: req.body.query + ".*",
+              $options: "i",
+            },
+          },
+          {
+            description: {
+              $regex: req.body.query + ".*",
+              $options: "i",
+            },
+          },
+          {
+            tags: {
+              $regex: req.body.query + ".*",
+              $options: "i",
+            },
+          },
+        ],
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        count: {
+          $sum: 1,
+        },
+        results: {
+          $push: "$$ROOT",
+        },
+      },
+    },
+    {
+      $unwind: "$results",
+    },
+    {
+      $skip: parseInt(req.body.page_size) * (req.body.page_no - 1),
+    },
+    {
+      $limit: parseInt(req.body.page_size),
+    },
+    {
+      $group: {
+        _id: null,
+        count: {
+          $last: "$count",
+        },
+        results: {
+          $push: "$$ROOT.results",
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+      },
+    },
+  ];
 
-		let isAdmin = req.body.admin
-		console.log(isAdmin)
-		if (!isAdmin) {
-			queryTOSearch[0].$match["status"] = "Active"
-		}
+  let isAdmin = req.body.admin;
+  console.log(isAdmin);
+  if (!isAdmin) {
+    queryTOSearch[0].$match["status"] = "Active";
+  }
 
-		let query = Product.aggregate(queryTOSearch)
-		query
-			.then((result) => {
-				console.log(result)
-				return res.status(200).json(result)
-			})
-			.catch((err) => {
-				res.status(400).json({
-					error_message: err.message,
-				})
-			})
-	}
-  exports.getSimilarProducts=(req,res)=>{	
-    if (req.query.id && req.query.count) {
-      Product.findOne({_id:req.body.id}).then(product=>{
-        if (product) {
-      let count=req.query.count
-     
-      let queryToMatch = [
-        {
-          $match:{
-            $or: [
-              {
-                'category.name': {
-                  $regex: product.category.name + ".*",
-                  $options: "i",
-                },
-              },
-              {
-                eng_name: {
-                  $regex: product.eng_name + ".*",
-                  $options: "i",
-                },
-              },
-              {
-                nep_name: {
-                  $regex: product.nep_name + ".*",
-                  $options: "i",
-                },
-              },
-              {
-                tags: {
-                  $regex: product.tags.search + ".*",
-                  $options: "i",
-                },
-              },
-            ],
-          },
-        },
-        {
-          $group: {
-            _id: null,
-            count: {
-              $sum: 1,
-            },
-            results: {
-              $push: "$$ROOT",
-            },
-          },
-        },
-        {
-          $unwind: "$results",
-        },
-        // {
-        // 	$skip: parseInt(req.body.page_size) * (req.body.page_no - 1),
-        // },
-        {
-          $limit: parseInt(count?count:5),
-        },
-        {
-          $group: {
-            _id: null,
-            count: {
-              $last: "$count",
-            },
-            results: {
-              $push: "$$ROOT.results",
-            },
-          },
-        },
-        {
-          $project: {
-            _id: 0,
-          },
-        },
-      ]
-  
-      let isAdmin = req.body.admin
-      console.log(isAdmin)
-      if (!isAdmin) {
-        queryToMatch[0].$match["status"] = "Active"
+  let query = Product.aggregate(queryTOSearch);
+  query
+    .then((result) => {
+      console.log(result);
+      if (result[0]) {
+        let Products = result[0].results.map((product) => {
+          product.price = product.price_history.pop().value;
+          product.discount = product.discount_history.pop().value;
+          delete product.price_history;
+          delete product.discount_history;
+          return product;
+        });
+        res.status(200).json(Products);
+      } else {
+        return res.status(200).json([]);
       }
-  
-      let query = Product.aggregate(queryToMatch)
-      query
-        .then((result) => {
-          console.log(result)
-          let Products=result[0].results
-          Products.map((product) => {
-            product.price = product.price_history.pop().value;
-            product.discount = product.discount_history.pop().value;
-            product.image=product.images[0]
-            delete product.price_history;
-            delete product.discount_history;
-            delete product.images
-            return product;
-          });
-          return  res.status(200).json(Products);
-        })
-        .catch((err) => {
-          res.status(400).json({
-            error_message: err.message,
+    })
+    .catch((err) => {
+      res.status(400).json({
+        error_message: err.message,
+      });
+    });
+};
+exports.getSimilarProducts = (req, res) => {
+  if (req.query.id && req.query.count) {
+    Product.findOne({ _id: req.body.id }).then((product) => {
+      if (product) {
+        let count = req.query.count;
+
+        let queryToMatch = [
+          {
+            $match: {
+              $or: [
+                {
+                  "category.name": {
+                    $regex: product.category.name + ".*",
+                    $options: "i",
+                  },
+                },
+                {
+                  eng_name: {
+                    $regex: product.eng_name + ".*",
+                    $options: "i",
+                  },
+                },
+                {
+                  nep_name: {
+                    $regex: product.nep_name + ".*",
+                    $options: "i",
+                  },
+                },
+                {
+                  tags: {
+                    $regex: product.tags.search + ".*",
+                    $options: "i",
+                  },
+                },
+              ],
+            },
+          },
+          {
+            $group: {
+              _id: null,
+              count: {
+                $sum: 1,
+              },
+              results: {
+                $push: "$$ROOT",
+              },
+            },
+          },
+          {
+            $unwind: "$results",
+          },
+          // {
+          // 	$skip: parseInt(req.body.page_size) * (req.body.page_no - 1),
+          // },
+          {
+            $limit: parseInt(count ? count : 5),
+          },
+          {
+            $group: {
+              _id: null,
+              count: {
+                $last: "$count",
+              },
+              results: {
+                $push: "$$ROOT.results",
+              },
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+            },
+          },
+        ];
+
+        let isAdmin = req.body.admin;
+        console.log(isAdmin);
+        if (!isAdmin) {
+          queryToMatch[0].$match["status"] = "Active";
+        }
+
+        let query = Product.aggregate(queryToMatch);
+        query
+          .then((result) => {
+            console.log(result);
+            let Products = result[0].results;
+            Products.map((product) => {
+              product.price = product.price_history.pop().value;
+              product.discount = product.discount_history.pop().value;
+              product.image = product.images[0];
+              delete product.price_history;
+              delete product.discount_history;
+              delete product.images;
+              return product;
+            });
+            return res.status(200).json(Products);
           })
-        })
-      
+          .catch((err) => {
+            res.status(400).json({
+              error_message: err.message,
+            });
+          });
       } else {
         res.status(400).json({
           error_message: "invalid id",
-        })
+        });
       }
-      })
-
-    } else {
-      res.status(400).json({
-        error_message: "invalid id",
-      })
-    }
-   
-	}
+    });
+  } else {
+    res.status(400).json({
+      error_message: "invalid id",
+    });
+  }
+};
 exports.getLatestProducts = (req, res) => {
-  
   Product.find({ status: "Active" })
     .sort({ createdAt: -1 })
-    .limit(20).lean()
+    .limit(20)
+    .lean()
     .then((Products) => {
       if (Products.length == 0) {
         res.status(404).json({
@@ -248,7 +257,8 @@ exports.getLatestProducts = (req, res) => {
     });
 };
 exports.getFeaturedProducts = (req, res) => {
-  Product.find({ status: "Active", featured: true }).lean()
+  Product.find({ status: "Active", featured: true })
+    .lean()
     .then((Products) => {
       if (Products.length == 0) {
         res.status(404).json({

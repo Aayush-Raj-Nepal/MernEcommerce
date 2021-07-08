@@ -1,43 +1,47 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import { getSingleProduct } from "../../api/helper";
 import renderHTML from "react-render-html";
 import ImageCarousel from "../ImageCarousel/Index";
 import { getDiscountedPrice, getMediaUrl } from "../../api/functions";
-import {  toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useStateValue } from "../../StateProvider";
-import SimilarProducts from "./SimilarProducts"
-export default function Index({id}) {
+import SimilarProducts from "./SimilarProducts";
+export default function Index({ id }) {
   const [product, setProduct] = useState({});
   useEffect(() => {
     fetchProduct(id);
-  }, []);
-  const [state,dispatch]=useStateValue();
-  const addToBasket=(product)=>{
-    console.log(product)
+  }, [id]);
+  const [state, dispatch] = useStateValue();
+  const getProductImages = () => {
+    return product.images;
+  };
+  const addToBasket = (product) => {
+    console.log(product);
     // return
     // dispatch the item insto the data-layer
     dispatch({
-        type:'ADD_TO_BASKET',
-        item:{
-            id:product._id,
-            title:product.eng_name,
-            image:getMediaUrl("product/" + product.images[0]),
-            price:product.price,
-            // rating:product.rating,
-            count:1
-        },
-    })
-    toast.error('Added to Cart', {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        }); 
+      type: "ADD_TO_BASKET",
+      item: {
+        id: product._id,
+        title: product.eng_name,
+        image: getMediaUrl("product/" + product.images[0]),
+        price: product.price,
+        // rating:product.rating,
+        count: 1,
+      },
+    });
+
+    toast.error("Added to Cart", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
   const fetchProduct = (id) => {
     getSingleProduct(id)
@@ -47,7 +51,7 @@ export default function Index({id}) {
       .catch((err) => {
         console.log(err);
       });
-    }
+  };
   return (
     <div>
       {product && product.category && (
@@ -63,7 +67,16 @@ export default function Index({id}) {
                           <Link to="/">Home</Link>
                         </li>
                         <li className="breadcrumb-item">
-                          <a>{product.category ? product.category.name : ""}</a>
+                          <Link
+                            to={
+                              product.category
+                                ? "/category/" + product.category.cat_id
+                                : "/"
+                            }
+                          >
+                            {product.category ? product.category.name : ""}
+                          </Link>
+                          <a></a>
                         </li>
                         <li
                           className="breadcrumb-item active"
@@ -85,7 +98,7 @@ export default function Index({id}) {
                       <div className="row">
                         <div className="col-lg-4 col-md-4">
                           <ImageCarousel
-                            images={product.images}
+                            images={getProductImages()}
                           ></ImageCarousel>
                         </div>
                         <div className="col-lg-8 col-md-8">
@@ -104,11 +117,9 @@ export default function Index({id}) {
                                       : ""
                                   }
                                 >
-                                  
                                   {product.stock && Number(product.stock) > 0
                                     ? `${product.stock} In Stock`
                                     : "Out Of Stock"}
-                                  
                                 </span>
                               </p>
                             </div>
@@ -132,7 +143,7 @@ export default function Index({id}) {
                                 </li>
                                 <li>
                                   <div className="main-price mrp-price">
-                                   <span>Rs{product.price}</span>
+                                    <span>Rs{product.price}</span>
                                   </div>
                                 </li>
                               </ul>
@@ -169,7 +180,10 @@ export default function Index({id}) {
                               </ul> */}
                               <ul className="ordr-crt-share">
                                 <li>
-                                  <button className="add-cart-btn hover-btn" onClick={()=>addToBasket(product)}>
+                                  <button
+                                    className="add-cart-btn hover-btn"
+                                    onClick={() => addToBasket(product)}
+                                  >
                                     <i className="uil uil-shopping-cart-alt"></i>
                                     Add to Cart
                                   </button>
@@ -224,7 +238,6 @@ export default function Index({id}) {
           </div>
           <div className="container mb-4">
             <div className="row">
-          
               <div className="col-lg-8 col-md-12">
                 <div className="pdpt-bg">
                   <div className="pdpt-title">

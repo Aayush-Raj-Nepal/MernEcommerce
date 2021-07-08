@@ -1,4 +1,6 @@
 import Order from "../models/Orders";
+import Product from "../models/Product";
+import { GetRecent, GetBalance } from "../library/helpers";
 const { validationResult } = require("express-validator");
 exports.getAllOrders = (req, res) => {
   Order.find({})
@@ -18,7 +20,6 @@ exports.getAllOrders = (req, res) => {
       });
     });
 };
-
 exports.updateOrder = (req, res) => {
   Order.findOneAndUpdate(req.body.query, req.body.update)
     .then((orders) => {
@@ -27,7 +28,7 @@ exports.updateOrder = (req, res) => {
     .catch((err) => {
       console.log(err);
       res.status(404).json({
-        error_message: "Cannot update category", 
+        error_message: "Cannot update category",
       });
     });
 };
@@ -70,33 +71,68 @@ exports.createOrder = (req, res) => {
     });
   }
   let payload = req.body.payload;
-  payload.products=payload.basket.map(p=>{
-      return {
-          count:p.count,
-          name:p.title,
-          price:p.price,
-          product_id:p.id
-      }
+  payload.products = payload.basket.map((p) => {
+    return {
+      count: p.count,
+      name: p.title,
+      price: p.price,
+      product_id: p.id,
+      total: p.price,
+    };
+  });
+
+  payload.order_details = payload.orderDetails;
+  payload.total = payload.products.reduce(
+    (a, b) => (a += b.count * b.price),
+    0
+  );
+  payload.user_id = req.body.user._id;
+  payload.delivery_charge = {
+    amount: payload.delivery_charge.amount,
+    location: payload.delivery_charge.location,
+    location_description: payload.delivery_charge.location_description,
+  };
+  delete payload.basket;
+  delete payload.orderDetails;
+  let productIds = payload.products.map((p) => {
+    return p.product_id;
+  });
+  // console.log(payload);
+  Product.find({
+    _id: {
+      $in: productIds,
+    },
   })
-  payload.user_id=req.body.user._id,
-  payload.delivery_charge={
-      amount:payload.delivery_charge.amount,
-      location:payload.delivery_charge.location,
-      location_description:payload.delivery_charge.location_description
-  }
-  console.log(payload)
-    let category = new Order({
-    nep_name: payload.nep_name,
-    eng_name: payload.eng_name,
-    short_name: payload.short_name,
-    image: payload.image,
-    description: payload.description,
-  });
-  category.save(function (err, category) {
-    if (err) {
+    .then((products) => {
+      let tPrice = 0;
+      products.forEach((product) => {
+        let pFromCart = payload.products.filter(
+          (p) => p.product_id == product._id
+        )[0];
+        let dPercent = GetRecent(product.discount_history);
+        let pPrice = GetRecent(product.price_history);
+        let fPrice = pPrice - pPrice * (dPercent / 100);
+        tPrice += parseFloat(fPrice * Number(pFromCart.count));
+        // console.log(
+        //   `dpercent ${dPercent} pPrice ${pPrice} fPrice ${fPrice} tPrice ${tPrice} pfromCart ${pFromCart}`
+        // );
+      });
+      tPrice += parseInt(payload.delivery_charge.amount);
+      payload.total = tPrice;
+      let order = new Order(payload);
+      order.save(function (err, order) {
+        if (err) {
+          console.log(err);
+          res.status(401).json({ error_message: "Something Went Wrong" });
+        }
+        res.status(200).json(order);
+      });
+    })
+    .catch((err) => {
       console.log(err);
-      res.status(401).json({ error_message: "Something Went Wrong12" });
-    }
-    res.status(200).json(category);
-  });
+
+      res.status(400).json({
+        error_message: "Cannot place order",
+      });
+    });
 };

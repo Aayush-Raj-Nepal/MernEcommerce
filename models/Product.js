@@ -46,6 +46,19 @@ let ProductSchema = new Schema(
       type: String,
       enum: ["MYSTORE", "SHOP"],
     },
+    my_addresses: [
+      {
+        name: {
+          type: String,
+        },
+        address: {
+          type: String,
+        },
+        streetAddress: {
+          type: String,
+        },
+      },
+    ],
     product_from: {
       name: { type: String },
       source_id: {

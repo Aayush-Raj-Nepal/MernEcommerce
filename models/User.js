@@ -1,107 +1,121 @@
-const mongoose=require('mongoose')
-import { Schema, model as Model } from "mongoose"
+const mongoose = require("mongoose");
+import { Schema, model as Model } from "mongoose";
 const crypto = require("crypto");
 // const uuidv1 = require("uuid/v1");
-import { v1 as uuidv1 } from 'uuid';
-mongoose.promise=global.Promise;
-import {SchemaProvider} from "../library/schema/provider"
-import SocialSchema from "../library/schema/social"
-import RatedProductsSchema from "../library/schema/ratedProducts"
+import { v1 as uuidv1 } from "uuid";
+mongoose.promise = global.Promise;
+import { SchemaProvider } from "../library/schema/provider";
+import SocialSchema from "../library/schema/social";
+import RatedProductsSchema from "../library/schema/ratedProducts";
 import CommentedProductsSchema from "../library/schema/commentedProducts";
-import TokenSchema from "../library/schema/token"
-import HistorySchema from "../library/schema/history"
+import TokenSchema from "../library/schema/token";
+import HistorySchema from "../library/schema/history";
 
-let balanceSchema=new Schema(
-    {
-        title: {
-            type: String,
+let balanceSchema = new Schema({
+  title: {
+    type: String,
+  },
+  amount: {
+    type: Number,
+  },
+  description: {
+    type: String,
+    default: "",
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+});
+let UserSchema = Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    phone: {
+      type: String,
+    },
+    address: [
+      {
+        name: {
+          type: String,
         },
-        amount: {
-            type: Number,
+        added_on: {
+          type: Date,
+          default: new Date(Date.now()),
         },
-        description: {
-            type: String,
-            default: "",
+      },
+    ],
+    account_balance: [balanceSchema],
+    current_balance: {
+      type: String,
+    },
+    socials: [SocialSchema],
+    encry_password: {
+      type: String,
+    },
+    salt: String,
+    rated_products: [RatedProductsSchema],
+    images: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Media",
+      },
+    ],
+    orders: [
+      {
+        order_id: {
+          type: Schema.Types.ObjectId,
+          ref: "orders",
+        },
+        status: {
+          type: "String",
+        },
+        total: {
+          type: Number,
         },
         date: {
-            type: Date,
-            default: Date.now,
+          type: Date,
         },
-    }
-)
-let UserSchema=Schema(
-    {
-        name:{
-            type:String,
-            required:true
-        },
-        email:{
-            type:String,
-            required:true,
-            unique:true
-        },
-        phone:{
-            type:String
-        },
-        address:[
-            {
-                name:{
-                    type:String
-                },
-                added_on: {
-                    		type: Date,
-                    		default: new Date(Date.now()),
-                    	},
-            }
-        ],
-        account_balance:[balanceSchema],
-        current_balance:{
-            type:String,
-        },
-        socials:[SocialSchema],
-        encry_password: {
-            type: String,
-          },
-          salt: String,
-        rated_products:[RatedProductsSchema],
-        images:[
-            {
-                type:Schema.Types.ObjectId,
-                ref:'Media'
-            }
-        ],
-        last_active:{
-            type:Date
-        },
-        verified:{
-            type:Boolean,
-            default:false
-        },
-        commented_products:[CommentedProductsSchema],
-        password_history: [HistorySchema],
-		tokens: [TokenSchema],
-    },{
-        timestamps:true
+      },
+    ],
+    last_active: {
+      type: Date,
+    },
+    verified: {
+      type: Boolean,
+      default: false,
+    },
+    commented_products: [CommentedProductsSchema],
+    password_history: [HistorySchema],
+    tokens: [TokenSchema],
+  },
+  {
+    timestamps: true,
+  }
+);
 
-    }
-)
-
-UserSchema
-  .virtual("password")
-  .set(function(password) {
+UserSchema.virtual("password")
+  .set(function (password) {
     this._password = password;
     this.salt = uuidv1();
     this.encry_password = this.securePassword(password);
   })
-  .get(function() {
+  .get(function () {
     return this._password;
   });
 UserSchema.methods = {
-  autheticate: function(plainpassword) {
+  autheticate: function (plainpassword) {
     return this.securePassword(plainpassword) === this.encry_password;
   },
 
-  securePassword: function(plainpassword) {
+  securePassword: function (plainpassword) {
     if (!plainpassword) return "";
     try {
       return crypto
@@ -111,7 +125,7 @@ UserSchema.methods = {
     } catch (err) {
       return "";
     }
-  }
+  },
 };
 
-module.exports=mongoose.models.User || Model("User",UserSchema,'users')
+module.exports = mongoose.models.User || Model("User", UserSchema, "users");

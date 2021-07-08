@@ -8,8 +8,14 @@ import { getMediaUrl } from "../../api/functions";
 function HeaderSearch() {
   const history = useHistory();
   const [products, setProducts] = useState([]);
+  const [query, setQuery] = useState("");
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      history.push("/search/" + query);
+    }
+  };
   const handleSearch = (e) => {
-    if (e.target.value !== "") {
+    if (e.target.value !== "" && e.target.value.length >= 3) {
       axios
         .get(API + "product/search/" + e.target.value)
         .then((resp) => {
@@ -22,42 +28,46 @@ function HeaderSearch() {
     } else {
       setProducts([]);
     }
+    setQuery(e.target.value);
   };
   const productDetail = (id) => {
+    console.log(id);
+    setProducts([]);
     history.push("/product/" + id);
   };
   return (
     <div>
-      <div class="search">
+      <div class="search input-group">
         <input
           type="text"
+          className="form-control form-control-sm"
           onChange={handleSearch}
           placeholder="Search for products.."
-        />
-        <ul class="results">
-          {products &&
-            products.map((p) => (
-              <li>
-                <span
-                  className="d-flex c-pointer"
-                  onClick={() => productDetail(p._id)}
-                >
-                  <div>
-                    {p.eng_name}
-                    <br />
-                    <p>{p.category.name}</p>
-                  </div>
+          onKeyPress={handleKeyPress}
+        />{" "}
+        {products.length > 0 && (
+          <ul class="results" style={{ display: `block` }}>
+            {products &&
+              products.map((p) => (
+                <li onClick={() => productDetail(p._id)}>
+                  <span className="d-flex c-pointer">
+                    <div>
+                      {p.category.name}
+                      <br />
+                      <p> {p.eng_name}</p>
+                    </div>
 
-                  <img
-                    src={getMediaUrl(
-                      "product/" + p.images[0] + "?placeholder=true"
-                    )}
-                    className="ml-auto"
-                  />
-                </span>
-              </li>
-            ))}
-        </ul>
+                    <img
+                      src={getMediaUrl(
+                        "product/" + p.images[0] + "?placeholder=true"
+                      )}
+                      className="ml-auto"
+                    />
+                  </span>
+                </li>
+              ))}
+          </ul>
+        )}
       </div>
       {/* <div className="ui search">
         <div className="ui left icon input swdh10">

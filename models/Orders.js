@@ -1,90 +1,100 @@
-const mongoose=require('mongoose')
-import { Schema, model as Model } from "mongoose"
+const mongoose = require("mongoose");
+import { Schema, model as Model } from "mongoose";
 
-mongoose.promise=global.Promise;
-let OrderSchema=new Schema({
-    products:[
-        {    
-            count:{type:Number},
-            name:{type:String},
-            price:{type:Number},
-            product_id:{
-                type:Schema.Types.ObjectId,
-                ref:'Book'
-            },
-            offer_id:{
-                type:Schema.Types.ObjectId,
-                ref:'Offer'
-            },
-            item_type:{
-                type:String,
-                enum:['offer','product'],
-                default:'product'
-            }
-        }
+mongoose.promise = global.Promise;
+let OrderSchema = new Schema(
+  {
+    products: [
+      {
+        count: { type: Number },
+        name: { type: String },
+        price: { type: Number },
+        product_id: {
+          type: Schema.Types.ObjectId,
+          ref: "Book",
+        },
+        offer_id: {
+          type: Schema.Types.ObjectId,
+          ref: "Offer",
+        },
+        item_type: {
+          type: String,
+          enum: ["offer", "product"],
+          default: "product",
+        },
+        total: { type: Number },
+      },
     ],
-    total:{
-        type:Number
+    order_details: {
+      province: {
+        type: String,
+      },
+      address: {
+        type: String,
+      },
+      streetAddress: {
+        type: String,
+      },
     },
-    user_id:{
-        type:Schema.Types.ObjectId,
-        ref:'User'
+    total: {
+      type: Number,
     },
-    delivery_charge:{
-        amount:{
-            type:Number
-        },
-        location:{
-            type:String
-        },
-        location_description:{
-            type:String
-        }
+    user_id: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
-    order_status:{
-        type:String,
-        enum:['new','packaging','shipping','completed']
+    delivery_charge: {
+      amount: {
+        type: Number,
+      },
+      location: {
+        type: String,
+      },
+      location_description: {
+        type: String,
+      },
     },
-    cart_type:{
-        type:String,
-        enum:['POD','ONLINE'],
-        default:'POD'
+    order_status: {
+      type: String,
+      enum: ["new", "packaging", "shipping", "completed"],
     },
-    paid:{
-        type:Boolean,
-        default:false
+    cart_type: {
+      type: String,
+      enum: ["POD", "ONLINE"],
+      default: "POD",
     },
-    payment_id:{
-        type:Schema.Types.ObjectId,
-        ref:'Payment'
+    paid: {
+      type: Boolean,
+      default: false,
     },
-    payment_description:{
-        type:String
+    payment_id: {
+      type: Schema.Types.ObjectId,
+      ref: "Payment",
+    },
+    payment_description: {
+      type: String,
     },
     pinned: {
-        status: {
-            type: Boolean,
+      status: {
+        type: Boolean,
+      },
+      pinned_by: {
+        admin_name: {
+          type: String,
         },
-        pinned_by: {
-            admin_name: {
-                type: String
-            },
-            admin_id: {
-                type: Schema.Types.ObjectId,
-                ref: 'Admin'
-            }
-        }
+        admin_id: {
+          type: Schema.Types.ObjectId,
+          ref: "Admin",
+        },
+      },
     },
-    last_activity_on:{
-        type:Date
-    }
+    last_activity_on: {
+      type: Date,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-
-
-
-},{
-    timestamps:true
-})
-
-
-module.exports=mongoose.models.Order || Model('Order',OrderSchema,'orders')
+module.exports = mongoose.models.Order || Model("Order", OrderSchema, "orders");
