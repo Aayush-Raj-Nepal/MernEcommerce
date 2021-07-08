@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Routes from "./Routes";
 import { useStateValue } from "./StateProvider";
 import * as fb from "./api/firebase";
-import axios from "axios"
+import axios from "axios";
 // style sheets
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from 'react-toastify';
@@ -22,7 +22,7 @@ import { getHeight } from "jimp";
 function App() {
   const [store, dispatch] = useStateValue();
   useEffect(() => {
-    localStorage.setItem("store",JSON.stringify(store))
+    localStorage.setItem("store", JSON.stringify(store));
     // console.log("data added")
     const fetchExtras = () => {
       fb.extrasCollection
@@ -41,22 +41,28 @@ function App() {
         });
     };
     fetchExtras();
-   
   }, [store]);
-  let interceptorConfig=()=>{
-    axios.interceptors.request.use(async config => {
-    let apiUrl = process.env.NODE_ENV === "production" ? "/" : "http://127.0.0.1:4000/api"
-            const token =(store.user&& store.user.token)?store.user.token.token:null
-            config.baseURL = apiUrl
-            if(token){
-                config.headers.Authorization = token
-            }
-            return config
-        },function(err){
-            console.log(err)
-            return Promise.reject(err)
-        })
+  let interceptorConfig = () => {
+    axios.interceptors.request.use(
+      async (config) => {
+        let apiUrl =
+          process.env.NODE_ENV === "production"
+            ? "/"
+            : "http://127.0.0.1:4000/api";
+        const token =
+          store.user && store.user.token ? store.user.token.token : null;
+        config.baseURL = apiUrl;
+        if (token) {
+          config.headers.Authorization = token;
+        }
+        return config;
+      },
+      function (err) {
+        console.log(err);
+        return Promise.reject(err);
       }
+    );
+  };
   return (
     <div className="App">
       {interceptorConfig()}

@@ -1,17 +1,99 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useStateValue } from "../../StateProvider";
 import swal from "sweetalert2";
-import PaymentModal from "./Payment";
+import Collapse from "react-bootstrap/Collapse";
+// import PaymentModal from "./Payment";
 import axios from "axios";
+import firebase from "firebase/app";
 import { API } from "../../api/backend";
-import PhoneVerify from "./PhoneVerify";
-import DeliveryAddress from "./DeliveryAddress";
-import PaymentMethod from "./PaymentMethod";
-import Accordion from "react-bootstrap/Accordion";
-import Card from "react-bootstrap/Card";
+import { InputGroup } from "react-bootstrap";
+import { set } from "lodash";
 function Index() {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [{ basket, cartSidebar, user }, dispatch] = useStateValue();
+  // for order
+  const [orderDetails, setOrderDetails] = useState({
+    province: "",
+    address: "",
+    streetAddress: "",
+    paymentType: "",
+  });
+  const setPaymentMethod = (x) => {
+    setOrderDetails({ ...orderDetails, paymentType: x });
+  };
+  // for phone verification
+  const [phone, setPhone] = useState(user.phone);
+  const [verifiedNumber, setVerifiedNumber] = useState(phone);
+  const [invalid, setInvalid] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [verified, setVerified] = useState(false);
+  function phoneAuth() {
+    let number = phone;
+    if (number && number.length >= 10) {
+      firebase
+        .auth()
+        .signInWithPhoneNumber("+977" + number, window.recaptchaVerifier)
+        .then(function (confirmationResult) {
+          //s is in lowercase
+          window.confirmationResult = confirmationResult;
+          var coderesult = confirmationResult;
+          console.log(coderesult);
+          swal.fire("Code sent");
+          setSent(true);
+          setVerifiedNumber(number);
+        })
+        .catch(function (error) {
+          alert(error.message);
+        });
+    } else {
+      swal.fire({ title: "provide valid phone number", icon: "info" });
+    }
+  }
+  const handleChange = (name) => (event) => {
+    setOrderDetails({ ...orderDetails, [name]: event.target.value });
+  };
+  const handleCode = (event) => {
+    setInvalid(false);
+    return event.target.value.length == 6 ? verifyCode(event.target.value) : "";
+  };
+  function verifyCode(code) {
+    return window.confirmationResult
+      .confirm(code)
+      .then(function (result) {
+        axios
+          .put(API + "user/verifyPhone", {
+            phone: phone,
+          })
+          .then((resp) => {
+            setVerified(true);
+          })
+          .catch((err) => {
+            swal.fire("Error verifying phone number");
+            console.log(err);
+          });
+      })
+      .catch(function (error) {
+        setInvalid(true);
+        setLoading(false);
+        console.log(error.message);
+      });
+  }
+  useEffect(() => {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      "recaptcha-container"
+    );
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      "sign-in-button",
+      {
+        size: "invisible",
+        callback: function (response) {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+        },
+      }
+    );
+  }, []);
+
   let totalWithoutDiscount =
     basket.length > 0
       ? basket.reduce((total, item) => {
@@ -34,32 +116,41 @@ function Index() {
   let saving = totalWithoutDiscount - total;
   // now place order
   const placeOrder = () => {
-    axios
-      .post(API + "orders", {
-        payload: {
-          basket: basket,
-          delivery_charge: {
-            amount: 0,
-            location: "Kathmandu",
-            location_description: "HamroPustak.com",
+    if (!verified) {
+      axios
+        .post(API + "orders", {
+          payload: {
+            basket: basket,
+            delivery_charge: {
+              amount: 0,
+              location: "Kathmandu",
+              location_description: "HamroPustak.com",
+            },
+            orderDetails: orderDetails,
+            verifiedNumber: verifiedNumber,
           },
-        },
-      })
-      .then((resp) => {
-        if (resp.error_message) {
-          swal.fire("error placing order");
-        } else {
-          swal
-            .fire({ title: "Your Order Was Placed !", icon: "success" })
-            .then((val) => {
-              // setShowPaymentModal(true)
-            });
-        }
-      })
-      .catch((err) => {
-        swal.fire(err.response.data.error_message);
-        console.log(err);
-      });
+        })
+        .then((resp) => {
+          if (resp.error_message) {
+            swal.fire("error placing order");
+          } else {
+            swal
+              .fire({ title: "Your Order Was Placed !", icon: "success" })
+              .then((val) => {
+                dispatch({
+                  type: "EMPTY_BASKET",
+                });
+                // setShowPaymentModal(true)
+              });
+          }
+        })
+        .catch((err) => {
+          swal.fire(err.response.data.error_message);
+          console.log(err);
+        });
+    } else {
+      swal.fire("verify your phone number first");
+    }
   };
 
   return (
@@ -86,56 +177,6 @@ function Index() {
         <div className="all-product-grid">
           <div className="container">
             <div className="row">
-              <div className="col-lg-8 col-md-7">
-                <Accordion
-                  id="checkout_wizard"
-                  className="alert-primary checkout"
-                >
-                  <Card className="checkout-step">
-                    <div className="checkout-card" id="headingOne">
-                      <h4 className="checkout-step-title">
-                        <Accordion.Toggle as={Card.Header} eventKey="0">
-                          {" "}
-                          <span className="checkout-step-number">1</span>
-                          Phone Number Verification
-                        </Accordion.Toggle>
-                      </h4>
-                    </div>
-                    <Accordion.Collapse eventKey="0" id="collapseOne">
-                      <PhoneVerify></PhoneVerify>
-                    </Accordion.Collapse>
-                  </Card>
-                  <Card className="checkout-step">
-                    <div className="checkout-card" id="headingTwo">
-                      <h4 className="checkout-step-title">
-                        <Accordion.Toggle as={Card.Header} eventKey="1">
-                          <span className="checkout-step-number">2</span>
-                          Delivery Address
-                        </Accordion.Toggle>
-                      </h4>
-                    </div>
-                    <Accordion.Collapse eventKey="1" id="collapseTwo">
-                      <DeliveryAddress></DeliveryAddress>
-                    </Accordion.Collapse>
-                  </Card>
-                  <Card className="checkout-step">
-                    <div className="checkout-card" id="headingFour">
-                      <h4 className="checkout-step-title">
-                        <Accordion.Toggle as={Card.Header} eventKey="2">
-                          <span className="checkout-step-number">3</span>
-                          Payment
-                        </Accordion.Toggle>
-                      </h4>
-                    </div>
-                    <Accordion.Collapse eventKey="2" id="collapseFour">
-                      <PaymentMethod></PaymentMethod>
-                    </Accordion.Collapse>
-                  </Card>
-                </Accordion>
-                {/* <button className="btn-block btn-lg btn-info rounded-0" onClick={placeOrder}>Place Order</button>
-							<PaymentModal showStatus={showPaymentModal} togglerButton={paymenttogglerButton}></PaymentModal> */}
-              </div>
-
               <div className="col-lg-4 col-md-5">
                 <div className="pdpt-bg mt-0">
                   <div className="pdpt-title">
@@ -184,20 +225,195 @@ function Index() {
                     <h4>Total Saving</h4>
                     <span>Rs{saving}</span>
                   </div>
-                  {/* <div className="main-total-cart">
-								<h2>Total</h2>
-								<span>$16</span>
-							</div> */}
                   <div className="payment-secure">
                     <i className="uil uil-padlock"></i>Secure checkout
                   </div>
                 </div>
-                {/* <a href="#" className="promo-link45">Have a promocode?</a> */}
-                <div className="checkout-safety-alerts">
-                  {/* <p><i className="uil uil-sync"></i>100% Replacement Guarantee</p> */}
-                  {/* <p><i className="uil uil-check-square"></i>100% Genuine Products</p> */}
-                  {/* <p><i className="uil uil-shield-check"></i>Secure Payments</p> */}
+                <div className="checkout-safety-alerts"></div>
+              </div>
+              <div className="col-lg-8 col-md-7 card py-3">
+                <div className="address-fieldset">
+                  <div className="row">
+                    <div className="col-lg-6 col-md-12">
+                      <div className="form-group">
+                        <label className="control-label">Province*</label>
+                        <input
+                          id="name"
+                          name="name"
+                          type="text"
+                          onChange={handleChange("province")}
+                          placeholder="Province Name"
+                          className="form-control input-md"
+                          required=""
+                        />
+                      </div>
+                    </div>
+
+                    <div className="col-lg-12 col-md-12">
+                      <div className="form-group">
+                        <label className="control-label">
+                          City / Village *
+                        </label>
+                        <input
+                          id="flat"
+                          name="flat"
+                          onChange={handleChange("address")}
+                          type="text"
+                          placeholder="Address"
+                          className="form-control input-md"
+                          required=""
+                        />
+                      </div>
+                    </div>
+                    <div className="col-lg-12 col-md-12">
+                      <div className="form-group">
+                        <label className="control-label">
+                          Street / Society / Office Name*
+                        </label>
+                        <input
+                          id="street"
+                          onChange={handleChange("streetAddress")}
+                          name="street"
+                          type="text"
+                          placeholder="Street Address"
+                          className="form-control input-md"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="col-md-12">
+                      <div className="rpt100">
+                        <ul className="radio--group-inline-container_1">
+                          <li>
+                            <div className="radio-item_1">
+                              <input
+                                id="cashondelivery1"
+                                name="paymentmethod"
+                                type="radio"
+                                onChange={() =>
+                                  setPaymentMethod("cashondelivery")
+                                }
+                              />
+                              <label
+                                htmlFor="cashondelivery1"
+                                className="radio-label_1"
+                              >
+                                Cash on Delivery
+                              </label>
+                            </div>
+                          </li>
+                          <li>
+                            <div className="radio-item_1">
+                              <input
+                                id="card1"
+                                name="paymentmethod"
+                                type="radio"
+                                onChange={() =>
+                                  setPaymentMethod("onlinepayment")
+                                }
+                              />
+                              <label htmlFor="card1" className="radio-label_1">
+                                Esewa / Khalti
+                              </label>
+                            </div>
+                          </li>
+                        </ul>
+                        <Collapse
+                          in={
+                            orderDetails.paymentType == "cashondelivery"
+                              ? true
+                              : false
+                          }
+                        >
+                          <div className="card bg-transparent border-0">
+                            <div className="card-header bg-transparent border-0">
+                              <i className="fa fa-check text-success"></i> Cash
+                              on delivery
+                            </div>
+                          </div>
+                        </Collapse>
+                        <Collapse
+                          in={
+                            orderDetails.paymentType == "onlinepayment"
+                              ? true
+                              : false
+                          }
+                        >
+                          <div id="example-collapse-text">Online delivery</div>
+                        </Collapse>
+                      </div>
+                    </div>
+                    <div className="col-lg-6 col-md-12">
+                      <div className="card bg-light p-3 border-0">
+                        Verify your phone number :
+                        <div id="recaptcha-container"></div>
+                        <InputGroup className="mb-2">
+                          <InputGroup.Append>
+                            <InputGroup.Text className="bg-transparent">
+                              <i className="fa fa-mobile-alt bg-none border-0"></i>
+                            </InputGroup.Text>
+                          </InputGroup.Append>
+                          <input
+                            type="Number"
+                            disabled={sent}
+                            className="form-control"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            placeholder="Phone Number"
+                          />
+                          {!verified && (
+                            <InputGroup.Append className="border-0">
+                              <InputGroup.Text className="bg-transparent">
+                                <span
+                                  style={{ cursor: "pointer" }}
+                                  id="sign-in-button"
+                                  onClick={phoneAuth}
+                                >
+                                  Send Code
+                                </span>
+                              </InputGroup.Text>
+                            </InputGroup.Append>
+                          )}
+                        </InputGroup>
+                        {sent && !verified && (
+                          <div className="form-group pos_rel">
+                            <label className="control-label">Enter Code</label>
+                            <input
+                              type="Number"
+                              className="form-control"
+                              onChange={handleCode}
+                            />
+                            <span
+                              onClick={phoneAuth}
+                              className="c-pointer resend-link"
+                            >
+                              Resend Code
+                            </span>
+                          </div>
+                        )}
+                        {verified && !invalid && (
+                          <span>
+                            Your Phone Number was verified{" "}
+                            <i className="text-success fa fa-check"></i>
+                          </span>
+                        )}
+                        {invalid && (
+                          <span>
+                            {" "}
+                            <i className="text-danger fa fa-exclamation"></i>
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    className="btn btn-info float-right "
+                    onClick={placeOrder}
+                  >
+                    Place Order
+                  </button>
                 </div>
+                {/* <PaymentModal showStatus={showPaymentModal} togglerButton={paymenttogglerButton}></PaymentModal> */}
               </div>
             </div>
           </div>
