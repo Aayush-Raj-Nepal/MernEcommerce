@@ -36,13 +36,13 @@ export default function Product({
       },
     });
 
-    toast.error("Added to Cart", {
+    toast.info("Added to Cart", {
       position: "bottom-right",
-      autoClose: 3000,
+      autoClose: 5000,
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
-      draggable: false,
+      draggable: true,
       progress: undefined,
     });
   };

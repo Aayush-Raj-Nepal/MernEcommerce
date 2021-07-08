@@ -32,7 +32,7 @@ function HeaderTop() {
             <Link to="/">
               <img
                 src="images/logo.png"
-                style={{ maxHeight: "50px", maxWidth: "100px" }}
+                style={{ maxHeight: "50px", maxWidth: "60px" }}
                 alt=""
               />
             </Link>
