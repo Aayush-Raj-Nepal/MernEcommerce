@@ -18,7 +18,7 @@ import FeaturedProduct from "./views/FeaturedProduct";
 import FaQ from "./views/Faq";
 import RequestProduct from "./views/Requestproduct";
 import OrderPlaced from "./views/Orderplaced";
-import Dashboard from "./views/Overview";
+import Dashboard from "./views/dashboard";
 import PrivacyPolicy from "./views/Privacypolicy";
 import TermsConditions from "./views/Termsconditions";
 import RefundPolicy from "./views/Refundpolicy";

@@ -45,7 +45,7 @@ function HeaderSearch() {
           onChange={handleSearch}
           placeholder="Search for products.."
           onKeyPress={handleKeyPress}
-        />{" "}
+        /><span className="fa fa-times icon2"></span>{" "}
         {products.length > 0 && (
           <ul class="results" style={{ display: `block` }}>
             {products &&

@@ -133,12 +133,12 @@
 }
 
 :-moz-placeholder {
-  color: #a7aabc;
+  color: #111113;
   font-weight: 200;
 }
 
 ::-webkit-input-placeholder {
-  color: #a7aabc;
+  color: #111113;
   font-weight: 200;
 }
 
@@ -146,11 +146,11 @@
   line-height: 26px;
 }
 
-.search .input-group {
+.search .form-control {
   padding-left: 2.375rem;
 }
 
-.input-group .icon {
+.search .icon {
   position: absolute;
   z-index: 2;
   display: block;
@@ -159,5 +159,18 @@
   line-height: 2.375rem;
   text-align: center;
   pointer-events: none;
+  color: #aaa;
+}
+
+
+.search .icon2 {
+  z-index: 1;
+  display: inline-block;
+  width: 2.375rem;
+  height: 2.375rem;
+  margin-right: 5px;
+  line-height: 2.375rem;
+  text-align: center;
+  cursor: pointer;
   color: #aaa;
 }
