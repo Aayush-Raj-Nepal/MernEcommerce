@@ -7,9 +7,11 @@ import MediaRouter from "./media";
 import AdminRouter from "./admin";
 import CategoryRouter from "./category";
 import OrderRouter from "./order";
+import DeliveryLocationRouter from "./deliveryLocation";
 let router = Router();
 
 router.use("/auth", AuthRouter);
+router.use("/deliverylocations", DeliveryLocationRouter);
 router.use("/admin", AdminRouter);
 router.use("/user", UserRouter);
 router.use("/media", MediaRouter);

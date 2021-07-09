@@ -4,6 +4,7 @@ import {
   getAllOrders,
   deleteOrder,
   getSingleOrder,
+  getMyOrders,
   updateOrder,
 } from "../controllers/Order";
 import { Auth, Request } from "../middlewares/index";
@@ -11,6 +12,7 @@ const { check, validationResult } = require("express-validator");
 let router = Router();
 // admin routes
 router.get("/", getAllOrders);
+router.get("/myorders", Auth.VerifyAccessToken, getMyOrders);
 router.put("/", Auth.VerifyAdmin, Request.ParamsToBody, updateOrder);
 router.get(
   "/single/:id",

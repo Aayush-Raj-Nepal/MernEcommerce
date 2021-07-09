@@ -98,12 +98,9 @@ function HeaderTop() {
                     >
                       <i className="uil uil-apps icon__1"></i>Dashbaord
                     </a>
-                    <a
-                      href="dashboard_my_orders.html"
-                      className="item channel_item"
-                    >
+                    <Link to="/dashboard/orders" className="item channel_item">
                       <i className="uil uil-box icon__1"></i>My Orders
-                    </a>
+                    </Link>
                     <a
                       href="dashboard_my_wishlist.html"
                       className="item channel_item"
