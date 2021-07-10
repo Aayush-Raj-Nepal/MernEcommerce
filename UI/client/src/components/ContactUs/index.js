@@ -3,6 +3,7 @@ import Form from "./Form.js";
 import Location from "./Location.js";
 import * as fb from "../../api/firebase";
 import renderHTML from "react-render-html";
+import { Link } from "react-router-dom";
 
 function ContactUs() {
   const [content, setContent] = useState("");
@@ -35,7 +36,7 @@ function ContactUs() {
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <a href="index.html">Home</a>
+                      <Link to={`/home`}>Home</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       Contact Us
@@ -49,7 +50,7 @@ function ContactUs() {
         <div className="all-product-grid ">
           <div className="container">
             <div className="row">
-            <div className="col-lg-6">  
+              <div className="col-lg-6">
                 {renderHTML(content)}
                 <Form></Form>
               </div>

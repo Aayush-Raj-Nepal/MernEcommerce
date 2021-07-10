@@ -32,6 +32,18 @@ exports.updateOrder = (req, res) => {
       });
     });
 };
+exports.getMyOrders = (req, res) => {
+  Order.find({ user_id: req.body.user._id })
+    .then((orders) => {
+      res.status(200).json(orders);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json({
+        error_message: "Unable to fetch user Orders!",
+      });
+    });
+};
 exports.getSingleOrder = (req, res) => {
   Order.findById(req.body.id)
     .then((category) => {

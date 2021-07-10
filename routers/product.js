@@ -12,6 +12,7 @@ import {
   getProductByCategory,
   getSimilarProducts,
   searchProducts,
+  searchListProducts,
 } from "../controllers/Product";
 import { Auth } from "../middlewares/index";
 const { check } = require("express-validator");
@@ -24,6 +25,7 @@ router.get("/", Auth.VerifyAdmin, getAllProducts);
 router.put("/", Auth.VerifyAdmin, Request.ParamsToBody, updateProduct);
 router.get("/getSimilar", Request.ParamsToBody, getSimilarProducts);
 router.get("/search/:query", Request.ParamsToBody, searchProducts);
+router.get("/adminlistsearch/:query", Request.ParamsToBody, searchListProducts);
 router.get("/latest", getLatestProducts);
 router.delete("/:id", Auth.VerifyAdmin, Request.ParamsToBody, deleteProduct);
 router.get("/featured", getFeaturedProducts);

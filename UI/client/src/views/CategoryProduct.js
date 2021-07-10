@@ -65,9 +65,9 @@ function CategoryProduct({ match }) {
                         <div className="product-left-title">
                           <h2>{products[0].category.name}</h2>
                         </div>
-                        <a href="#" className="filter-btn pull-bs-canvas-right">
+                        <span className="filter-btn pull-bs-canvas-right">
                           Filters
-                        </a>
+                        </span>
                         <div className="product-sort">
                           <div className="ui selection dropdown vchrt-dropdown">
                             <input

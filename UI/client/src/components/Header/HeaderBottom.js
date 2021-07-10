@@ -16,13 +16,13 @@ function HeaderBottom() {
   // const [cartSidebar, setCartSidebar] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [{ basket,cartSidebar, user }, dispatch] = useStateValue();
+  const [{ basket, cartSidebar, user }, dispatch] = useStateValue();
   const [drop1, setDrop1] = useState(false);
   const [drop2, setDrop2] = useState(false);
   let toggleCartSidebar = (status) => {
     dispatch({
-      type:'CART_SIDEBAR_TOGGLE',
-    })
+      type: "CART_SIDEBAR_TOGGLE",
+    });
   };
   const [category, setCategory] = useState([]);
   useEffect(() => {
@@ -52,13 +52,14 @@ function HeaderBottom() {
         <div className="sub-header">
           <div className="ui dropdown">
             <a className="bg-white">
-              <i className="uil uil-apps"></i>
               <span className="cate__icon">
                 <div
                   className="category_drop hover-btn btn"
                   title="Categories"
                   onClick={handleShow}
-                >Select Category
+                >
+                  <i className="fa fa-th-large" style={{ width: "20px" }}></i>
+                  Select Category
                 </div>
               </span>
             </a>
@@ -81,8 +82,10 @@ function HeaderBottom() {
                       {category && category.length > 0
                         ? category.map((cat, index) => (
                             <li key={index}>
-                                                        <Link className="single-cat-item" to={`/category/${cat._id}`}>
-
+                              <Link
+                                className="single-cat-item"
+                                to={`/category/${cat._id}`}
+                              >
                                 <div className="icon">
                                   <img
                                     src={getMediaUrl("product/" + cat.image)}
@@ -90,14 +93,15 @@ function HeaderBottom() {
                                   />
                                 </div>
                                 <div className="text"> {cat.eng_name}</div>
-</Link>                            </li>
+                              </Link>{" "}
+                            </li>
                           ))
                         : "fetching categories.."}
                     </ul>
                     {/* {JSON.stringify(category)} */}
                   </ModalBody>
                   <ModalFooter>
-                    <a href="#" className="morecate-btn">
+                    <a className="morecate-btn">
                       <i className="fa fa-bars"></i>More Categories
                     </a>
                   </ModalFooter>
@@ -135,7 +139,6 @@ function HeaderBottom() {
 
           <div className="catey__icon">
             <a
-              href="#"
               className="cate__btn"
               data-toggle="modal"
               data-target="#category_model"
@@ -150,7 +153,6 @@ function HeaderBottom() {
           ></Cart>
           <div className="search__icon order-1">
             <a
-              href="#"
               className="search__btn hover-btn"
               data-toggle="modal"
               data-target="#search_model"

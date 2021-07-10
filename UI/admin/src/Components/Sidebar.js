@@ -36,6 +36,16 @@ function Sidebar(props) {
               </SubMenu>
             </Menu>
             <Menu iconShape="square">
+              <SubMenu title="Offers" icon={<i className="fa fa-gift"></i>}>
+                <MenuItem>
+                  Create Offers <Link to="/offers/create"></Link>
+                </MenuItem>
+                <MenuItem>
+                  All Offers <Link to="/offers/all"></Link>
+                </MenuItem>
+              </SubMenu>
+            </Menu>
+            <Menu iconShape="square">
               <SubMenu title="Category" icon={<i className="fa fa-list"></i>}>
                 <MenuItem>
                   Create Category <Link to="/category/create"></Link>
@@ -45,7 +55,19 @@ function Sidebar(props) {
                 </MenuItem>
               </SubMenu>
             </Menu>
-
+            <Menu iconShape="square">
+              <SubMenu
+                title="Locations"
+                icon={<i className="fa fa-map-marker-alt"></i>}
+              >
+                <MenuItem>
+                  Add Location <Link to="/location/create"></Link>
+                </MenuItem>
+                <MenuItem>
+                  All Locations <Link to="/location/all"></Link>
+                </MenuItem>
+              </SubMenu>
+            </Menu>
             <SubMenu title="Admins" icon={<i className="fa fa-users"></i>}>
               <MenuItem>
                 Create Admin <Link to="/admins/create"></Link>

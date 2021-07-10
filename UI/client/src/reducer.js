@@ -6,6 +6,7 @@ export const initialState = persistedState
       user: null,
       extras: [],
       cartSidebar: false,
+      wishlist: [],
     };
 console.log(initialState);
 
@@ -35,6 +36,23 @@ const reducer = (state, action) => {
         };
       }
     }
+    case "ADD_TO_WISHLIST": {
+      let st = [...state.wishlist];
+      let indx = st.findIndex((b) => b.id == action.item.id);
+      console.log(indx);
+      if (indx >= 0) {
+        st[indx] = action.item;
+        return {
+          ...state,
+          wishlist: [...st],
+        };
+      } else {
+        return {
+          ...state,
+          wishlist: [...state.wishlist, action.item],
+        };
+      }
+    }
     case "USER_VERIFIED": {
       return {
         ...state,
@@ -58,6 +76,22 @@ const reducer = (state, action) => {
       return {
         ...state,
         basket: newBasket,
+      };
+    }
+    case "REMOVE_FROM_WISHLIST": {
+      console.log(action);
+      const index = state.wishlist.findIndex((b) => b.id === action.id);
+      let newWishlist = [...state.wishlist];
+      if (index >= 0) {
+        newWishlist.splice(index, 1);
+      } else {
+        console.warn(
+          `Cant remove product (id:${action.id} as it is not in basket!`
+        );
+      }
+      return {
+        ...state,
+        wishlist: newWishlist,
       };
     }
     case "EDIT_CART_COUNT": {

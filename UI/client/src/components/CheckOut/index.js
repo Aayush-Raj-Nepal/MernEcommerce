@@ -7,6 +7,8 @@ import axios from "axios";
 import firebase from "firebase/app";
 import { API } from "../../api/backend";
 import { InputGroup } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 import { set } from "lodash";
 function Index() {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -163,7 +165,7 @@ function Index() {
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <a href="index.html">Home</a>
+                      <Link to={`/home`}>Home</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       Checkout

@@ -1,59 +1,81 @@
-import React from 'react'
+import React from "react";
+import { useState } from "react";
+import { useStateValue } from "../../StateProvider";
+import { toast } from "react-toastify";
+// import Product from "./Product";
 
 function Wishlist() {
-    return (
-        <div>
-            <div class="col-lg-9 col-md-8">
-						<div class="dashboard-right">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="main-title-tab">
-										<h4><i class="uil uil-heart"></i>Shopping Wishlist</h4>
-									</div>
-								</div>								
-								<div class="col-lg-12 col-md-12">
-									<div class="pdpt-bg">
-										<div class="wishlist-body-dtt">
-											<div class="cart-item">
-												<div class="cart-product-img">
-													<img src="images/product/img-11.jpg" alt=""/>
-													<div class="offer-badge">4% OFF</div>
-												</div>
-												<div class="cart-text">
-													<h4>Product Title Here</h4>
-													<div class="cart-item-price">$15 <span>$18</span></div>
-													<button type="button" class="cart-close-btn"><i class="uil uil-trash-alt"></i></button>
-												</div>		
-											</div>
-											<div class="cart-item">
-												<div class="cart-product-img">
-													<img src="images/product/img-2.jpg" alt=""/>
-													<div class="offer-badge">1% OFF</div>
-												</div>
-												<div class="cart-text">
-													<h4>Product Title Here</h4>
-													<div class="cart-item-price">$9.9 <span>$10</span></div>
-													<button type="button" class="cart-close-btn"><i class="uil uil-trash-alt"></i></button>
-												</div>		
-											</div>
-											<div class="cart-item">
-												<div class="cart-product-img">
-													<img src="images/product/img-14.jpg" alt=""/>
-												</div>
-												<div class="cart-text">
-													<h4>Product Title Here</h4>
-													<div class="cart-item-price">$12</div>
-													<button type="button" class="cart-close-btn"><i class="uil uil-trash-alt"></i></button>
-												</div>		
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+  const [products] = useState([]);
+  const [{ wishlist }, dispatch] = useStateValue();
+  const removeFromBasket = (pid) => {
+    dispatch({
+      type: "REMOVE_FROM_WISHLIST",
+      id: pid,
+    });
+    toast.error("Removed From Wishlist", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+  console.log(wishlist);
+  return (
+    <div>
+      <div className="col-lg-9 col-md-8">
+        <div className="dashboard-right">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="main-title-tab">
+                <h4>
+                  <i className="fa fa-heart"></i>Shopping Wishlist
+                </h4>
+              </div>
+            </div>
+            {wishlist.length == 0 && (
+              <div className="alert alert-warning mt-5">
+                <h6>Your Wishlist is empty</h6>
+              </div>
+            )}
+            {wishlist.length > 0 && (
+              <div className="col-lg-12 col-md-12">
+                {wishlist.map((product, index) => (
+                  <div className="card bg-white shadow my-3 px-3 py-4">
+                    <div key={index}>
+                      <img
+                        style={{ maxWidth: "200px" }}
+                        className="img img-responsive rounded-2 img-thumbnail wishlist-img"
+                        src={product.image}
+                        alt=""
+                      />
+                      <div className="offer-badge">-{product.discount}%</div>
+                    </div>
+                    <div className="">
+                      <h4>{product.title}</h4>
+                      <div className="">
+                        Rs{product.price} <span>Rs{product.price}</span>
+                      </div>
+
+                      <button
+                        onClick={() => removeFromBasket(product.id)}
+                        type="button"
+                        className="cart-close-btn2"
+                      >
+                        <i className="fa fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
-export default Wishlist
+export default Wishlist;

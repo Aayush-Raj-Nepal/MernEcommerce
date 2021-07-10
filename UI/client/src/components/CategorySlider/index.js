@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { getCategory } from "../../api/helper";
 import { getMediaUrl } from "../../api/functions";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-const responsive = {
+const Responsive = {
   desktop: {
     breakpoint: {
       max: 3000,
@@ -27,6 +27,28 @@ const responsive = {
     items: 5,
   },
 };
+const sliderOptions = {
+  additionalTransfrom: 0,
+  arrows: true,
+  autoPlaySpeed: 3000,
+  centerMode: false,
+  className: "",
+  containerClass: "container-with-dots",
+  dotListClass: "",
+  draggable: true,
+  focusOnSelect: false,
+  infinite: true,
+  itemClass: "",
+  keyBoardControl: true,
+  minimumTouchDrag: 50,
+  renderButtonGroupOutside: false,
+  renderDotsOutside: false,
+  responsive: Responsive,
+  showDots: false,
+  sliderClass: "",
+  slidesToSlide: 1,
+  swipeable: true,
+};
 let imageStyle = {
   height: "55px",
 };
@@ -34,14 +56,14 @@ let imageStyle = {
 function CustomLeftArrow() {
   return (
     <button type="button" role="presentation" className="cate-slider-next">
-      <i className="uil uil-angle-right"></i>
+      <i className="fa fa-angle-right"></i>
     </button>
   );
 }
 function CustomRightArrow() {
   return (
     <button type="button" role="presentation" className="cate-slider-prev">
-      <i className="uil uil-angle-left"></i>
+      <i className="fa fa-angle-left"></i>
     </button>
   );
 }
@@ -71,34 +93,14 @@ function CategorySlider() {
                 </div>
               </div>
               <div className="col-md-12">
-                <Carousel
-                  additionalTransfrom={0}
-                  arrows
-                  autoPlaySpeed={3000}
-                  centerMode={false}
-                  className=""
-                  containerClass="cate-slider"
-                  dotListClass=""
-                  draggable
-                  focusOnSelect={false}
-                  infinite
-                  itemClass="item py-3 px-2"
-                  keyBoardControl
-                  customLeftArrow={<CustomLeftArrow />}
-                  customRightArrow={<CustomRightArrow />}
-                  minimumTouchDrag={80}
-                  renderButtonGroupOutside={false}
-                  renderDotsOutside={false}
-                  responsive={responsive}
-                  showDots={false}
-                  sliderClass=""
-                  slidesToSlide={1}
-                  swipeable
-                >
+                <Carousel {...sliderOptions}>
                   {category?.length > 0 ? (
                     category?.map((cat, index) => (
                       <div className="item" key={index}>
-                          <Link to={`/category/${cat._id}`}  className="category-item">
+                        <Link
+                          to={`/category/${cat._id}`}
+                          className="category-item"
+                        >
                           <div className="cate-img1">
                             <img
                               style={imageStyle}
@@ -107,7 +109,7 @@ function CategorySlider() {
                             />
                           </div>
                           <h4>{cat.eng_name}</h4>
-                          </Link>
+                        </Link>
                       </div>
                     ))
                   ) : (

@@ -47,7 +47,7 @@ function HeaderSearch() {
           onKeyPress={handleKeyPress}
         /><span className="fa fa-times icon2"></span>{" "}
         {products.length > 0 && (
-          <ul class="results" style={{ display: `block` }}>
+          <ul className="results" style={{ display: `block` }}>
             {products &&
               products.map((p) => (
                 <li onClick={() => productDetail(p._id)}>
