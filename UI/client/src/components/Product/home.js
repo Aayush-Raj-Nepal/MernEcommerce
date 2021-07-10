@@ -93,7 +93,9 @@ export default function Product({
         <p>
           Available<span>(In Stock)</span>
         </p>
-        <h4>{title}</h4>
+        <h4 title={title} className="c-pointer">
+          {title.length > 17 ? title.slice(0, 14) + ".." : title}
+        </h4>
         <div className="product-price">
           Rs{price}
           <span>Rs{price}</span>

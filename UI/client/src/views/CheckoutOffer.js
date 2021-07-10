@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { getMediaUrl } from "../api/functions";
+import { Link } from "react-router-dom";
 function Checkout({ match }) {
   const offerId = match.params.id;
   const [{ user }, dispatch] = useStateValue();
@@ -173,7 +174,7 @@ function Checkout({ match }) {
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <a href="index.html">Home</a>
+                      <Link to={`/home`}>Home</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       Checkout
