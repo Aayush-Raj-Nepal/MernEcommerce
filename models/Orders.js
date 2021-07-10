@@ -25,6 +25,7 @@ let OrderSchema = new Schema(
         total: { type: Number },
       },
     ],
+    verifiedNumber: { type: String },
     order_details: {
       province: {
         type: String,
@@ -57,6 +58,7 @@ let OrderSchema = new Schema(
     order_status: {
       type: String,
       enum: ["new", "packaging", "shipping", "completed"],
+      default: "new",
     },
     cart_type: {
       type: String,

@@ -12,8 +12,9 @@ import ForgetPassword from "./views/Forgetpassword";
 import NewProduct from "./views/Newproduct";
 import SingleProductView from "./views/Singleproductview";
 import CheckOut from "./views/Checkout";
+import CheckOutOffer from "./views/CheckoutOffer";
 import BillSlip from "./views/Bill";
-import OfferS from "./views/Offer";
+import Offer from "./views/Offer";
 import FeaturedProduct from "./views/FeaturedProduct";
 import FaQ from "./views/Faq";
 import RequestProduct from "./views/Requestproduct";
@@ -26,7 +27,9 @@ import CategoryProducts from "./views/CategoryProduct";
 import SearchProducts from "./views/SearchProduct";
 import EmailVerified from "./views/EmailVerified";
 import PageNotFound from "./views/404";
-
+import Payment from "./views/Payment";
+import PFailure from "./views/pFailure";
+import PSuccess from "./views/pSuccess";
 const Routes = () => {
   return (
     <HashRouter>
@@ -40,8 +43,15 @@ const Routes = () => {
         <Route path="/newproduct" exact component={NewProduct} />
         <Route path="/product/:id" component={SingleProductView} />
         <PrivateRoute path="/checkout" exact component={CheckOut} />
+        <PrivateRoute
+          path="/checkout/offer/:id"
+          exact
+          component={CheckOutOffer}
+        />
+        <PrivateRoute path="/payment/:id" component={Payment} />
         <Route path="/bill" exact component={BillSlip} />
-        <Route path="/offers" exact component={OfferS} />
+        <Route path="/offers/:id" exact component={Offer} />
+        <Route path="/offers" exact component={Offer} />
         <Route path="/faq" exact component={FaQ} />
         <Route path="/requestproduct" exact component={RequestProduct} />
         <Route path="/orderplaced" exact component={OrderPlaced} />
@@ -53,6 +63,8 @@ const Routes = () => {
         <Route path="/refundpolicy" exact component={RefundPolicy} />
         <Route path="/featuredproduct" exact component={FeaturedProduct} />
         <Route path="/verifyEmail" exact component={EmailVerified} />
+        <PrivateRoute path="/pfailure" exact component={PFailure} />
+        <PrivateRoute path="/psuccess" exact component={PSuccess} />
         <Route path="*" component={PageNotFound} />
       </Switch>
     </HashRouter>

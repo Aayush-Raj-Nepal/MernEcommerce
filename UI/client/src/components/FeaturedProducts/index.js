@@ -4,8 +4,7 @@ import { useStateValue } from "../../StateProvider";
 import Product from "../Product/home";
 import { featuredProducts } from "../../api/helper";
 import "react-multi-carousel/lib/styles.css";
-import { Link } from "react-router-dom"
-
+import { Link } from "react-router-dom";
 
 function FeaturedProducts() {
   const [state, dispatch] = useStateValue();

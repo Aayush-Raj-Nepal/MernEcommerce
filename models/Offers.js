@@ -24,8 +24,7 @@ let OfferSchema = new Schema(
       type: String,
       required: true,
     },
-    discount_history: [HistorySchema],
-    price_history: [HistorySchema],
+
     category: {
       name: {
         type: String,
@@ -40,17 +39,13 @@ let OfferSchema = new Schema(
         },
       },
     },
-    products: [
-      {
-        name: {
-          type: String,
-        },
-        product_id: {
-          type: Schema.Types.ObjectId,
-          ref: "Product",
-        },
-      },
-    ],
+    discount: {
+      type: String,
+    },
+    offer_price: {
+      type: Number,
+      required: true,
+    },
     images: [
       {
         type: Schema.Types.ObjectId,

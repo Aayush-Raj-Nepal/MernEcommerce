@@ -28,7 +28,7 @@ exports.getOfferToEdit = (req, res) => {
 };
 
 exports.getsingleOffer = (req, res) => {
-  Offer.findOne({ _id: req.body.id, status: "Active" })
+  Offer.findOne({ _id: req.body.id, offer_active: true })
     .lean()
     .then((offer) => {
       if (!offer) {
@@ -36,11 +36,6 @@ exports.getsingleOffer = (req, res) => {
           error_message: "Cannot get the offer ",
         });
       } else {
-        offer.price = offer.price_history.pop().value;
-        offer.discount = offer.discount_history.pop().value;
-        delete offer.price_history;
-        delete offer.discount_history;
-        console.log(typeof offer);
         return res.status(200).json(offer);
       }
     })
@@ -52,6 +47,10 @@ exports.getsingleOffer = (req, res) => {
     });
 };
 exports.getAllOffers = (req, res) => {
+  let query = {};
+  if (!req.body.admin) {
+    query = { active: true };
+  }
   Offer.find({})
     .sort({ createdAt: -1 })
     .then((Offers) => {
@@ -98,20 +97,10 @@ exports.addOffer = (req, res) => {
     real_price: payload.real_price,
     category: payload.category,
     stock: payload.stock,
-    price_history: [
-      {
-        key: "Number",
-        value: payload.offer_price,
-      },
-    ],
-    discount_history: [
-      {
-        key: "Number",
-        value: payload.discount,
-      },
-    ],
+    description: payload.description,
+    discount: payload.discount,
+    offer_price: payload.offer_price,
     images: payload.images,
-    products: payload.products,
   });
   console.log(offer);
   offer.save(function (err, Offer) {

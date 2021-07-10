@@ -14,6 +14,8 @@ let router = Router();
 
 // product routes
 router.get("/", Auth.VerifyAdmin, getAllOffers);
+router.get("/active", getAllOffers);
+router.get("/:id", Request.ParamsToBody, getsingleOffer);
 router.put("/", Auth.VerifyAdmin, Request.ParamsToBody, updateOffer);
 router.delete("/:id", Auth.VerifyAdmin, Request.ParamsToBody, deleteOffer);
 

@@ -8,7 +8,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Select from "react-select";
 import swal from "sweetalert2";
 import TagInput from "../../Components/TagInput/Index";
-import SearchList from "../../Components/SearchList";
 function Create() {
   const [categories, setCategories] = useState([]);
   const [values, setValues] = useState({
@@ -84,8 +83,8 @@ function Create() {
       swal.fire({ title: "Offer tags empty", icon: "error" });
     } else if (images[0] == "" || !images[0]) {
       swal.fire({ title: "main image missing", icon: "error" });
-    } else if (products.length == 0) {
-      swal.fire({ title: "no products selected", icon: "error" });
+      // } else if (products.length == 0) {
+      //   swal.fire({ title: "no products selected", icon: "error" });
     } else {
       console.log(values);
       // return;
@@ -107,7 +106,6 @@ function Create() {
               stock: null,
               description: "",
               images: [""],
-              products: [],
               error: "",
               loading: false,
             });
@@ -121,19 +119,19 @@ function Create() {
         });
     }
   };
-  const productsSelected = (items) => {
-    let newItems = items.map((i) => {
-      return {
-        name: i.eng_name,
-        product_id: i._id,
-      };
-    });
-    setValues({
-      ...values,
-      products: newItems,
-    });
-    console.log(items);
-  };
+  // const productsSelected = (items) => {
+  //   let newItems = items.map((i) => {
+  //     return {
+  //       name: i.eng_name,
+  //       product_id: i._id,
+  //     };
+  //   });
+  //   setValues({
+  //     ...values,
+  //     products: newItems,
+  //   });
+  //   console.log(items);
+  // };
   function gotTags(a) {
     console.log(a);
     setValues({ ...values, tags: a });
@@ -229,7 +227,9 @@ function Create() {
                   <Form.Text className="text-muted"></Form.Text>
                 </Form.Group>
                 <Form.Group>
-                  <Form.Label>Description </Form.Label>
+                  <Form.Label>
+                    Description [This is how your main offer page looks like]
+                  </Form.Label>
 
                   <CKEditor
                     editor={ClassicEditor}
@@ -246,23 +246,7 @@ function Create() {
                     imageUploaded={(image, index) => gotImage(image, 0)}
                   ></ImageDrop>
                 </Form.Group>
-                <Form.Group>
-                  <Form.Label>Other Images (optional)</Form.Label>
-                  <ImageDrop
-                    imageUploaded={(image, index) => gotImage(image, 1)}
-                  ></ImageDrop>
-                  <ImageDrop
-                    imageUploaded={(image, index) => gotImage(image, 2)}
-                  ></ImageDrop>
-                  <ImageDrop
-                    imageUploaded={(image, index) => gotImage(image, 3)}
-                  ></ImageDrop>
-                  <ImageDrop
-                    imageUploaded={(image, index) => gotImage(image, 4)}
-                  ></ImageDrop>
-                </Form.Group>
-                <SearchList selectedItems={productsSelected}></SearchList>
-                <small className="text-danger">{error}</small> <br></br>
+
                 <Button variant="primary" onClick={onSubmit}>
                   Submit
                 </Button>

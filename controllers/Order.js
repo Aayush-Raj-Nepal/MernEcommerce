@@ -1,5 +1,6 @@
 import Order from "../models/Orders";
 import Product from "../models/Product";
+import Offer from "../models/Offers";
 import { GetRecent, GetBalance } from "../library/helpers";
 const { validationResult } = require("express-validator");
 exports.getAllOrders = (req, res) => {
@@ -29,6 +30,18 @@ exports.updateOrder = (req, res) => {
       console.log(err);
       res.status(404).json({
         error_message: "Cannot update category",
+      });
+    });
+};
+exports.getOrderForPayment = (req, res) => {
+  Order.findOne({ _id: req.body.id, user_id: req.body.user._id })
+    .then((order) => {
+      res.status(200).json(order);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json({
+        error_message: "Unable to fetch user Orders!",
       });
     });
 };
@@ -129,6 +142,49 @@ exports.createOrder = (req, res) => {
         //   `dpercent ${dPercent} pPrice ${pPrice} fPrice ${fPrice} tPrice ${tPrice} pfromCart ${pFromCart}`
         // );
       });
+      tPrice += parseInt(payload.delivery_charge.amount);
+      payload.total = tPrice;
+      let order = new Order(payload);
+      order.save(function (err, order) {
+        if (err) {
+          console.log(err);
+          res.status(401).json({ error_message: "Something Went Wrong" });
+        }
+        res.status(200).json(order);
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+
+      res.status(400).json({
+        error_message: "Cannot place order",
+      });
+    });
+};
+exports.createOFferOrder = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      error_message: errors.array()[0].msg,
+    });
+  }
+  let payload = req.body.payload;
+
+  payload.order_details = payload.orderDetails;
+
+  payload.user_id = req.body.user._id;
+  payload.delivery_charge = {
+    amount: payload.delivery_charge.amount,
+    location: payload.delivery_charge.location,
+    location_description: payload.delivery_charge.location_description,
+  };
+
+  // console.log(payload);
+  Offer.findOne({
+    _id: payload.offer,
+  })
+    .then((offer) => {
+      let tPrice = offer.offer_price;
       tPrice += parseInt(payload.delivery_charge.amount);
       payload.total = tPrice;
       let order = new Order(payload);
