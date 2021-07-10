@@ -26,6 +26,15 @@ let OrderSchema = new Schema(
       },
     ],
     verifiedNumber: { type: String },
+    order_type: {
+      type: String,
+      enum: ["product", "offer"],
+      default: "product",
+    },
+    offer: {
+      name: { type: String },
+      offer_id: { type: Schema.Types.ObjectId, ref: "Offer" },
+    },
     order_details: {
       province: {
         type: String,
@@ -60,7 +69,7 @@ let OrderSchema = new Schema(
       enum: ["new", "packaging", "shipping", "completed"],
       default: "new",
     },
-    cart_type: {
+    payment_type: {
       type: String,
       enum: ["POD", "ONLINE"],
       default: "POD",

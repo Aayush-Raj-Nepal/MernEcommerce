@@ -39,6 +39,9 @@ let OfferSchema = new Schema(
         },
       },
     },
+    stock: {
+      type: Number,
+    },
     discount: {
       type: String,
     },

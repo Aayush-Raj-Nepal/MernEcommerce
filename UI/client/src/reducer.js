@@ -36,6 +36,15 @@ const reducer = (state, action) => {
         };
       }
     }
+    case "SET_USER_PHOTO": {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          image: action.item,
+        },
+      };
+    }
     case "ADD_TO_WISHLIST": {
       let st = state.wishlist ? [...state.wishlist] : [];
       let indx = st.findIndex((b) => b.id == action.item.id);

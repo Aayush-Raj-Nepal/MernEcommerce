@@ -5,6 +5,7 @@ import { GetRecent, GetBalance } from "../library/helpers";
 const { validationResult } = require("express-validator");
 exports.getAllOrders = (req, res) => {
   Order.find({})
+    .populate("user_id")
     .then((orders) => {
       if (orders.length == 0) {
         res.status(404).json({
@@ -161,7 +162,7 @@ exports.createOrder = (req, res) => {
       });
     });
 };
-exports.createOFferOrder = (req, res) => {
+exports.createOfferOrder = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({
@@ -178,7 +179,6 @@ exports.createOFferOrder = (req, res) => {
     location: payload.delivery_charge.location,
     location_description: payload.delivery_charge.location_description,
   };
-
   // console.log(payload);
   Offer.findOne({
     _id: payload.offer,
@@ -187,9 +187,18 @@ exports.createOFferOrder = (req, res) => {
       let tPrice = offer.offer_price;
       tPrice += parseInt(payload.delivery_charge.amount);
       payload.total = tPrice;
+      payload.order_type = "offer";
+      payload.offer = {
+        name: offer.offer_name,
+        offer_id: offer._id,
+      };
       let order = new Order(payload);
       order.save(function (err, order) {
         if (err) {
+          User.findOneAndUpdate(
+            { _id: payload.user_id },
+            { $push: { orders: order._id } }
+          );
           console.log(err);
           res.status(401).json({ error_message: "Something Went Wrong" });
         }

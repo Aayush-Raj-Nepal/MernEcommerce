@@ -38,7 +38,7 @@ const sliderOptions = {
   draggable: true,
   focusOnSelect: false,
   infinite: true,
-  itemClass: "",
+  itemClass: "px-3",
   keyBoardControl: true,
   minimumTouchDrag: 50,
   renderButtonGroupOutside: false,

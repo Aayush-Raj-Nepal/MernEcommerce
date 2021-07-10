@@ -1,37 +1,36 @@
 .sidebar-menu.open {
-  width: 350px;
+  width: 280px;
   height: 100%;
   position: fixed;
   top: 0;
   left: -300px;
   -webkit-transform: translateX(0);
   transform: translateX(0);
-  -webkit-transition: .3s ease all;
-  transition: .3s ease all;
+  -webkit-transition: 0.3s ease all;
+  transition: 0.3s ease all;
   background: #333;
-    -webkit-transform: translateX(300px);
-    transform: translateX(300px);
-  
+  -webkit-transform: translateX(300px);
+  transform: translateX(300px);
 }
-.sidebar-menu{
-    width: 300px;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: -300px;
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-    -webkit-transition: .3s ease all;
-    transition: .3s ease all;
-    background: #333;
-  }
-.sidebar-menu .menu>li>a {
-        padding: 15px 20px;
-        color: #fff;
-  }
+.sidebar-menu {
+  width: 300px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: -300px;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition: 0.3s ease all;
+  transition: 0.3s ease all;
+  background: #333;
+}
+.sidebar-menu .menu > li > a {
+  padding: 15px 20px;
+  color: #fff;
+}
 
-  @media (max-width: 760px) {
-    .sidebar-menu.open{
-      width: 320px !important;
-    }
+@media (max-width: 760px) {
+  .sidebar-menu.open {
+    width: 320px !important;
   }
+}

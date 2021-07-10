@@ -20,28 +20,36 @@ function Index() {
             <div className="col-lg-3 col-md-4">
               <DashboardNav></DashboardNav>
             </div>
-            <div className="col-lg-9 col-md-8">
-              <Switch>
-                {/* <Route path="overview" exact component={Overview}/> */}
-                {/* <Route
+            <div className="col-lg-9 col-md-8 ">
+              <div
+                className="card bg-white my-5"
+                style={{ minHeight: "400px" }}
+              >
+                <Switch>
+                  {/* <Route path="overview" exact component={Overview}/> */}
+                  {/* <Route
                   path={`${match.path}/overview`}
                   component={Overview}
                 ></Route> */}
-                <Route path={`${match.path}/orders`} component={Order}></Route>
-                {/* <Route path={`${match.path}/reward`} component={Reward}></Route>
+                  <Route
+                    path={`${match.path}/orders`}
+                    component={Order}
+                  ></Route>
+                  {/* <Route path={`${match.path}/reward`} component={Reward}></Route>
                 <Route path={`${match.path}/wallet`} component={Wallet}></Route> */}
-                <Route
-                  path={`${match.path}/wishlist`}
-                  component={Wishlist}
-                ></Route>
-                <Route
-                  path={`${match.path}/address`}
-                  component={Address}
-                ></Route>
-              </Switch>
-              {/* <Switch>
+                  <Route
+                    path={`${match.path}/wishlist`}
+                    component={Wishlist}
+                  ></Route>
+                  <Route
+                    path={`${match.path}/address`}
+                    component={Address}
+                  ></Route>
+                </Switch>
+                {/* <Switch>
                         <Route path={`${match.path}/overview`} ><h1>Hello</h1></Route>
                         </Switch> */}
+              </div>
             </div>
           </div>
         </div>

@@ -22,6 +22,8 @@ import PrivacyPolicy from "./views/PrivacyPolicy/Index";
 import TermsConditions from "./views/TermsConditions/Index";
 import RefundPolicy from "./views/RefundPolicy/Index";
 import Newsletter from "./views/Newsletter/Index";
+import AllOrders from "./views/Orders/Index";
+import AllUsers from "./views/User/Index";
 import Faq from "./views/Faq/Index";
 
 const Routes = () => {
@@ -64,7 +66,9 @@ const Routes = () => {
           path="/product/all"
           component={AllProducts}
         ></AdminRoute>
+        <AdminRoute exact path="/orders/all" component={AllOrders}></AdminRoute>
         <AdminRoute exact path="/offers/all" component={AllOffers}></AdminRoute>
+        <AdminRoute exact path="/users/all" component={AllUsers}></AdminRoute>
         <AdminRoute exact path="/contactus" component={Contact}></AdminRoute>
         <AdminRoute exact path="/aboutus" component={About}></AdminRoute>
         <AdminRoute

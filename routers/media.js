@@ -10,5 +10,11 @@ router.post(
   multer.single("media"),
   createProductImage
 );
+router.post(
+  "/profileimage",
+  Auth.VerifyAccessToken,
+  multer.single("media"),
+  createProductImage
+);
 router.get("/product/:id", Request.ParamsToBody, getProductImage);
 export default router;

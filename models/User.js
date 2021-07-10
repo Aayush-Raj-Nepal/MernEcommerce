@@ -52,15 +52,7 @@ let UserSchema = Schema(
         },
       },
     ],
-    account_balance: [balanceSchema],
-    current_balance: {
-      type: String,
-    },
     socials: [SocialSchema],
-    encry_password: {
-      type: String,
-    },
-    salt: String,
     rated_products: [RatedProductsSchema],
     images: [
       {
@@ -70,19 +62,8 @@ let UserSchema = Schema(
     ],
     orders: [
       {
-        order_id: {
-          type: Schema.Types.ObjectId,
-          ref: "orders",
-        },
-        status: {
-          type: "String",
-        },
-        total: {
-          type: Number,
-        },
-        date: {
-          type: Date,
-        },
+        type: Schema.Types.ObjectId,
+        ref: "Orders",
       },
     ],
     last_active: {

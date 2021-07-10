@@ -7,6 +7,7 @@ import {
   getMyOrders,
   getOrderForPayment,
   updateOrder,
+  createOfferOrder,
 } from "../controllers/Order";
 import { Auth, Request } from "../middlewares/index";
 const { check, validationResult } = require("express-validator");
@@ -29,4 +30,10 @@ router.get(
 );
 router.delete("/:id", Auth.VerifyAdmin, Request.ParamsToBody, deleteOrder);
 router.post("/", Auth.VerifyAccessToken, Request.ParamsToBody, createOrder);
+router.post(
+  "/offer",
+  Auth.VerifyAccessToken,
+  Request.ParamsToBody,
+  createOfferOrder
+);
 export default router;

@@ -85,7 +85,14 @@ function HeaderTop() {
               {isSignedIn && user && (
                 <li className="ui dropdown" onClick={(e) => setDrop1(!drop1)}>
                   <span className="opts_account">
-                    {user.image && <img src="images/avatar/img-5.jpg" alt="" />}
+                    {user.image && (
+                      <img
+                        src={
+                          user.image ? user.image : "images/avatar/img-5.jpg"
+                        }
+                        alt=""
+                      />
+                    )}
                     {!user.image && <i className="fa fa-user"></i>}
                     <span className="user__name">{user.name}</span>
                     <i className="uil uil-angle-down"></i>

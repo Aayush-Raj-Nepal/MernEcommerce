@@ -24,6 +24,16 @@ function Sidebar(props) {
             </MenuItem> */}
             <Menu iconShape="square">
               <SubMenu
+                title="Orders"
+                icon={<i className="fa fa-file-invoice"></i>}
+              >
+                <MenuItem>
+                  All Orders <Link to="/orders/all"></Link>
+                </MenuItem>
+              </SubMenu>
+            </Menu>
+            <Menu iconShape="square">
+              <SubMenu
                 title="Product"
                 icon={<i className="fa fa-envelope"></i>}
               >
@@ -68,6 +78,11 @@ function Sidebar(props) {
                 </MenuItem>
               </SubMenu>
             </Menu>
+            <SubMenu title="Users" icon={<i className="fa fa-user"></i>}>
+              <MenuItem>
+                All Users <Link to="/users/all"></Link>
+              </MenuItem>
+            </SubMenu>
             <SubMenu title="Admins" icon={<i className="fa fa-users"></i>}>
               <MenuItem>
                 Create Admin <Link to="/admins/create"></Link>

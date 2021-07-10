@@ -85,7 +85,11 @@ function Offer({ match }) {
                     <div className="blog-cate-badge">{offer.category.name}</div>
                   </a>
                   <div className="date-icons-group">
-                    <div className="blog-time sz-14">15 May, 2020</div>
+                    <div className="blog-time sz-14">15 May, 2020</div>{" "}
+                    <div className="product-price">
+                      Rs{offer.real_price}
+                      <span>Rs{offer.offer_price}</span>
+                    </div>
                     <ul className="like-share-icons">
                       <li>
                         <Link

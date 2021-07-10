@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API } from "../../api/backend";
+import swal from "sweetalert2";
+import { Link } from "react-router-dom";
 function Order() {
   const [orders, setOrders] = useState([]);
   const fetchOrders = () => {
@@ -18,59 +20,76 @@ function Order() {
     fetchOrders();
   }, []);
   return (
-    <div>
-      <div className="col-lg-9 col-md-8">
-        <div className="dashboard-right">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="main-title-tab">
-                <h4>
-                  <i className="uil uil-box"></i>My Orders
-                </h4>
-              </div>
+    <div className="p-3">
+      <div className="dashboard-right">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="main-title-tab">
+              <h4>
+                <i className="uil uil-box"></i>My Orders
+              </h4>
             </div>
-            <div className="col-lg-12 col-md-12">
-              <div className="pdpt-bg">
-                <div className="pdpt-title">
-                  {/* <h6>Delivery Timing 10 May, 3.00PM - 6.00PM</h6> */}
-                </div>
-                {orders &&
-                  orders.length > 0 &&
-                  orders.map((item, index) => (
-                    <div key={index} className="order-body10">
-                      <ul className="order-dtsll">
-                        <li>
-                          <div className="order-dt-img">
-                            <img src="images/groceries.svg" alt="" />
-                          </div>
-                        </li>
-                        <li>
-                          <div className="order-dt47">
-                            <h4>
-                              {item.order_details.streetAddress +
-                                " " +
-                                item.order_details.address}
-                            </h4>
-                            <p>
-                              {item.status && item.status == "completed"
-                                ? "Delivered"
-                                : ""}
-                            </p>
-                            <div className="order-title">
-                              {item.products.length} Items{" "}
-                              <span
-                                data-inverted=""
-                                data-tooltip="2kg broccoli, 1kg Apple"
+          </div>
+          {orders &&
+            orders.length > 0 &&
+            orders.map((item, index) => (
+              <div className="col-lg-12 col-md-12">
+                <div className="pdpt-bg">
+                  <div className="pdpt-title">
+                    {/* <h6>Delivery Timing 10 May, 3.00PM - 6.00PM</h6> */}
+                  </div>
+
+                  <div key={index} className=" mt-2">
+                    <ul className="order-dtsll">
+                      <li>
+                        <div className="order-dt-img">
+                          <img src="images/groceries.svg" alt="" />
+                        </div>
+                      </li>
+                      <li>
+                        <div className="order-dt47">
+                          <h4>
+                            {item.order_details.streetAddress +
+                              " " +
+                              item.order_details.address}
+                          </h4>
+                          <p>
+                            {item.status && item.status == "completed"
+                              ? "Delivered"
+                              : ""}
+                          </p>
+                          <div className="order-title">
+                            {item.order_type == "offer" && (
+                              <div
+                                className="badge badge-primary"
                                 data-position="top center"
+                                data-inverted=""
+                                data-tooltip={item.offer.name}
                               >
-                                ?
-                              </span>
-                            </div>
+                                Offer <i className="fa fa-star"></i>
+                              </div>
+                            )}
+                            {item.order_type == "product" && (
+                              <>
+                                {item.products.length}
+                                Items
+                                <span
+                                  data-inverted=""
+                                  data-tooltip={item.products
+                                    .reduce((a, b) => (a += b.name + ","), "")
+                                    .slice(0, -1)}
+                                  data-position="top center"
+                                >
+                                  ?
+                                </span>
+                              </>
+                            )}
                           </div>
-                        </li>
-                      </ul>
-                      <div className="total-dt">
-                        <div className="total-checkout-group">
+                        </div>
+                      </li>
+                    </ul>
+                    <div className="total-dt">
+                      {/* <div className="total-checkout-group">
                           <div className="cart-total-dil">
                             <h4>Sub Total</h4>
                             <span>Rs{item.total}</span>
@@ -79,13 +98,13 @@ function Order() {
                             <h4>Delivery Charges</h4>
                             <span>{item.delivery_charge.amount}</span>
                           </div>
-                        </div>
-                        <div className="main-total-cart">
-                          <h2>Total</h2>
-                          <span>{item.total}</span>
-                        </div>
+                        </div> */}
+                      <div className="main-total-cart">
+                        <h2>Total</h2>
+                        <span>{item.total}</span>
                       </div>
-                      <div className="track-order">
+                    </div>
+                    {/* <div className="track-order">
                         <h4>Track Order</h4>
                         <div className="bs-wizard">
                           <div className="bs-wizard-step complete">
@@ -125,30 +144,42 @@ function Order() {
                             <a className="bs-wizard-dot"></a>
                           </div>
                         </div>
-                      </div>
-                      {/* <div className="alert-offer">
+                      </div> */}
+                    {/* <div className="alert-offer">
                         <img src="images/ribbon.svg" alt="" />
                         Cashback of $2 will be credit to Gambo Super Market
                         wallet 6-12 hours of delivery.
                       </div> */}
-                      <div className="call-bill">
-                        {/* <div className="delivery-man">
+                    <div className="call-bill">
+                      {/* <div className="delivery-man">
                           Delivery Boy -{" "}
                           <a href="#">
                             <i className="uil uil-phone"></i> Call Us
                           </a>
                         </div> */}
-                        <div className="order-bill-slip">
-                          <a href="#" className="bill-btn5 hover-btn">
-                            View Bill
-                          </a>
-                        </div>
+                      <div className="order-bill-slip">
+                        {!item.paid && (
+                          <Link
+                            to={"/payment/" + item._id}
+                            className="bill-btn5 hover-btn c-pointer"
+                          >
+                            Pay Now
+                          </Link>
+                        )}
+                        <p
+                          onClick={() =>
+                            swal.fire("", "This function is under maintainance")
+                          }
+                          className="bill-btn5 hover-btn c-pointer"
+                        >
+                          View Bill
+                        </p>
                       </div>
                     </div>
-                  ))}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            ))}
         </div>
       </div>
     </div>

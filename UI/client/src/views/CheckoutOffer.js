@@ -122,13 +122,13 @@ function Checkout({ match }) {
   const placeOrder = () => {
     if (!verified) {
       axios
-        .post(API + "orders", {
+        .post(API + "orders/offer", {
           payload: {
             offer: offer,
             delivery_charge: {
               amount: 0,
               location: "Kathmandu",
-              location_description: "HamroPustak.com",
+              location_description: "Subidhaonline.com",
             },
             orderDetails: orderDetails,
             verifiedNumber: verifiedNumber,
@@ -209,8 +209,8 @@ function Checkout({ match }) {
                             <h4>{offer.title}</h4>
                             <div className="cart-item-price">
                               Rs
-                              {offer.real_price}
-                              <span>Rs{offer.offer_price}</span>
+                              {offer.offer_price}
+                              <span>Rs{offer.real_price}</span>
                             </div>
                             <button type="button" className="cart-close-btn">
                               <i className="uil uil-multiply"></i>

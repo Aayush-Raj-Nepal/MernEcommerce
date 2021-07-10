@@ -1,6 +1,7 @@
 import Order from "../models/Orders";
 import Product from "../models/Product";
 import User from "../models/User";
+import Offer from "../models/Offers";
 import Message from "../models/Messages";
 import Payment from "../models/Payment";
 import axios from "axios";
@@ -78,22 +79,32 @@ const handleCheckout = async (order, user) => {
 
       await Order.findByIdAndUpdate(
         order._id,
-        { paid: true },
+        { paid: true, payment_type: "ONLINE" },
         { session: session }
       );
       try {
-        order.products.forEach(async (product) => {
-          await Product.findByIdAndUpdate(product._id, {
-            $push: {
-              stock_update_information: {
-                type: String,
+        if (order.order_type == "product") {
+          order.products.forEach(async (product) => {
+            await Product.findByIdAndUpdate(product._id, {
+              $push: {
+                stock_update_information: {
+                  type: String,
+                },
+                updated_amount: "-" + product.count,
               },
-              updated_amount: "-" + product.count,
+              $inc: { stock: -Number(product.count) },
+            }),
+              { session: session };
+          });
+        } else {
+          await Offer.findByIdAndUpdate(
+            order.offer.offer_id,
+            {
+              $inc: { stock: -1 },
             },
-            $inc: { stock: -Number(product.count) },
-          }),
-            { session: session };
-        });
+            { session: session }
+          );
+        }
       } catch (err) {
         await session.abortTransaction();
         session.endSession();

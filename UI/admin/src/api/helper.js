@@ -374,3 +374,19 @@ export const deleteCategory = (category) => {
     })
     .catch((err) => console.log(err));
 };
+export const deleteUser = (user) => {
+  return axios
+    .delete(API + "user/" + user._id)
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+export const deleteOrder = (user) => {
+  return axios
+    .delete(API + "orders/" + user._id)
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};

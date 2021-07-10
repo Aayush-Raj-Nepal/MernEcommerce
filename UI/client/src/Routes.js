@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./auth/PrivateRoutes.js";
 //importing routes
@@ -31,6 +31,9 @@ import Payment from "./views/Payment";
 import PFailure from "./views/pFailure";
 import PSuccess from "./views/pSuccess";
 const Routes = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <HashRouter>
       <Switch>
