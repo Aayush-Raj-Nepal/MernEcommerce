@@ -15,7 +15,7 @@ function Product({ pid }) {
       type: "REMOVE_FROM_CART",
       id: pid,
     });
-    toast.error("Removed From Cart", {
+    toast.info("Removed From Cart", {
       position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: true,

@@ -6,7 +6,7 @@ import Search from "./HeaderSearch";
 import { useStateValue } from "../../StateProvider";
 function HeaderTop() {
   let history = useHistory();
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, wishlist }, dispatch] = useStateValue();
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [drop1, setDrop1] = useState(false);
   const logout = () => {
@@ -37,16 +37,16 @@ function HeaderTop() {
               />
             </Link>
           </div>
-          <div className="select_location">
+          <Link to="/" className="select_location">
             <p>Subidha Online</p>
-          </div>
+          </Link>
           <div className="search120">
             <Search></Search>
           </div>
           <div className="header_right">
             <ul>
               <li>
-                <a href="#" className="offer-link">
+                <a className="offer-link">
                   <i className="fa fa-phone-alt"></i>9851095624
                 </a>
               </li>
@@ -59,6 +59,16 @@ function HeaderTop() {
                 <Link to={`/faq`} className="offer-link">
                   <i className="fa fa-question-circle"></i>Help
                 </Link>
+                <li>
+                  <Link
+                    to={`dashboard/wishlist`}
+                    class="option_links"
+                    title="Wishlist"
+                  >
+                    <i class="far fa-heart icon_wishlist"></i>
+                    <span class="noti_count1">{wishlist?.length}</span>
+                  </Link>
+                </li>
               </li>
               {/* {isSignedIn && (
                 <li>
@@ -84,50 +94,58 @@ function HeaderTop() {
                     className="menu dropdown_account"
                     style={{ display: drop1 == true ? "block" : "none" }}
                   >
-                    <div className="night_mode_switch__btn">
+                    {/* <div className="night_mode_switch__btn">
                       <a href="#" id="night-mode" className="btn-night-mode">
-                        <i className="uil uil-moon"></i> Night mode
+                        <i className="fa fa-moon"></i> Night mode
                         <span className="btn-night-mode-switch">
                           <span className="uk-switch-button"></span>
                         </span>
                       </a>
-                    </div>
-                    <a
-                      href="dashboard_overview.html"
+                    </div> */}
+                    {/* <Link
+                      to={`/dashboard/overview`}
                       className="item channel_item"
                     >
-                      <i className="uil uil-apps icon__1"></i>Dashbaord
-                    </a>
+                      <i className="fa fa-boxes icon__1"></i>Dashbaord
+                    </Link> */}
                     <Link to="/dashboard/orders" className="item channel_item">
-                      <i className="uil uil-box icon__1"></i>My Orders
+                      <i className="fa fa-box icon__1"></i>My Orders
                     </Link>
-                    <a
-                      href="dashboard_my_wishlist.html"
+                    <Link
+                      to={`/dashboard/wishlist`}
                       className="item channel_item"
                     >
                       <i className="fa fa-heart icon__1"></i>My Wishlist
-                    </a>
-                    <a
+                    </Link>
+                    {/* <a
                       href="dashboard_my_wallet.html"
                       className="item channel_item"
                     >
                       <i className="uil uil-usd-circle icon__1"></i>My Wallet
-                    </a>
-                    <a
+                    </a> */}
+                    <Link
+                      to={`/address`}
                       href="dashboard_my_addresses.html"
                       className="item channel_item"
                     >
-                      <i className="uil uil-location-point icon__1"></i>My
-                      Address
-                    </a>
-                    <a href="offers.html" className="item channel_item">
+                      <i className="fa fa-map-marker icon__1"></i>My Address
+                    </Link>
+                    <Link
+                      to={`/offers`}
+                      href="offers.html"
+                      className="item channel_item"
+                    >
                       <i className="fa fa-gift icon__1"></i>Offers
-                    </a>
-                    <a href="faq.html" className="item channel_item">
+                    </Link>
+                    <Link
+                      to={`/faq`}
+                      href="faq.html"
+                      className="item channel_item"
+                    >
                       <i className="fa fa-info-circle icon__1"></i>Faq
-                    </a>
+                    </Link>
                     <a onClick={() => logout()} className="item channel_item">
-                      <i className="uil uil-lock-alt icon__1"></i>Logout
+                      <i className="fa fa-sign-out-alt icon__1"></i>Logout
                     </a>
                   </div>
                 </li>

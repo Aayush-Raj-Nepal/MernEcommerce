@@ -12,7 +12,7 @@ function Footer() {
         setCategory(res);
       });
     })();
-  },[]);
+  }, []);
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -21,7 +21,7 @@ function Footer() {
     error: "",
     loading: false,
   });
- const {email}=values
+  const { email } = values;
   useEffect(() => {
     setValues({ ...values, error: "", success: false });
   }, []);
@@ -29,33 +29,33 @@ function Footer() {
     const value = event.target.value;
     setValues({ ...values, [name]: value });
   };
-  const onSubmit = async(event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     setValues({ ...values, error: false, loading: true });
     console.log(values);
-    let error=(values.email=="")
+    let error = values.email == "";
     if (error) {
       swal.fire({
-        title:"Email Required",
-        icon:"warning",
-      })
+        title: "Email Required",
+        icon: "warning",
+      });
     } else {
       await fb.emailCollection.add({
         createdOn: new Date(),
         email: values.email,
       });
       swal.fire({
-        title:"Thanks for Subscribing",
-        icon:"success",
-      })
+        title: "Thanks for Subscribing",
+        icon: "success",
+      });
       setValues({
-      email: "",
-      error: "",
-      loading: false,})
+        email: "",
+        error: "",
+        loading: false,
+      });
     }
   };
 
-  
   return (
     <div>
       <footer className="footer">
@@ -65,12 +65,12 @@ function Footer() {
               <div className="col-md-6 col-sm-6">
                 <ul className="call-email-alt">
                   <li>
-                    <a href="#" className="callemail">
+                    <a className="callemail">
                       <i className="fa fa-phone-alt"></i>977 9851095624
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="callemail">
+                    <a className="callemail">
                       <i className="fa fa-envelope"></i>
                       esubidhaonline@gmail.com
                     </a>
@@ -81,13 +81,13 @@ function Footer() {
                 <div className="social-links-footer">
                   <ul>
                     <li>
-                      <a href="#">
+                      <a>
                         <i className="fab fa-facebook-f"></i>
                       </a>
                     </li>
 
                     <li>
-                      <a href="#">
+                      <a>
                         <i className="fab fa-instagram"></i>
                       </a>
                     </li>
@@ -108,7 +108,9 @@ function Footer() {
                       category.length > 0 &&
                       category.map((cat, index) => (
                         <li key={index}>
-                          <Link to={`/category/${cat._id}`}>{cat.eng_name}</Link>
+                          <Link to={`/category/${cat._id}`}>
+                            {cat.eng_name}
+                          </Link>
                         </li>
                       ))}
                   </ul>
@@ -147,7 +149,7 @@ function Footer() {
                   <h4>Our Branches</h4>
                   <ul>
                     <li>
-                      <a href="#">Kathmandu</a>
+                      <a>Kathmandu</a>
                     </li>
                     {/* <li>
                       <a href="#">Biratnagar</a>
@@ -161,7 +163,7 @@ function Footer() {
                   </ul>
                 </div>
               </div>
-              <div className="col-lg-3 col-md-6 col-sm-6">         
+              <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className="second-row-item-payment">
                   <h4>Payment Method</h4>
                   <div className="footer-payments">
@@ -173,12 +175,8 @@ function Footer() {
                           src="images/khalti.png"
                         />
                       </li>
-                      <li className="financial-institutes__logo" >
-                        <img
-                          alt="esewa"
-                          title="esewa"
-                          src="images/esewa.jpg"
-                        />
+                      <li className="financial-institutes__logo">
+                        <img alt="esewa" title="esewa" src="images/esewa.jpg" />
                       </li>
                       {/* <li className="financial-institutes__logo">
                         <img
@@ -203,7 +201,11 @@ function Footer() {
                       className="form-control input-md"
                       required=""
                     />
-                    <button className="newsletter-btn hover-btn" type="submit" onClick={onSubmit}>
+                    <button
+                      className="newsletter-btn hover-btn"
+                      type="submit"
+                      onClick={onSubmit}
+                    >
                       <i className="fa fa-envelope"></i>
                     </button>
                   </div>
@@ -231,9 +233,7 @@ function Footer() {
                       <Link to={`/terms`}>Term & Conditions</Link>
                     </li>
                     <li>
-                      <Link to={`/refundpolicy`}>
-                        Refund & Return Policy
-                      </Link>
+                      <Link to={`/refundpolicy`}>Refund & Return Policy</Link>
                     </li>
                   </ul>
                 </div>

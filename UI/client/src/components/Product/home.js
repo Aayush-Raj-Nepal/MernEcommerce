@@ -2,7 +2,6 @@ import React from "react";
 import { useStateValue } from "../../StateProvider";
 import "./home.css";
 import { Link } from "react-router-dom";
-import cartImage from "../../images/shopping-cart (1).png";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { getMediaUrl } from "../../api/functions";
 
@@ -28,7 +27,7 @@ export default function Product({
       item: {
         id: id,
         title: title,
-        image: getPlaceholder,
+        image: getImage,
         price: price,
         rating: rating,
         discount: discount,
@@ -37,6 +36,31 @@ export default function Product({
     });
 
     toast.info("Added to Cart", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+  const addToWishlist = () => {
+    // dispatch the item insto the data-layer
+
+    dispatch({
+      type: "ADD_TO_WISHLIST",
+      item: {
+        id: id,
+        title: title,
+        image: getImage,
+        price: price,
+        rating: rating,
+        discount: discount,
+      },
+    });
+
+    toast.info("Added to Wishlist", {
       position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: true,
@@ -56,11 +80,15 @@ export default function Product({
           placeholderSrc={getImage}
           src={getPlaceholder}
         />
-        <div className="product-absolute-options">
-          <span className="offer-badge-1">-{discount}% off</span>
-          <span className="like-icon" title="wishlist"></span>
-        </div>
       </Link>
+      <div className="product-absolute-options">
+        <span className="offer-badge-1">-{discount}% off</span>
+        <span
+          className="like-icon"
+          onClick={addToWishlist}
+          title="wishlist"
+        ></span>
+      </div>
       <div className="product-text-dt">
         <p>
           Available<span>(In Stock)</span>

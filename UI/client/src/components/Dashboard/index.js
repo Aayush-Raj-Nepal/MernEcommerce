@@ -2,10 +2,10 @@ import React from "react";
 import DashboardHeader from "./DashboardHeader";
 import DashboardNav from "./DashboardNav";
 import { useRouteMatch, Switch, Route } from "react-router-dom";
-import Overview from "./Overview";
+// import Overview from "./Overview";
 import Order from "./Order";
-import Reward from "./Reward";
-import Wallet from "./Wallet";
+// import Reward from "./Reward";
+// import Wallet from "./Wallet";
 import Wishlist from "./Wishlist";
 import Address from "./Address";
 
@@ -23,13 +23,13 @@ function Index() {
             <div className="col-lg-9 col-md-8">
               <Switch>
                 {/* <Route path="overview" exact component={Overview}/> */}
-                <Route
+                {/* <Route
                   path={`${match.path}/overview`}
                   component={Overview}
-                ></Route>
+                ></Route> */}
                 <Route path={`${match.path}/orders`} component={Order}></Route>
-                <Route path={`${match.path}/reward`} component={Reward}></Route>
-                <Route path={`${match.path}/wallet`} component={Wallet}></Route>
+                {/* <Route path={`${match.path}/reward`} component={Reward}></Route>
+                <Route path={`${match.path}/wallet`} component={Wallet}></Route> */}
                 <Route
                   path={`${match.path}/wishlist`}
                   component={Wishlist}

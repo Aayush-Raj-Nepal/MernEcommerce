@@ -66,7 +66,7 @@ function BannerSlider() {
                   swipeable={true}
                   additionalTransfrom={0}
                   draggable={true}
-                  showDots={true}
+                  showDots={false}
                   responsive={responsive}
                   autoPlay
                   minimumTouchDrag={80}

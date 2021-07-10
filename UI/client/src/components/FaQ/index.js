@@ -1,6 +1,7 @@
 import React from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
+import { Link } from "react-router-dom";
 
 function index() {
   return (
@@ -13,7 +14,7 @@ function index() {
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <a href="index.html">Home</a>
+                      <Link to={`/home`}>Home</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       Frequently Asked Questions
@@ -82,8 +83,9 @@ function index() {
                         <Accordion.Toggle
                           as={Card.Header}
                           eventKey="1"
-                          className="collapsed"
+                          className="collapsed border-0 bg-light"
                         >
+                          <i className="fa fa-chevron-down float-right"></i>
                           Account Related
                         </Accordion.Toggle>
                       </div>
@@ -120,8 +122,9 @@ function index() {
                         <Accordion.Toggle
                           as={Card.Header}
                           eventKey="2"
-                          className="collapsed"
+                          className="collapsed border-0 bg-light"
                         >
+                          <i className="fa fa-chevron-down float-right"></i>
                           Payment
                         </Accordion.Toggle>
                       </div>
@@ -158,8 +161,9 @@ function index() {
                         <Accordion.Toggle
                           as={Card.Header}
                           eventKey="3"
-                          className="collapsed"
+                          className="collapsed border-0 bg-light"
                         >
+                          <i className="fa fa-chevron-down float-right"></i>
                           Delivery Related
                         </Accordion.Toggle>
                       </div>
@@ -196,8 +200,9 @@ function index() {
                         <Accordion.Toggle
                           as={Card.Header}
                           eventKey="4"
-                          className="collapsed"
+                          className="collapsed border-0 bg-light"
                         >
+                          <i className="fa fa-chevron-down float-right"></i>
                           Product Related
                         </Accordion.Toggle>
                       </div>
@@ -234,8 +239,9 @@ function index() {
                         <Accordion.Toggle
                           as={Card.Header}
                           eventKey="5"
-                          className="collapsed"
+                          className="collapsed border-0 bg-light"
                         >
+                          <i className="fa fa-chevron-down float-right"></i>
                           Customer Related
                         </Accordion.Toggle>
                       </div>
@@ -272,8 +278,9 @@ function index() {
                         <Accordion.Toggle
                           as={Card.Header}
                           eventKey="6"
-                          className="collapsed"
+                          className="collapsed border-0 bg-light"
                         >
+                          <i className="fa fa-chevron-down float-right"></i>
                           Refund & Return
                         </Accordion.Toggle>
                       </div>
@@ -310,8 +317,9 @@ function index() {
                         <Accordion.Toggle
                           as={Card.Header}
                           eventKey="7"
-                          className="collapsed"
+                          className="collapsed border-0 bg-light"
                         >
+                          <i className="fa fa-chevron-down float-right"></i>
                           How Does it Work
                         </Accordion.Toggle>
                       </div>

@@ -39,7 +39,7 @@ function DashboardHeader() {
                   <div className="img-add">
                     <input type="file" id="file" />
                     <label for="file">
-                      <i className="uil uil-camera-plus"></i>
+                      <i className="fa fa-camera"></i>
                     </label>
                   </div>
                 </div>
@@ -47,7 +47,7 @@ function DashboardHeader() {
                 <p>
                   +977{user.phone}
                   <span>
-                    <i className="uil uil-edit"></i>
+                    <i className="fa fa-edit"></i>
                   </span>
                 </p>
               </div>
