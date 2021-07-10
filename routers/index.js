@@ -8,6 +8,7 @@ import AdminRouter from "./admin";
 import CategoryRouter from "./category";
 import OrderRouter from "./order";
 import DeliveryLocationRouter from "./deliveryLocation";
+import PaymentRouter from "./payment";
 let router = Router();
 
 router.use("/auth", AuthRouter);
@@ -19,5 +20,6 @@ router.use("/product", ProductRouter);
 router.use("/offer", OfferRouter);
 router.use("/category", CategoryRouter);
 router.use("/orders", OrderRouter);
+router.use("/payment", PaymentRouter);
 router.get("*", (req, res) => res.send("Invalid requist , Page not found 404"));
 export default router;

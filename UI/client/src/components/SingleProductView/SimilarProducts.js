@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API } from "../../api/backend";
 import { useStateValue } from "../../StateProvider";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -14,7 +15,7 @@ function SimilarProducts({ product }) {
   useEffect(() => {
     if (product && product != {}) {
       axios
-        .get("/product/getSimilar", {
+        .get(API + "product/getSimilar", {
           params: {
             count: 10,
             id: product._id,

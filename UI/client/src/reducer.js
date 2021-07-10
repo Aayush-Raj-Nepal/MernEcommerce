@@ -37,7 +37,7 @@ const reducer = (state, action) => {
       }
     }
     case "ADD_TO_WISHLIST": {
-      let st = [...state.wishlist];
+      let st = state.wishlist ? [...state.wishlist] : [];
       let indx = st.findIndex((b) => b.id == action.item.id);
       console.log(indx);
       if (indx >= 0) {
@@ -49,7 +49,9 @@ const reducer = (state, action) => {
       } else {
         return {
           ...state,
-          wishlist: [...state.wishlist, action.item],
+          wishlist: state.wishlist
+            ? [...state.wishlist, action.item]
+            : [action.item],
         };
       }
     }

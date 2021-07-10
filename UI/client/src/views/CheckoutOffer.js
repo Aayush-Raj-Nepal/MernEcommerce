@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useStateValue } from "../../StateProvider";
+import { useStateValue } from "../StateProvider";
 import swal from "sweetalert2";
 import axios from "axios";
 import firebase from "firebase/app";
-import { API } from "../../api/backend";
+import { API } from "../api/backend";
 import { InputGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
-
 import { set } from "lodash";
 import { useHistory } from "react-router-dom";
-function Index() {
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [{ basket, cartSidebar, user }, dispatch] = useStateValue();
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { getMediaUrl } from "../api/functions";
+function Checkout({ match }) {
+  const offerId = match.params.id;
+  const [{ user }, dispatch] = useStateValue();
   // for order
   const history = useHistory();
   const [orderDetails, setOrderDetails] = useState({
@@ -85,7 +86,23 @@ function Index() {
         console.log(error.message);
       });
   }
+  const [offer, setOffer] = useState([]);
+
+  const fetchOffer = () => {
+    if (offerId) {
+      axios
+        .get(API + "offer/" + offerId)
+        .then((resp) => {
+          console.log(resp.data);
+          setOffer(resp.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
   useEffect(() => {
+    fetchOffer();
     window.scrollTo(0, 0);
 
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -100,35 +117,14 @@ function Index() {
         },
       }
     );
-  }, []);
+  }, [offerId]);
 
-  let totalWithoutDiscount =
-    basket.length > 0
-      ? basket.reduce((total, item) => {
-          item.count = Number(item.count);
-          item.price = Number(item.price);
-          return (total += item.price * item.count);
-        }, 0)
-      : 0;
-
-  let total =
-    basket.length > 0
-      ? basket.reduce((total, item) => {
-          item.count = Number(item.count);
-          item.price = Number(item.price);
-          item.discount = Number(item.discount);
-          return (total +=
-            (item.price - item.price * (item.discount / 100)) * item.count);
-        }, 0)
-      : 0;
-  let saving = totalWithoutDiscount - total;
-  // now place order
   const placeOrder = () => {
     if (!verified) {
       axios
         .post(API + "orders", {
           payload: {
-            basket: basket,
+            offer: offer,
             delivery_charge: {
               amount: 0,
               location: "Kathmandu",
@@ -168,6 +164,7 @@ function Index() {
 
   return (
     <div>
+      <Header></Header>
       <div className="wrapper">
         <div className="gambo-Breadcrumb">
           <div className="container">
@@ -176,7 +173,7 @@ function Index() {
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <Link to={`/home`}>Home</Link>
+                      <a href="index.html">Home</a>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       Checkout
@@ -195,39 +192,38 @@ function Index() {
                   <div className="pdpt-title">
                     <h4>Order Summary</h4>
                   </div>
-                  {basket &&
-                    basket.length > 0 &&
-                    basket.map((item, index) => (
-                      <div key={index}>
-                        <div className="right-cart-dt-body">
-                          <div className="cart-item border_radius">
-                            <div className="cart-product-img">
-                              <img src={item.image} alt="" />
-                              <div className="offer-badge">
-                                {item.discount}% OFF
-                              </div>
+                  <div>
+                    {offer && offer.title && (
+                      <div className="right-cart-dt-body">
+                        <div className="cart-item border_radius">
+                          <div className="cart-product-img">
+                            <img
+                              src={getMediaUrl("product/" + offer.images[0])}
+                              alt=""
+                            />
+                            <div className="offer-badge">
+                              {offer.discount}% OFF
                             </div>
-                            <div className="cart-text">
-                              <h4>{item.title}</h4>
-                              <div className="cart-item-price">
-                                Rs
-                                {Number(item.price) -
-                                  Number(item.price) *
-                                    (Number(item.discount) / 100)}{" "}
-                                <span>Rs{item.price}</span>X {item.count}
-                              </div>
-                              <button type="button" className="cart-close-btn">
-                                <i className="uil uil-multiply"></i>
-                              </button>
+                          </div>
+                          <div className="cart-text">
+                            <h4>{offer.title}</h4>
+                            <div className="cart-item-price">
+                              Rs
+                              {offer.real_price}
+                              <span>Rs{offer.offer_price}</span>
                             </div>
+                            <button type="button" className="cart-close-btn">
+                              <i className="uil uil-multiply"></i>
+                            </button>
                           </div>
                         </div>
                       </div>
-                    ))}
+                    )}
+                  </div>
                   <div className="total-checkout-group">
                     <div className="cart-total-dil">
                       <h4>Subidhaonline.com</h4>
-                      <span>Rs{total}</span>
+                      <span>Rs{offer.offer_price}</span>
                     </div>
                     <div className="cart-total-dil pt-3">
                       <h4>Delivery Charges</h4>
@@ -236,7 +232,7 @@ function Index() {
                   </div>
                   <div className="cart-total-dil saving-total ">
                     <h4>Total Saving</h4>
-                    <span>Rs{saving}</span>
+                    <span>Rs{offer.real_price - offer.offer_price}</span>
                   </div>
                   <div className="payment-secure">
                     <i className="uil uil-padlock"></i>Secure checkout
@@ -409,8 +405,9 @@ function Index() {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 }
 
-export default Index;
+export default Checkout;
