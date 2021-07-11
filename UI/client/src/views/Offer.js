@@ -53,7 +53,7 @@ function Offer({ match }) {
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <a href="Index.html">Home</a>
+                      <Link to={`/home`}>Home</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       Offers
@@ -73,11 +73,11 @@ function Offer({ match }) {
           </div>
         </div>
         {offer && offer.title && offer.title != "" && (
-          <div className="container mt-2">
+          <div className="container mt-1">
             <div className="row">
-              <div className="col-lg-10 offset-lg-1">
+              <div className="col-lg-6 offset-lg-3">
                 <div className="blog-item">
-                  <a className="blog-img">
+                  <a className="blog-img" style={{ padding: "50px" }}>
                     <img
                       src={getMediaUrl("product/" + offer.images[0])}
                       alt=""
@@ -86,7 +86,7 @@ function Offer({ match }) {
                   </a>
                   <div className="date-icons-group">
                     <div className="blog-time sz-14">15 May, 2020</div>{" "}
-                    <div className="product-price">
+                    <div className="product-price p-3">
                       Rs{offer.real_price}
                       <span>Rs{offer.offer_price}</span>
                     </div>
@@ -100,7 +100,7 @@ function Offer({ match }) {
                         </Link>
                       </li>
                       <li>
-                        <a href="#" className="like-share">
+                        <a className="like-share">
                           <i className="uil uil-share-alt"></i>
                         </a>
                       </li>
@@ -109,7 +109,9 @@ function Offer({ match }) {
                   <div className="blog-detail">
                     <h4>{offer.title}</h4>
                     <hr />
-                    {offer.description && renderHTML(offer.description)}
+                    <h6 className="text-break">
+                      {offer.description && renderHTML(offer.description)}
+                    </h6>
                   </div>
                 </div>
               </div>

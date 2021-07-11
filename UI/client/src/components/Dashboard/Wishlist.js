@@ -25,7 +25,7 @@ function Wishlist() {
   console.log(wishlist);
   return (
     <div>
-      <div className="col-lg-9 col-md-8">
+      <div className="col-lg-12 col-md-6">
         <div className="dashboard-right">
           <div className="row">
             <div className="col-md-12">
@@ -41,28 +41,65 @@ function Wishlist() {
               </div>
             )}
             {wishlist.length > 0 && (
-              <div className="col-lg-12 col-md-12">
+              <div className="col-lg-12 col-md-6">
                 {wishlist.map((product, index) => (
                   <div className="card bg-white shadow my-3 px-3 py-4">
                     <div key={index}>
                       <img
-                        style={{ maxWidth: "200px" }}
-                        className="img img-responsive rounded-2 img-thumbnail wishlist-img"
+                        style={{
+                          objectFit: "cover",
+                          objectPosition: "center",
+                        }}
+                        className="img img-responsive rounded-2 wishlist-img"
                         src={product.image}
                         alt=""
                       />
                       <div className="offer-badge">-{product.discount}%</div>
                     </div>
                     <div className="">
-                      <h4>{product.title}</h4>
-                      <div className="">
-                        Rs{product.price} <span>Rs{product.price}</span>
+                      <h4
+                        style={{
+                          margin: "auto",
+                          textAlign: "center",
+                          position: "absolute",
+                          top: "125px",
+                          left: "250px",
+                          fontSize: "18px",
+                          fontWeight: "700",
+                          lineHeight: "20px",
+                          color: "#000",
+                        }}
+                      >
+                        {product.title}
+                      </h4>
+                      <div
+                        style={{
+                          margin: "auto",
+                          textAlign: "center",
+                          position: "absolute",
+                          top: "150px",
+                          left: "250px",
+                          fontSize: "18px",
+                          fontWeight: "700",
+                          lineHeight: "30px",
+                          color: "#21a1d2",
+                        }}
+                      >
+                        Rs{product.price}{" "}
+                        <span
+                          style={{
+                            color: "#c7c7c7",
+                            textDecoration: "line-through",
+                          }}
+                        >
+                          Rs{product.price}
+                        </span>
                       </div>
 
                       <button
                         onClick={() => removeFromBasket(product.id)}
                         type="button"
-                        className="cart-close-btn2"
+                        className="cart-close-btn2 py-5 px-3"
                       >
                         <i className="fa fa-times"></i>
                       </button>

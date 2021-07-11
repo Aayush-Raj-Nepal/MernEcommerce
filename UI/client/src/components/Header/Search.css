@@ -6,7 +6,7 @@
   border-width: 1px;
   border-style: solid;
   border-color: #a8acbc #babdcc #c0c3d2;
-  border-radius: 5px;
+  border-radius: 10px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
@@ -18,6 +18,7 @@
   -o-box-shadow: inset 0 1px #e5e7ed, 0 1px 0 #fcfcfc;
   box-shadow: inset 0 1px #e5e7ed, 0 1px 0 #fcfcfc;
 }
+
 .search input:focus {
   outline: none;
   border-color: #66b1ee;
@@ -42,13 +43,11 @@
   border-color: #cbcfe2 #c8cee7 #c4c7d7;
   border-radius: 3px;
   background-color: #fdfdfd;
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    color-stop(0%, #fdfdfd),
-    color-stop(100%, #eceef4)
-  );
+  background-image: -webkit-gradient(linear,
+      left top,
+      left bottom,
+      color-stop(0%, #fdfdfd),
+      color-stop(100%, #eceef4));
   background-image: -webkit-linear-gradient(top, #fdfdfd, #eceef4);
   background-image: -moz-linear-gradient(top, #fdfdfd, #eceef4);
   background-image: -ms-linear-gradient(top, #fdfdfd, #eceef4);
@@ -119,11 +118,13 @@
   width: 40px;
   border-radius: 4px;
 }
+
 .search_icon_box {
   background-color: #fff;
   border-width: 0px 1px 1px 1px 1px;
   height: 26px;
 }
+
 .search .results span:hover {
   text-decoration: none;
   color: grey;
@@ -151,7 +152,7 @@
 
 .search .icon {
   position: absolute;
-  z-index: 2;
+  z-index: 11;
   display: block;
   width: 2.375rem;
   height: 2.375rem;
@@ -162,7 +163,9 @@
 }
 
 .search .icon2 {
-  z-index: 1;
+  position: absolute;
+  right: 0px;
+  z-index: 11;
   display: inline-block;
   width: 2.375rem;
   height: 2.375rem;

@@ -6,7 +6,6 @@ import firebase from "firebase/app";
 import { API } from "../../api/backend";
 import { InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 import { set } from "lodash";
 import { useHistory } from "react-router-dom";
 function Index() {

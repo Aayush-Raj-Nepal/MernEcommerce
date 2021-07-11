@@ -150,18 +150,18 @@ function Order() {
                         Cashback of $2 will be credit to Gambo Super Market
                         wallet 6-12 hours of delivery.
                       </div> */}
-                    <div className="call-bill">
+                    <div className="d-flex flex-row-reverse">
                       {/* <div className="delivery-man">
                           Delivery Boy -{" "}
                           <a href="#">
                             <i className="uil uil-phone"></i> Call Us
                           </a>
                         </div> */}
-                      <div className="order-bill-slip">
+                      <div className="btn-group">
                         {!item.paid && (
                           <Link
                             to={"/payment/" + item._id}
-                            className="bill-btn5 hover-btn c-pointer"
+                            className="btn hover-btn c-pointer mr-2 btn-info rounded"
                           >
                             Pay Now
                           </Link>
@@ -170,7 +170,7 @@ function Order() {
                           onClick={() =>
                             swal.fire("", "This function is under maintainance")
                           }
-                          className="bill-btn5 hover-btn c-pointer"
+                          className="btn hover-btn c-pointer btn-info rounded"
                         >
                           View Bill
                         </p>

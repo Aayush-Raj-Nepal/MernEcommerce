@@ -42,10 +42,20 @@ function HeaderSearch() {
         <input
           type="text"
           className="form-control form-control-sm"
+          value={query}
           onChange={handleSearch}
           placeholder="Search for products.."
           onKeyPress={handleKeyPress}
-        /><span className="fa fa-times icon2"></span>{" "}
+        />
+        {query.length > 0 && (
+          <span
+            onClick={() => {
+              setQuery("");
+              setProducts([]);
+            }}
+            className="fa fa-times icon2"
+          ></span>
+        )}{" "}
         {products.length > 0 && (
           <ul className="results" style={{ display: `block` }}>
             {products &&
