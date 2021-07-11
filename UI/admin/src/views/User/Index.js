@@ -45,10 +45,6 @@ function Index() {
         accessor: "phone", // accessor is the "key" in the data
       },
       {
-        Header: "address",
-        accessor: "address", // accessor is the "key" in the data
-      },
-      {
         Header: "email",
         accessor: "email", // accessor is the "key" in the data
       },
@@ -134,15 +130,17 @@ function Index() {
   return (
     <div>
       <Base>
-        <div className="card">
-          <div className="card-header">
-            <h1>All users here</h1>
-          </div>
-          <div className="card-body">
-            {users && users.length > 0 && (
-              <Table columns={columns} data={users}></Table>
-            )}
-            {!users && <p>No users found please create user</p>}
+        <div className="container-fluid">
+          <div className="card">
+            <div className="card-header">
+              <h1>All users here</h1>
+            </div>
+            <div className="card-body">
+              {users && users.length > 0 && (
+                <Table columns={columns} data={users}></Table>
+              )}
+              {!users && <p>No users found please create user</p>}
+            </div>
           </div>
         </div>
       </Base>

@@ -21,7 +21,7 @@ function Login() {
   });
   const [isSignedIn, setIsSignedIn] = useState(false);
   useEffect(() => {
-    setIsAuthenticated(token && token.token !== null && loggedIn);
+    // setIsAuthenticated(token && token.token !== null && loggedIn);
     setValues({ ...values, error: "", success: false });
   }, []);
   const { email, password, error, loading, redirectNow } = values;

@@ -15,7 +15,9 @@ import { Auth, Request } from "../middlewares";
 import AdminAuthRouter from "./adminAuth";
 
 router.use("/admin", AdminAuthRouter);
-
+router.use("/verifyAdmin", Auth.VerifyAdmin, (req, res) =>
+  res.status(200).json({ message: "Admin Verified" })
+);
 router.get("/user/exists/:id", Request.ParamsToBody, checkUserExist);
 // admin
 router.post(

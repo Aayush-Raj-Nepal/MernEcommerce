@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 import { Schema, model as Model } from "mongoose";
+import conn from "../app/mongodb";
+import autoIncrement from "mongoose-auto-increment";
+
+mongoose.promise = global.Promise;
+autoIncrement.initialize(conn);
 
 mongoose.promise = global.Promise;
 let OrderSchema = new Schema(
@@ -66,7 +71,7 @@ let OrderSchema = new Schema(
     },
     order_status: {
       type: String,
-      enum: ["new", "packaging", "shipping", "completed"],
+      enum: ["new", "packing", "shipping", "completed"],
       default: "new",
     },
     payment_type: {
@@ -108,4 +113,10 @@ let OrderSchema = new Schema(
   }
 );
 
+OrderSchema.plugin(autoIncrement.plugin, {
+  model: "Order",
+  field: "_id",
+  startAt: 1000,
+  incrementBy: 1,
+});
 module.exports = mongoose.models.Order || Model("Order", OrderSchema, "orders");

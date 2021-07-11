@@ -25,13 +25,23 @@ function AllCategories() {
   const columns = React.useMemo(
     () => [
       {
-        Header: "#SN",
-        accessor: (row) => row.email,
-        Cell: (value) => <span>{value.row.index + 1}</span>,
+        Header: "ID",
+        accessor: "_id",
       },
       {
-        Header: "Category ID",
-        accessor: "_id",
+        Header: "Image",
+        accessor: "image",
+        Cell: ({ value }) => (
+          <Avatar
+            variant="rounded"
+            alt="Remy Sharp"
+            src={getMediaUrl("product/" + value)}
+          />
+        ),
+      },
+      {
+        Header: "Name",
+        accessor: "eng_name", // accessor is the "key" in the data
       },
       {
         Header: "In Home",
@@ -54,21 +64,7 @@ function AllCategories() {
           </span>
         ),
       },
-      {
-        Header: "Eng Name",
-        accessor: "eng_name", // accessor is the "key" in the data
-      },
-      {
-        Header: "Nep Name",
-        accessor: "nep_name", // accessor is the "key" in the data
-      },
-      {
-        Header: "Image",
-        accessor: "image",
-        Cell: ({ value }) => (
-          <Avatar alt="Remy Sharp" src={getMediaUrl("product/" + value)} />
-        ),
-      },
+
       {
         Header: "Actions",
         accessor: (row) => row.name,
@@ -150,11 +146,12 @@ function AllCategories() {
   };
   return (
     <Base>
-      <div className="container py-3 ">
-        <h4>All Categories</h4>
-
-        <div className="rounded-0 alert alert-primary">
-          <div className="card p-3">
+      <div className="container-fluid">
+        <div className="card">
+          <div className="card-header">
+            <h4>Categories</h4>
+          </div>
+          <div className="card-body">
             {categories && categories.length > 0 && (
               <Table columns={columns} data={categories}></Table>
             )}

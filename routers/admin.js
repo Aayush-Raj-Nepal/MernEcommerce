@@ -1,12 +1,18 @@
 import { Router } from "express";
 import { Request } from "../middlewares/index";
-import { getAllAdmins, addAdmin, deleteAdmin } from "../controllers/Admin";
+import {
+  getAllAdmins,
+  addAdmin,
+  deleteAdmin,
+  getDashboardStatus,
+} from "../controllers/Admin";
 import { Auth } from "../middlewares/index";
 const { check, validationResult } = require("express-validator");
 let router = Router();
 
 // admin routes
 router.get("/", Auth.VerifyAdmin, getAllAdmins);
+router.get("/dashboard", Auth.VerifyAdmin, getDashboardStatus);
 router.post(
   "/",
   [

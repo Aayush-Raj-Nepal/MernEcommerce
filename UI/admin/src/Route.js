@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import { AdminRoute } from "./auth/helper";
 
@@ -36,7 +36,7 @@ const Routes = () => {
           exact
           path="/category/create"
           component={CategoryCreate}
-        ></AdminRoute>{" "}
+        ></AdminRoute>
         <AdminRoute
           exact
           path="/category/all"

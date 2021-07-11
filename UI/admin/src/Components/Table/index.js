@@ -8,10 +8,10 @@ export default function Table({ columns, data }) {
     getTableBodyProps, // table body props from react-table
     headerGroups, // headerGroups, if your table has groupings
     rows, // rows for the table based on the data passed
-    prepareRow // Prepare the row (this function needs to be called for each row before getting the row props)
+    prepareRow, // Prepare the row (this function needs to be called for each row before getting the row props)
   } = useTable({
     columns,
-    data
+    data,
   });
 
   /* 
@@ -19,11 +19,11 @@ export default function Table({ columns, data }) {
     - react-table doesn't have UI, it's headless. We just need to put the react-table props from the Hooks, and it will do its magic automatically
   */
   return (
-    <table {...getTableProps()}>
+    <table {...getTableProps()} className="table ucp-table table-hover">
       <thead>
-        {headerGroups.map(headerGroup => (
+        {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
+            {headerGroup.headers.map((column) => (
               <th {...column.getHeaderProps()}>{column.render("Header")}</th>
             ))}
           </tr>
@@ -34,7 +34,7 @@ export default function Table({ columns, data }) {
           prepareRow(row);
           return (
             <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
+              {row.cells.map((cell) => {
                 return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
               })}
             </tr>

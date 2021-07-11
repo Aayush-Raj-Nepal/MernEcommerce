@@ -1,9 +1,36 @@
 import Admin from "../models/Admin";
-import _ from "lodash";
+import _, { forEach } from "lodash";
+import Order from "../models/Orders";
 import bcrypt from "bcrypt";
 
 const { check, validationResult } = require("express-validator");
-
+exports.getDashboardStatus = (req, res) => {
+  let resp = {
+    new: 0,
+    packing: 0,
+    shipping: 0,
+    income: 0,
+  };
+  Order.find({ status: { $nin: ["completed"] } })
+    .then((orders) => {
+      resp.new = orders.filter((o) => o.order_status == "new").length;
+      resp.packing = orders.filter((o) => o.order_status == "packing").length;
+      resp.shipping = orders.filter((o) => o.order_status == "shipping").length;
+      let d = new Date();
+      Order.find({ createdAt: { $gt: d.setHours(0, 0, 0, 0) } }).then(
+        (orders) => {
+          orders.forEach((element) => {
+            resp.income += Number(element.total);
+          });
+          console.log(resp);
+          return res.status(200).json(resp);
+        }
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 exports.getAllAdmins = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

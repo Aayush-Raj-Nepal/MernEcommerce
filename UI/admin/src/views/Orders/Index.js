@@ -37,9 +37,45 @@ function Index() {
         Cell: (value) => <span>{value.row.index + 1}</span>,
       },
       {
-        Header: "Order Name",
-        accessor: (row) => row.user_id,
-        Cell: (value) => <span>{value.value.name}</span>,
+        Header: "Order Id",
+        accessor: "_id",
+      },
+      {
+        Header: "Items",
+        accessor: (row) => row.order_type,
+        Cell: (value) => {
+          if (value.value == "offer") {
+            return value.data[value.row.index].offer.name;
+          } else {
+            let products = value.data[value.row.index].products;
+            return (
+              <span
+                className=""
+                title={products
+                  .reduce((a, b) => (a += b.name + ","), 0)
+                  .slice(0, -1)}
+              >
+                {products.length + "Items"}
+              </span>
+            );
+          }
+        },
+      },
+      {
+        Header: "Date",
+        accessor: (row) => row.createdAt,
+        Cell: (value) => {
+          return <span>{moment(value.value).format("YY/MM/DD hh:mm")}</span>;
+        },
+      },
+      {
+        Header: "Address",
+        accessor: (row) => row.order_details,
+        Cell: ({ value }) => (
+          <p>
+            {value.streetAddress + "," + value.address + "," + value.province}
+          </p>
+        ),
       },
       {
         Header: "Paid",
@@ -51,24 +87,11 @@ function Index() {
         accessor: (row) => row.order_type,
       },
       {
-        Header: "Phone ",
-        accessor: (row) => row.verifiedNumber,
-      },
-
-      {
         Header: "total",
         accessor: "total",
         Cell: (value) => <span>Rs{value.value}</span>,
       },
-      {
-        Header: "loaction",
-        accessor: (row) => row.order_details,
-        Cell: ({ value }) => (
-          <p>
-            {value.streetAddress + "," + value.address + "," + value.province}
-          </p>
-        ),
-      },
+
       {
         Header: "Actions",
         accessor: (row) => row.name,
@@ -130,15 +153,63 @@ function Index() {
   return (
     <div>
       <Base>
-        <div className="card">
-          <div className="card-header">
-            <h1>All orders here</h1>
+        <div className="container-fluid m-3">
+          <div class="row justify-content-between">
+            <div class="col-lg-3 col-md-4">
+              <div class="bulk-section mb-30">
+                <div class="input-group">
+                  <select id="action" name="action" class="form-control">
+                    <option selected>Bulk Actions</option>
+                    <option value="1">Pending</option>
+                    <option value="2">Cancel</option>
+                    <option value="3">Process</option>
+                    <option value="4">Complete</option>
+                    <option value="5">Delete</option>
+                  </select>
+                  <div class="input-group-append">
+                    <button class="status-btn hover-btn" type="submit">
+                      Apply
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5 col-md-6">
+              <div class="bulk-section mb-30">
+                <div class="search-by-name-input">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search"
+                  />
+                </div>
+                <div class="input-group">
+                  <select id="categeory" name="categeory" class="form-control">
+                    <option value="1">Pending</option>
+                    <option value="2">Cancel</option>
+                    <option value="3">Process</option>
+                    <option value="4">Complete</option>
+                  </select>
+                  <div class="input-group-append">
+                    <button class="status-btn hover-btn" type="submit">
+                      Search Order
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="card-body">
-            {orders && orders.length > 0 && (
-              <Table columns={columns} data={orders}></Table>
-            )}
-            {!orders && <p>No orders found please create order</p>}
+          <div className="card">
+            <div className="card-header">
+              <h4>Orders</h4>
+            </div>
+
+            <div className="card-body">
+              {orders && orders.length > 0 && (
+                <Table columns={columns} data={orders}></Table>
+              )}
+              {!orders && <p>No orders found please create order</p>}
+            </div>
           </div>
         </div>
       </Base>

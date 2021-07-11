@@ -144,9 +144,11 @@ function Index() {
   };
   return (
     <Base>
-      <div className="container py-3">
-        <h4>All Offers</h4>
-        <div className="alert alert-primary rounded-0">
+      <div className="container-fluid m-3">
+        <div className="card">
+          <div className="card-header">
+            <h4>Offers</h4>
+          </div>
           {/* {JSON.stringify(products)} */}
           {products && products.length > 0 && (
             <div className="card p-3">

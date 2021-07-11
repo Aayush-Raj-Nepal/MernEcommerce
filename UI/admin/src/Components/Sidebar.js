@@ -15,9 +15,18 @@ import swal from "sweetalert2";
 
 function Sidebar(props) {
   return (
-    <div style={{ minHeight: "600px" }}>
-      <ProSidebar collapsed={props.collapsed}>
+    <div
+      style={{ minHeight: "600px" }}
+      className="sb-sidenav accordion sb-sidenav-dark"
+    >
+      <ProSidebar className="sb-sidenav-menu" collapsed={props.collapsed}>
         <SidebarContent>
+          {" "}
+          <Menu iconShape="square">
+            <MenuItem icon={<i className="fa fa-tachometer"></i>}>
+              Dashboard <Link to="/"></Link>
+            </MenuItem>
+          </Menu>
           <Menu iconShape="square">
             {/* <MenuItem icon={<i className="fa fa-paint-brush"></i>}>
               Dashboard <link to="/"></link>{" "}
@@ -65,7 +74,7 @@ function Sidebar(props) {
                 </MenuItem>
               </SubMenu>
             </Menu>
-            <Menu iconShape="square">
+            {/* <Menu iconShape="square">
               <SubMenu
                 title="Locations"
                 icon={<i className="fa fa-map-marker-alt"></i>}
@@ -77,7 +86,7 @@ function Sidebar(props) {
                   All Locations <Link to="/location/all"></Link>
                 </MenuItem>
               </SubMenu>
-            </Menu>
+            </Menu> */}
             <SubMenu title="Users" icon={<i className="fa fa-user"></i>}>
               <MenuItem>
                 All Users <Link to="/users/all"></Link>
@@ -92,7 +101,6 @@ function Sidebar(props) {
               </MenuItem>
             </SubMenu>
           </Menu>
-
           <Menu iconShape="square">
             <SubMenu title="Extras" icon={<i className="fa fa-circle"></i>}>
               <MenuItem>

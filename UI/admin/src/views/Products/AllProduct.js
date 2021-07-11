@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import swal from "sweetalert2";
+import moment from "moment";
 
 function Index() {
   const history = useHistory();
@@ -24,18 +25,50 @@ function Index() {
   const columns = React.useMemo(
     () => [
       {
-        Header: "#SN",
-        accessor: (row) => row.name,
-        Cell: (value) => <span>{value.row.index + 1}</span>,
+        Header: "ID",
+        accessor: (row) => row.productId,
+        Cell: (value) => <span>{value.value}</span>,
       },
       {
-        Header: "English Name",
-        accessor: "eng_name", // accessor is the "key" in the data
+        Header: "Image",
+        accessor: "images",
+        Cell: ({ value }) => (
+          <Avatar
+            alt=" "
+            variant="rounded"
+            src={getMediaUrl("product/" + value[0])}
+          />
+        ),
       },
-
       {
-        Header: "Nepali Name",
-        accessor: "nep_name", // accessor is the "key" in the data
+        Header: "Name",
+        accessor: "eng_name",
+        Cell: ({ value }) => {
+          return (
+            <span title={value}>
+              {value.length > 20 ? value.slice(0, 18) + ".." : value}
+            </span>
+          );
+        },
+      },
+      {
+        Header: "Category",
+        accessor: "category",
+        Cell: ({ value }) => {
+          value = value.name;
+          return (
+            <span title={value}>
+              {value.length > 15 ? value.slice(0, 13) + ".." : value}
+            </span>
+          );
+        },
+      },
+      {
+        Header: "Created",
+        accessor: (row) => row.createdAt,
+        Cell: (value) => {
+          return <span>{moment(value.value).fromNow()}</span>;
+        },
       },
       {
         Header: "status",
@@ -45,7 +78,7 @@ function Index() {
             <a
               style={{ cursor: "pointer" }}
               className={
-                "text-" +
+                "badge text-white badge-lg badge-" +
                 (value && value.value == "Active" ? "success" : "secondary")
               }
               onClick={() => toggleStatus(value.data[value.row.index])}
@@ -55,11 +88,7 @@ function Index() {
           </span>
         ),
       },
-      {
-        Header: "Category",
-        accessor: "category",
-        Cell: (value) => <span>{value.value.name}</span>,
-      },
+
       {
         Header: "Featured",
         accessor: "featured",
@@ -73,17 +102,13 @@ function Index() {
               }
               onClick={() => toggleFeatured(value.data[value.row.index])}
             >
-              {value && value.value ? <i className="fa fa-check"></i> : <i className="fa fa-times"></i>}
+              {value && value.value ? (
+                <i className="fa fa-check"></i>
+              ) : (
+                <i className="fa fa-times"></i>
+              )}
             </a>
           </span>
-        ),
-      },
-
-      {
-        Header: "Image",
-        accessor: "images",
-        Cell: ({ value }) => (
-          <Avatar alt=" " src={getMediaUrl("product/" + value[0])} />
         ),
       },
 
@@ -97,14 +122,11 @@ function Index() {
   );
   const toggleFeatured = (data) => {
     console.log(data);
-    let toSet=data.featured === true ? false : true 
-    updateProduct(
-      { _id: data._id },
-      { featured: toSet}
-    )
+    let toSet = data.featured === true ? false : true;
+    updateProduct({ _id: data._id }, { featured: toSet })
       .then((resp) => {
         fetchProducts();
-        swal.fire("Product is now " + (toSet?'featured':'normal'));
+        swal.fire("Product is now " + (toSet ? "featured" : "normal"));
       })
       .catch((err) => {
         console.log(err);
@@ -177,10 +199,11 @@ function Index() {
   };
   return (
     <Base>
-      <div className="container py-3">
-        <h4>All Products</h4>
-        <div className="alert alert-primary rounded-0">
-          {/* {JSON.stringify(products)} */}
+      <div className="container-fluid m-3">
+        <div className="card">
+          <div className="card-header">
+            <h4>Products</h4>
+          </div>
           {products && products.length > 0 && (
             <div className="card p-3">
               <Table columns={columns} data={products}></Table>
