@@ -119,6 +119,7 @@ exports.signup = (req, res) => {
   req.body.tokens = [TokenFactory.produceToken()];
   // console.log(req.body)
   // let user=req.body
+  req.body.verified = true;
   const user = new User(req.body);
   user.save((err, user) => {
     if (err) {
