@@ -76,7 +76,6 @@ export default function Index({ id }) {
                           >
                             {product.category ? product.category.name : ""}
                           </Link>
-                          <a></a>
                         </li>
                         <li
                           className="breadcrumb-item active"

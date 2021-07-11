@@ -32,7 +32,7 @@ function HeaderTop() {
             <Link to="/">
               <img
                 src="images/logo.png"
-                style={{ maxHeight: "50px", maxWidth: "60px" }}
+                style={{ maxHeight: "70px", maxWidth: "75px" }}
                 alt=""
               />
             </Link>
@@ -130,25 +130,13 @@ function HeaderTop() {
                     >
                       <i className="uil uil-usd-circle icon__1"></i>My Wallet
                     </a> */}
-                    <Link
-                      to={`/address`}
-                      href="dashboard_my_addresses.html"
-                      className="item channel_item"
-                    >
+                    <Link to={`/address`} className="item channel_item">
                       <i className="fa fa-map-marker icon__1"></i>My Address
                     </Link>
-                    <Link
-                      to={`/offers`}
-                      href="offers.html"
-                      className="item channel_item"
-                    >
+                    <Link to={`/offers`} className="item channel_item">
                       <i className="fa fa-gift icon__1"></i>Offers
                     </Link>
-                    <Link
-                      to={`/faq`}
-                      href="faq.html"
-                      className="item channel_item"
-                    >
+                    <Link to={`/faq`} className="item channel_item">
                       <i className="fa fa-info-circle icon__1"></i>Faq
                     </Link>
                     <a onClick={() => logout()} className="item channel_item">

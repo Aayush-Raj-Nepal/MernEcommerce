@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as fb from "../../api/firebase";
 import renderHTML from "react-render-html";
+import { Link } from "react-router-dom";
 
 function TermsConditions() {
   const [content, setContent] = useState("");
@@ -32,7 +33,7 @@ function TermsConditions() {
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <a href="index.html">Home</a>
+                      <Link to={`/home`}>Home</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       Privacy Policy

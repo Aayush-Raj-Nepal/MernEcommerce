@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as fb from "../../api/firebase";
 import renderHTML from "react-render-html";
+import { Link } from "react-router-dom";
 
 function RefundPolicy() {
   const [content, setContent] = useState("");
@@ -23,32 +24,34 @@ function RefundPolicy() {
     fetchExtras();
   }, []);
 
-    return (
-        <div>
-            {""}
-            <div className="wrapper">
-		<div className="gambo-Breadcrumb">
-			<div className="container">
-				<div className="row">
-					<div className="col-md-12">
-						<nav aria-label="breadcrumb">
-							<ol className="breadcrumb">
-								<li className="breadcrumb-item"><a href="index.html">Home</a></li>
-								<li className="breadcrumb-item active" aria-current="page">Privacy Policy</li>
-							</ol>
-						</nav>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div className="all-product-grid">
-			<div className="container">
-				<div className="row">
-					<div className="col-lg-12 col-md-12">
-						<div className="job-main-dt">
-                        {renderHTML(content)}
-						</div>
-						{/* <div className="job-des-dt142 policy-des-dt">
+  return (
+    <div>
+      {""}
+      <div className="wrapper">
+        <div className="gambo-Breadcrumb">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12">
+                <nav aria-label="breadcrumb">
+                  <ol className="breadcrumb">
+                    <li className="breadcrumb-item">
+                      <Link to={`/home`}>Home</Link>
+                    </li>
+                    <li className="breadcrumb-item active" aria-current="page">
+                      Privacy Policy
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="all-product-grid">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12 col-md-12">
+                <div className="job-main-dt">{renderHTML(content)}</div>
+                {/* <div className="job-des-dt142 policy-des-dt">
 							<h4>Personal Information</h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras rutrum turpis vitae facilisis tempus. Donec in blandit risus, eget pretium mauris. Aliquam nec venenatis massa. Ut vel nulla id velit dictum rutrum nec vel ex. Phasellus sit amet faucibus massa, in feugiat augue. Maecenas eget dapibus turpis, a finibus justo. Suspendisse pretium lorem non lorem faucibus, non sagittis nisi finibus. Sed efficitur massa ac nibh condimentum interdum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse luctus, ex ut congue interdum, nibh turpis malesuada orci, vel vulputate arcu velit condimentum orci. Ut sed dictum lacus.</p>
 						</div>
@@ -90,13 +93,13 @@ function RefundPolicy() {
 								Email id: customerservice@gambosupermarket.com<br>
 							</p>
 						</div> */}
-					</div>
-				</div>
-			</div>
-		</div>	
-	</div>
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default RefundPolicy;
